@@ -1,0 +1,6 @@
+{
+  "authSelections": "identityPoolAndUserPool",
+  "resourceName": "food31b56158",
+  "serviceType": "imported",
+  "region": "ap-southeast-1"
+}
