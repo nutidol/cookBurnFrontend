@@ -70,7 +70,7 @@ const navigator = createStackNavigator({
     TotalAdd2:  TotalAdd2Screen,
   }, {
 
-    initialRouteName: 'Login',
+    initialRouteName: 'Home2',
   
   });
 
