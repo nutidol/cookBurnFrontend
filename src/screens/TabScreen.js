@@ -3,11 +3,11 @@ import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons, AntDesign, Ionicons } from '@expo/vector-icons';
-import Home1Screen from './Home1Screen';
-import AddScreen from './AddScreen';
+import Home1Screen from './Home1Screen';
+import AddScreen from './AddScreen';
 import SearchScreen from './SearchScreen';
-import Home4Screen from './Home4Screen';
-import Home5Screen from './Home5Screen';
+import Home4Screen from './Home4Screen';
+import Home5Screen from './Home5Screen';
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -18,10 +18,11 @@ function MyTabs() {
       initialRouteName="Home"
       activeColor="#FF5733"
       labelStyle={{ fontSize: 12 }}
-      barStyle={{ backgroundColor: 'white',
-      width: 375, height: 48 ,
-    }}
-      
+      barStyle={{
+        backgroundColor: 'white',
+        width: 375, height: 48,
+      }}
+
     >
       <Tab.Screen
         name="Home"
@@ -39,7 +40,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Add',
           tabBarIcon: () => (
-            <Ionicons name="md-add-circle-sharp" color="#FF5733"size={26} />
+            <Ionicons name="md-add-circle-sharp" color="#FF5733" size={26} />
           ),
         }}
       />
@@ -59,11 +60,11 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Exercise',
           tabBarIcon: () => (
-            <MaterialCommunityIcons name="human-handsup" color= "#FF5733" size={26} />
+            <MaterialCommunityIcons name="human-handsup" color="#FF5733" size={26} />
           ),
         }}
       />
-       
+
       <Tab.Screen
         name="Setting"
         component={Home5Screen}
@@ -74,7 +75,7 @@ function MyTabs() {
           ),
         }}
       />
-     
+
     </Tab.Navigator>
   );
 }

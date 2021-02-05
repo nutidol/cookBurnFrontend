@@ -60,7 +60,8 @@ export default function SignIn({ navigation, updateAuthState }) {
 
       <Text
         style={styles.forgotpwdStyle}
-        onPress={() => navigation.navigate("Blank")}
+        onPress={() => navigation.navigate("Signup")}
+        //not yet done: need to create forget password page
       >
         {" "}
         forgot your password?

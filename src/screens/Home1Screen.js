@@ -1,35 +1,35 @@
-import React, {useState} from 'react';
-import {View,Text,StyleSheet, Modal,Image} from 'react-native';
-import {MaterialIcons} from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Modal, Image } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 
 
-const Home1Screen=({navigation}) => {
-    const [modalOpen, setModalOpen] =useState(true)
-    return( <View>
+const Home1Screen = ({ navigation }) => {
+    const [modalOpen, setModalOpen] = useState(true)
+    return (<View>
         <Modal visible={modalOpen} animationType='slide'>
-            <View  style ={styles.modalContent}>
-            <MaterialIcons
-            style ={{...styles.modalToggle, ...styles.modalClose}}
-            name='close'
-            size={24}
-            color= '#FF5733'
-            onPress={()=> setModalOpen(false)}/>
-                <Text style ={styles.welcomeStyle}>Welcome to the</Text>
-                <Text style ={styles.cookburnStyle}>CookBurn!</Text>
-                <Image  style={styles.logoStyle}  
-            source={require('../../assets/cookburn.png')}/>
-                <Text style ={styles.enjoyStyle}>Enjoy:)</Text>
+            <View style={styles.modalContent}>
+                <MaterialIcons
+                    style={{ ...styles.modalToggle, ...styles.modalClose }}
+                    name='close'
+                    size={24}
+                    color='#FF5733'
+                    onPress={() => setModalOpen(false)} />
+                <Text style={styles.welcomeStyle}>Welcome to the</Text>
+                <Text style={styles.cookburnStyle}>CookBurn!</Text>
+                <Image style={styles.logoStyle}
+                    source={require('../../assets/cookburn.png')} />
+                <Text style={styles.enjoyStyle}>Enjoy:)</Text>
             </View>
         </Modal>
-        
-        <Text style ={styles.dailyStyle}> Your daily information </Text>
-        <Text style ={styles.recentStyle}> Your recent activities </Text>
-        <Text style ={styles.historyStyle} onPress={() => navigation.navigate('Home2')}> See full history </Text>
-        <View style ={styles.boxStyle}>
-            <Text style ={styles.menuStyle}>Menu name: </Text>
-            <Text style ={styles.energyStyle}>enerygy: </Text>
-            <Text style ={styles.dateStyle}>date: </Text>
-            <Text style ={styles.timeStyle}>time: </Text>
+
+        <Text style={styles.dailyStyle}> Your daily information </Text>
+        <Text style={styles.recentStyle}> Your recent activities </Text>
+        <Text style={styles.historyStyle} onPress={() => navigation.navigate('Home2')}> See full history </Text>
+        <View style={styles.boxStyle}>
+            <Text style={styles.menuStyle}>Menu name: </Text>
+            <Text style={styles.energyStyle}>enerygy: </Text>
+            <Text style={styles.dateStyle}>date: </Text>
+            <Text style={styles.timeStyle}>time: </Text>
         </View>
 
     </View>
@@ -38,40 +38,40 @@ const Home1Screen=({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-    modalToggle:{
-        marginBottom:100,
-        borderWidth:1,
+    modalToggle: {
+        marginBottom: 100,
+        borderWidth: 1,
         borderColor: 'white',
         padding: 10,
         borderRadius: 10,
 
     },
-    modalClose:{
+    modalClose: {
         marginTop: 20,
-        marginBottom:0
+        marginBottom: 0
     },
-    modalContent:{
-        flex:1 
+    modalContent: {
+        flex: 1
     },
-    logoStyle:{
+    logoStyle: {
         width: 157.4,
         height: 157.4,
-        position:'absolute',
+        position: 'absolute',
         left: 109,
         top: 327,
         zIndex: 5,
         alignItems: 'center'
     },
-    welcomeStyle:{
+    welcomeStyle: {
         fontSize: 20,
         fontWeight: 'bold',
         color: '#FF5733',
-        position:'absolute',
+        position: 'absolute',
         left: 118,
         top: 248,
         textAlign: 'center'
     },
-    cookburnStyle:{
+    cookburnStyle: {
         fontSize: 20,
         fontWeight: 'bold',
         color: '#FF5733',
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         top: 281,
         textAlign: 'center'
     },
-    enjoyStyle:{
+    enjoyStyle: {
         fontSize: 20,
         fontWeight: 'bold',
         color: '#FF5733',
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         top: 520,
         textAlign: 'center'
     },
-    dailyStyle:{
+    dailyStyle: {
         fontSize: 20,
         fontWeight: 'bold',
         color: '#FF5733',
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         top: 70,
         textAlign: 'center'
     },
-    recentStyle:{
+    recentStyle: {
         fontSize: 20,
         fontWeight: 'bold',
         color: '#FF5733',
@@ -107,15 +107,15 @@ const styles = StyleSheet.create({
         top: 304,
         textAlign: 'center'
     },
-    historyStyle:{
+    historyStyle: {
         fontSize: 15,
         color: '#FF5733',
         position: 'absolute',
         left: 36,
         top: 333,
         textAlign: 'center'
-    } ,
-    boxStyle:{
+    },
+    boxStyle: {
         width: 305,
         height: 126,
         borderColor: '#FF5733',
@@ -131,15 +131,15 @@ const styles = StyleSheet.create({
         left: 130,
         top: 30
     },
-    energyStyle:{
+    energyStyle: {
         fontSize: 15,
         color: '#FF5733',
         position: 'absolute',
         textAlign: 'center',
-        left:130,
+        left: 130,
         top: 50
     },
-    dateStyle:{
+    dateStyle: {
         fontSize: 15,
         color: '#FF5733',
         position: 'absolute',
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
         top: 70
 
     },
-    timeStyle:{
+    timeStyle: {
         fontSize: 15,
         color: '#FF5733',
         position: 'absolute',
@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
         top: 90
 
     }
-    
-     
+
+
 });
 
 export default Home1Screen;

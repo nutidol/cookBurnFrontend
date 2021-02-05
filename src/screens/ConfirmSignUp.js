@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Auth } from "aws-amplify";
 
+
 export default function ConfirmSignUp({ navigation }) {
   const [username, setUsername] = useState("");
   const [authCode, setAuthCode] = useState("");
