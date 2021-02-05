@@ -4,7 +4,11 @@ import { StyleSheet, SafeAreaView,Text } from 'react-native';
 
 const AddScreen= () => {
     return(
-        <Text> Add Screen</Text>
+        <View> 
+            <Text> Add Ingredients</Text> 
+            
+        </View>
+        
         
         );
 

@@ -1,25 +1,21 @@
 import React from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
-import { Button, Text, View} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { MaterialCommunityIcons, AntDesign, Ionicons } from '@expo/vector-icons';
 import {createAppContainer} from 'react-navigation';
 import LoginScreen from './src/screens/LoginScreen';
-import SearchScreen from './src/screens/SearchScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import KnowmoreScreen from './src/screens/KnowmoreScreen';
 import TabScreen from './src/screens/TabScreen';
 import OnboardingOneScreen from './src/screens/OnboardingOneScreen';
 import OnboardingTwoScreen from './src/screens/OnboardingTwoScreen';
 import OnboardingThreeScreen from './src/screens/OnboardingThreeScreen';
-import BlankScreen from './src/screens/BlankScreen';
 import Home1Screen from './src/screens/Home1Screen';
 import Home2Screen from './src/screens/Home2Screen';
 import Home3Screen from './src/screens/Home3Screen';
 import Home4Screen from './src/screens/Home4Screen';
 import Home5Screen from './src/screens/Home5Screen';
-import Home6Screen from './src/screens/Home6Screen';
+import SearchScreen from './src/screens/SearchScreen';
 import Search1Screen from './src/screens/Search1Screen';
 import Search2Screen from './src/screens/Search2Screen';
 import Search3Screen from './src/screens/Search3Screen';
@@ -33,6 +29,10 @@ import Add21Screen from './src/screens/Add13Screen';
 import Add22Screen from './src/screens/Add22Screen';
 import TotalAdd1Screen from './src/screens/TotalAdd1Screen';
 import TotalAdd2Screen from './src/screens/TotalAdd2Screen';
+import WorkoutScreen from './src/screens/WorkoutScreen';
+import Workout1Screen from './src/screens/Workout1Screen';
+import Workout2Screen from './src/screens/Workout2Screen';
+import Workout3Screen from './src/screens/Workout3Screen';
 
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
@@ -40,7 +40,6 @@ Amplify.configure(aws_exports);
 
 
 const navigator = createStackNavigator({
-    Blank: BlankScreen,
     Login: LoginScreen,
     Search: SearchScreen,
     Search1: Search1Screen,
@@ -58,7 +57,6 @@ const navigator = createStackNavigator({
     Home3: Home3Screen,
     Home4: Home4Screen,
     Home5: Home5Screen,
-    Home6: Home6Screen,
     Add: AddScreen,
     Add2: Add2Screen,
     Add11: Add11Screen,
@@ -68,9 +66,13 @@ const navigator = createStackNavigator({
     Add22: Add22Screen,
     TotalAdd1:  TotalAdd1Screen,
     TotalAdd2:  TotalAdd2Screen,
+    Workout: WorkoutScreen,
+    Workout1: Workout1Screen,
+    Workout2: Workout2Screen,
+    Workout3: Workout3Screen,
   }, {
 
-    initialRouteName: 'Home2',
+    initialRouteName: 'Home5',
   
   });
 
