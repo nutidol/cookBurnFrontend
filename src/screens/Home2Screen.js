@@ -7,7 +7,7 @@ import SwitchSelector from "react-native-switch-selector";
 const Home2Screen = () => {
     const [Open, setOpen] = useState("")
 
-  console.log(Open)
+  console.log("Open ja")
     return (
 
         <View  >
