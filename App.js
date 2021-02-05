@@ -1,57 +1,65 @@
-import React from 'react';
-import {createStackNavigator} from 'react-navigation-stack';
-import { Button, Text, View} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { MaterialCommunityIcons, AntDesign, Ionicons } from '@expo/vector-icons';
-import {createAppContainer} from 'react-navigation';
-import LoginScreen from './src/screens/LoginScreen';
-import SearchScreen from './src/screens/SearchScreen';
-import SignupScreen from './src/screens/SignupScreen';
-import KnowmoreScreen from './src/screens/KnowmoreScreen';
-import TabScreen from './src/screens/TabScreen';
-import OnboardingOneScreen from './src/screens/OnboardingOneScreen';
-import OnboardingTwoScreen from './src/screens/OnboardingTwoScreen';
-import OnboardingThreeScreen from './src/screens/OnboardingThreeScreen';
-import BlankScreen from './src/screens/BlankScreen';
-import Home1Screen from './src/screens/Home1Screen';
-import Home2Screen from './src/screens/Home2Screen';
-import Home3Screen from './src/screens/Home3Screen';
-import Home4Screen from './src/screens/Home4Screen';
-import Home5Screen from './src/screens/Home5Screen';
-import Home6Screen from './src/screens/Home6Screen';
-import Search1Screen from './src/screens/Search1Screen';
-import Search2Screen from './src/screens/Search2Screen';
-import Search3Screen from './src/screens/Search3Screen';
-import Search4Screen from './src/screens/Search4Screen';
-import AddScreen from './src/screens/AddScreen';
-import Add2Screen from './src/screens/Add2Screen';
-import Add11Screen from './src/screens/Add11Screen';
-import Add12Screen from './src/screens/Add12Screen';
-import Add13Screen from './src/screens/Add13Screen';
-import Add21Screen from './src/screens/Add13Screen';
-import Add22Screen from './src/screens/Add22Screen';
-import TotalAdd1Screen from './src/screens/TotalAdd1Screen';
-import TotalAdd2Screen from './src/screens/TotalAdd2Screen';
+import React, { useState, useEffect } from 'react';
+import { createStackNavigator } from "react-navigation-stack";
+import { Button, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import {
+  MaterialCommunityIcons,
+  AntDesign,
+  Ionicons,
+} from "@expo/vector-icons";
+import { createAppContainer } from "react-navigation";
+import LoginScreen from "./src/screens/LoginScreen";
+import SearchScreen from "./src/screens/SearchScreen";
+import SignupScreen from "./src/screens/SignupScreen";
+import ConfirmSignUp from "./src/screens/ConfirmSignUp";
+// import ForgetPassword from "./src/screens/ForgetPassword";
+import KnowmoreScreen from "./src/screens/KnowmoreScreen";
+import TabScreen from "./src/screens/TabScreen";
+import OnboardingOneScreen from "./src/screens/OnboardingOneScreen";
+import OnboardingTwoScreen from "./src/screens/OnboardingTwoScreen";
+import OnboardingThreeScreen from "./src/screens/OnboardingThreeScreen";
+import BlankScreen from "./src/screens/BlankScreen";
+import Home1Screen from "./src/screens/Home1Screen";
+import Home2Screen from "./src/screens/Home2Screen";
+import Home3Screen from "./src/screens/Home3Screen";
+import Home4Screen from "./src/screens/Home4Screen";
+import Home5Screen from "./src/screens/Home5Screen";
+import Home6Screen from "./src/screens/Home6Screen";
+import Search1Screen from "./src/screens/Search1Screen";
+import Search2Screen from "./src/screens/Search2Screen";
+import Search3Screen from "./src/screens/Search3Screen";
+import Search4Screen from "./src/screens/Search4Screen";
+import AddScreen from "./src/screens/AddScreen";
+import Add2Screen from "./src/screens/Add2Screen";
+import Add11Screen from "./src/screens/Add11Screen";
+import Add12Screen from "./src/screens/Add12Screen";
+import Add13Screen from "./src/screens/Add13Screen";
+import Add21Screen from "./src/screens/Add13Screen";
+import Add22Screen from "./src/screens/Add22Screen";
+import TotalAdd1Screen from "./src/screens/TotalAdd1Screen";
+import TotalAdd2Screen from "./src/screens/TotalAdd2Screen";
 
-import Amplify from 'aws-amplify';
-import aws_exports from './aws-exports';
+import Amplify from "aws-amplify";
+import aws_exports from "./aws-exports";
 Amplify.configure(aws_exports);
 
-
-const navigator = createStackNavigator({
-    Blank: BlankScreen,
-    Login: LoginScreen,
-    Search: SearchScreen,
-    Search1: Search1Screen,
-    Search2: Search2Screen,
-    Search3: Search3Screen,
-    Search4: Search4Screen,
-    Signup: SignupScreen,
-    Know: KnowmoreScreen,
-    On1: OnboardingOneScreen,
-    On2: OnboardingTwoScreen,
-    On3: OnboardingThreeScreen,
+const navigator = createStackNavigator(
+  {
+    Blank: BlankScreen,
+    Login: LoginScreen,
+    Search: SearchScreen,
+    Search1: Search1Screen,
+    Search2: Search2Screen,
+    Search3: Search3Screen,
+    Search4: Search4Screen,
+    Signup: SignupScreen,
+    ConfirmSignUp: ConfirmSignUp,
+    // ForgetPassword: ForgetPassword,
+    Know: KnowmoreScreen,
+    On1: OnboardingOneScreen,
+    On2: OnboardingTwoScreen,
+    On3: OnboardingThreeScreen,
     Tab: TabScreen,
     Home1: Home1Screen,
     Home2: Home2Screen,
@@ -66,14 +74,12 @@ const navigator = createStackNavigator({
     Add13: Add13Screen,
     Add21: Add21Screen,
     Add22: Add22Screen,
-    TotalAdd1:  TotalAdd1Screen,
-    TotalAdd2:  TotalAdd2Screen,
-  }, {
+    TotalAdd1: TotalAdd1Screen,
+    TotalAdd2: TotalAdd2Screen,
+  },
+  {
+    initialRouteName: "Signup",
+  }
+);
 
-    initialRouteName: 'Home2',
-  
-  });
-
-  
-  export default createAppContainer(navigator);
- 
+export default createAppContainer(navigator);
