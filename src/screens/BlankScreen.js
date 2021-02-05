@@ -4,7 +4,7 @@ import { StyleSheet, SafeAreaView } from 'react-native';
 
 const BlankScreen= () => {
   
-<Text> welcome to cookburn</Text>
+<Text> welcome to our cookburn</Text>
 
 };
 
