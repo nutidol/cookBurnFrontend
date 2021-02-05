@@ -1,19 +1,19 @@
 {
   "providers": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-food-dev-221358-authRole",
-      "UnauthRoleArn": "arn:aws:iam::790522487667:role/amplify-food-dev-221358-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::790522487667:role/amplify-food-dev-221358-authRole",
+      "AuthRoleName": "amplify-food-dev-101423-authRole",
+      "UnauthRoleArn": "arn:aws:iam::790522487667:role/amplify-food-dev-101423-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::790522487667:role/amplify-food-dev-101423-authRole",
       "Region": "ap-southeast-1",
-      "DeploymentBucketName": "amplify-food-dev-221358-deployment",
-      "UnauthRoleName": "amplify-food-dev-221358-unauthRole",
-      "StackName": "amplify-food-dev-221358",
-      "StackId": "arn:aws:cloudformation:ap-southeast-1:790522487667:stack/amplify-food-dev-221358/720c2a90-6632-11eb-8493-0638f3f69c86",
-      "AmplifyAppId": "d2c1rriqcd22ht"
+      "DeploymentBucketName": "amplify-food-dev-101423-deployment",
+      "UnauthRoleName": "amplify-food-dev-101423-unauthRole",
+      "StackName": "amplify-food-dev-101423",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:790522487667:stack/amplify-food-dev-101423/404028c0-6760-11eb-8941-0a0b2ba18dd0",
+      "AmplifyAppId": "d38hgk4osfaqym"
     }
   },
   "auth": {
-    "food31b56158": {
+    "food5ee03031": {
       "service": "Cognito",
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",
@@ -28,7 +28,7 @@
         "IdentityPoolId": "ap-southeast-1:d1f1e7d7-1177-4c7c-93fb-2a86559c4b48",
         "IdentityPoolName": "secret"
       },
-      "lastPushTimeStamp": "2021-02-03T15:17:11.386Z"
+      "lastPushTimeStamp": "2021-02-05T03:18:48.194Z"
     }
   }
 }

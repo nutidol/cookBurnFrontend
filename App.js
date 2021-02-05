@@ -34,6 +34,9 @@ import Add22Screen from './src/screens/Add22Screen';
 import TotalAdd1Screen from './src/screens/TotalAdd1Screen';
 import TotalAdd2Screen from './src/screens/TotalAdd2Screen';
 
+import Amplify from 'aws-amplify';
+import aws_exports from './aws-exports';
+Amplify.configure(aws_exports);
 
 
 const navigator = createStackNavigator({
@@ -67,7 +70,7 @@ const navigator = createStackNavigator({
     TotalAdd2:  TotalAdd2Screen,
   }, {
 
-    initialRouteName: 'Tab',
+    initialRouteName: 'Login',
   
   });
 
