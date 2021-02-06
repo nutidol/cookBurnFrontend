@@ -10,6 +10,7 @@ import TabScreen from './src/screens/TabScreen';
 import OnboardingOneScreen from './src/screens/OnboardingOneScreen';
 import OnboardingTwoScreen from './src/screens/OnboardingTwoScreen';
 import OnboardingThreeScreen from './src/screens/OnboardingThreeScreen';
+import Home from './src/screens/Home';
 import Home1Screen from './src/screens/Home1Screen';
 import Home2Screen from './src/screens/Home2Screen';
 import Home3Screen from './src/screens/Home3Screen';
@@ -56,6 +57,7 @@ const navigator = createStackNavigator(
     On2: OnboardingTwoScreen,
     On3: OnboardingThreeScreen,
     Tab: TabScreen,
+    Home: Home,
     Home1: Home1Screen,
     Home2: Home2Screen,
     Home3: Home3Screen,
@@ -76,7 +78,7 @@ const navigator = createStackNavigator(
     Workout3: Workout3Screen,
   }, {
 
-    initialRouteName: 'ForgetPassword',
+    initialRouteName: 'Login',
   
   });
 
