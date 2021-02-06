@@ -60,8 +60,7 @@ export default function SignIn({ navigation, updateAuthState }) {
 
       <Text
         style={styles.forgotpwdStyle}
-        onPress={() => navigation.navigate("Signup")}
-        //not yet done: need to create forget password page
+        onPress={() => navigation.navigate("ForgetPassword")}
       >
         {" "}
         forgot your password?
@@ -112,7 +111,7 @@ const styles = StyleSheet.create({
     width: 302,
     position: "absolute",
     left: 36.5,
-    top: 374,
+    top: 378,
     color: "#FF5733",
     fontSize: 10,
     padding: 7,
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     width: 302,
     position: "absolute",
     left: 36.5,
-    top: 449,
+    top: 453,
     color: "#FF5733",
     fontSize: 10,
     padding: 7,

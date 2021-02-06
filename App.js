@@ -33,7 +33,7 @@ import WorkoutScreen from './src/screens/WorkoutScreen';
 import Workout1Screen from './src/screens/Workout1Screen';
 import Workout2Screen from './src/screens/Workout2Screen';
 import Workout3Screen from './src/screens/Workout3Screen';
-// import ForgetPassword from "./src/screens/ForgetPassword";
+import ForgetPassword from "./src/screens/ForgetPassword";
 import ConfirmSignUp from "./src/screens/ConfirmSignUp";
 
 import Amplify from "aws-amplify";
@@ -50,7 +50,7 @@ const navigator = createStackNavigator(
     Search4: Search4Screen,
     Signup: SignupScreen,
     ConfirmSignUp: ConfirmSignUp,
-    // ForgetPassword: ForgetPassword,
+    ForgetPassword: ForgetPassword,
     Know: KnowmoreScreen,
     On1: OnboardingOneScreen,
     On2: OnboardingTwoScreen,
@@ -76,7 +76,7 @@ const navigator = createStackNavigator(
     Workout3: Workout3Screen,
   }, {
 
-    initialRouteName: 'Home5',
+    initialRouteName: 'ForgetPassword',
   
   });
 
