@@ -29,7 +29,7 @@ export default function SignIn({ navigation, updateAuthState }) {
       <Text style={styles.cookburnStyle}>CookBurn</Text>
       <Text
         style={styles.notregistStyle}
-        onPress={() => navigation.navigate("Signup")}
+        onPress={() => navigation.navigate("SignUp")}
       >
         Not registered?{" "}
       </Text>

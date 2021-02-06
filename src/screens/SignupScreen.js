@@ -75,7 +75,7 @@ export default function SignUp({ navigation }) {
         <Text style={styles.textStyle}>Sign up</Text>
       </TouchableOpacity>
       <View style={styles.footerButtonContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
             <Text style={styles.forgotPasswordButtonText}>
               Already have an account? Sign In
             </Text>

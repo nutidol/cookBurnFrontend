@@ -4,12 +4,12 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Auth } from "aws-amplify";
 
-export default function Home({ navigation, updateAuthState }) {
+export default function Home({updateAuthState }) {
   async function signOut() {
     try {
       await Auth.signOut();
       updateAuthState("loggedOut");
-      navigation.navigate("Login");
+      console.log("Sign out success")
     } catch (error) {
       console.log("Error signing out: ", error);
     }

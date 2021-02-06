@@ -13,7 +13,9 @@ export default function ConfirmSignUp({ navigation }) {
     try {
       await Auth.confirmSignUp(username, authCode);
       console.log(" Code confirmed");
-      navigation.navigate("Login");
+      //when navigate back to sign in how to reset the text input to be blank? 
+      //right now testing it and it keeps state...
+      navigation.navigate("SignIn");
     } catch (error) {
       console.log(
         " Verification code does not match. Please enter a valid verification code.",

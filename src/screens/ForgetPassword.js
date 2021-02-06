@@ -33,7 +33,7 @@ function ForgetPassword({ navigation }) {
     Auth.forgotPasswordSubmit(email, code, newPassword)
       .then(() => {
         setErrorMessage("");
-        navigation.navigate("Login");
+        navigation.navigate("SignIn");
       })
       .catch((err) => {
         if (err.message) {
