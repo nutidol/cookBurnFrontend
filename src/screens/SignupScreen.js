@@ -16,11 +16,19 @@ export default function SignUp({ navigation }) {
       navigation.navigate("ConfirmSignUp");
     } catch (error) {
       console.log(" Error signing up...", error);
-      if (error.message == "1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6"){
-        setInvalidMessage("Password must be equal and have greater lenght than 6.");
-      }else if(error.message == "Password did not conform with policy: Password must have uppercase characters" ){
+      if (
+        error.message ==
+        "1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6"
+      ) {
+        setInvalidMessage(
+          "Password must be equal and have greater lenght than 6."
+        );
+      } else if (
+        error.message ==
+        "Password did not conform with policy: Password must have uppercase characters"
+      ) {
         setInvalidMessage("Password must have uppercase characters.");
-      }else{
+      } else {
         setInvalidMessage(error.message);
       }
       //need to do other case to show error like invalid email, existed email, invalid password (must have upper case, must have symbol), ..., must think of others too
@@ -75,13 +83,13 @@ export default function SignUp({ navigation }) {
         <Text style={styles.textStyle}>Sign up</Text>
       </TouchableOpacity>
       <View style={styles.footerButtonContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
-            <Text style={styles.forgotPasswordButtonText}>
-              Already have an account? Sign In
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.wrongAuthStyle}> {invalidMessage}</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+          <Text style={styles.forgotPasswordButtonText}>
+            Already have an account? Sign In
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.wrongAuthStyle}> {invalidMessage}</Text>
     </View>
   );
 }
@@ -125,7 +133,6 @@ const styles = StyleSheet.create({
     color: "#FF5733",
     fontSize: 10,
     paddingLeft: 7,
-
   },
   usernameboxStyle: {
     backgroundColor: "white",
@@ -140,7 +147,6 @@ const styles = StyleSheet.create({
     color: "#FF5733",
     fontSize: 10,
     paddingLeft: 7,
-
   },
   passwordboxStyle: {
     backgroundColor: "white",
@@ -203,7 +209,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     position: "absolute",
     left: "50%",
-    transform: "translateX(-50%)",
+    transform: [{ translateX: -50 }],
     top: 630,
   },
 

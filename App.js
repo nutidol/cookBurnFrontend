@@ -80,8 +80,8 @@ Amplify.configure(config);
 //     Workout3: Workout3Screen,
 //   }, {
 
-//     initialRouteName: 'Login',
-//
+//     initialRouteName: 'Home5',
+
 //   });
 
 // export default createAppContainer(navigator);
@@ -91,6 +91,7 @@ Amplify.configure(config);
 //for our app may need other stacks too...
 const AuthenticationStack = createStackNavigator();
 const AppStack = createStackNavigator();
+
 
 
 //stack that has all screens related when the user is not logged in
@@ -174,11 +175,3 @@ function App() {
 }
 export default App;
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });

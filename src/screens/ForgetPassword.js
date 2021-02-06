@@ -53,7 +53,7 @@ function ForgetPassword({ navigation }) {
       <Text style={styles.cookburnStyle}>CookBurn</Text>
       <Text
         style={styles.notregistStyle}
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => navigation.navigate("SignIn")}
       >
         Back to Login{" "}
       </Text>
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF5733",
     position: "absolute",
     left: "50%",
-    transform: "translateX(-50%)",
+    transform: [{ translateX: -50 }],
     top: 630,
     borderRadius: 24,
     borderWidth: 1,
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     position: "absolute",
     left: "50%",
-    transform: "translateX(-50%)",
+    transform: [{ translateX: -50 }],
     top: 680,
   },
 
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF5733",
     position: "absolute",
     left: "50%",
-    transform: "translateX(-50%)",
+    transform: [{ translateX: -50 }],
     top: 431,
     borderRadius: 24,
     borderWidth: 1,

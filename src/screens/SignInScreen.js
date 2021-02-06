@@ -155,8 +155,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     position: "absolute",
     left: "50%",
-    transform: "translateX(-50%)",
-    top: 569,
+    transform: [{translateX: -50}],
+    top: 569
   },
   wrongAuthStyle: {
     color: "red",
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     position: "absolute",
     left: "50%",
-    transform: "translateX(-50%)",
+    transform: [{translateX: -50}],
     top: 590,
   },
   buttonStyle: {
