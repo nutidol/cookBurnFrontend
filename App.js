@@ -18,34 +18,34 @@ import Home5Screen from './src/screens/Home5Screen';
 import SearchScreen from './src/screens/SearchScreen';
 import Search1Screen from './src/screens/Search1Screen';
 import Search2Screen from './src/screens/Search2Screen';
-import Search3Screen from './src/screens/Search3Screen';
-import Search4Screen from './src/screens/Search4Screen';
 import AddScreen from './src/screens/AddScreen';
-import Add2Screen from './src/screens/Add2Screen';
-import Add11Screen from './src/screens/Add11Screen';
-import Add12Screen from './src/screens/Add12Screen';
-import Add13Screen from './src/screens/Add13Screen';
-import Add21Screen from './src/screens/Add13Screen';
-import Add22Screen from './src/screens/Add22Screen';
-import TotalAdd1Screen from './src/screens/TotalAdd1Screen';
-import TotalAdd2Screen from './src/screens/TotalAdd2Screen';
+import TotalAddScreen from './src/screens/TotalAddScreen';
 import WorkoutScreen from './src/screens/WorkoutScreen';
 import Workout1Screen from './src/screens/Workout1Screen';
 import Workout2Screen from './src/screens/Workout2Screen';
 import Workout3Screen from './src/screens/Workout3Screen';
-
+import AddProfileScreen from './src/screens/AddProfileScreen';
+import AddProfile1Screen from './src/screens/AddProfile1Screen';
+import AddProfile2Screen from './src/screens/AddProfile2Screen';
+import AddProfile3Screen from './src/screens/AddProfile3Screen';
+import AddProfile4Screen from './src/screens/AddProfile4Screen';
+import AddProfile5Screen from './src/screens/AddProfile5Screen';
+import EditProfile1Screen from './src/screens/EditProfile1Screen';
+import EditProfile2Screen from './src/screens/EditProfile2Screen';
+import EditProfile3Screen from './src/screens/EditProfile3Screen';
+import EditProfile21Screen from './src/screens/EditProfile21Screen';
+import EditProfile22Screen from './src/screens/EditProfile22Screen';
+import SettingScreen from './src/screens/SettingScreen';
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
 Amplify.configure(aws_exports);
 
 
 const navigator = createStackNavigator({
-    Login: LoginScreen,
+   Login: LoginScreen,
     Search: SearchScreen,
     Search1: Search1Screen,
     Search2: Search2Screen,
-    Search3: Search3Screen,
-    Search4: Search4Screen,
     Signup: SignupScreen,
     Know: KnowmoreScreen,
     On1: OnboardingOneScreen,
@@ -58,21 +58,27 @@ const navigator = createStackNavigator({
     Home4: Home4Screen,
     Home5: Home5Screen,
     Add: AddScreen,
-    Add2: Add2Screen,
-    Add11: Add11Screen,
-    Add12: Add12Screen,
-    Add13: Add13Screen,
-    Add21: Add21Screen,
-    Add22: Add22Screen,
-    TotalAdd1:  TotalAdd1Screen,
-    TotalAdd2:  TotalAdd2Screen,
+    TotalAdd:  TotalAddScreen,
     Workout: WorkoutScreen,
     Workout1: Workout1Screen,
     Workout2: Workout2Screen,
     Workout3: Workout3Screen,
+    AddProfile: AddProfileScreen,
+    AddProfile1: AddProfile1Screen,
+    AddProfile2: AddProfile2Screen,
+    AddProfile3: AddProfile3Screen,
+    AddProfile4: AddProfile4Screen,
+    AddProfile5: AddProfile5Screen,
+    EditProfile1: EditProfile1Screen,
+    EditProfile2: EditProfile2Screen,
+    EditProfile3: EditProfile3Screen,
+    EditProfile21: EditProfile21Screen,
+    EditProfile22: EditProfile22Screen,
+    Setting: SettingScreen
+
   }, {
 
-    initialRouteName: 'Home5',
+    initialRouteName: 'Setting',
   
   });
 

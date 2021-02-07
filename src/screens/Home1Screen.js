@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const Home1Screen = ({ navigation }) => {
@@ -25,12 +26,12 @@ const Home1Screen = ({ navigation }) => {
         <Text style={styles.dailyStyle}> Your daily information </Text>
         <Text style={styles.recentStyle}> Your recent activities </Text>
         <Text style={styles.historyStyle} onPress={() => navigation.navigate('Home2')}> See full history </Text>
-        <View style={styles.boxStyle}>
+        <TouchableOpacity style={styles.boxStyle}>
             <Text style={styles.menuStyle}>Menu name: </Text>
             <Text style={styles.energyStyle}>enerygy: </Text>
             <Text style={styles.dateStyle}>date: </Text>
             <Text style={styles.timeStyle}>time: </Text>
-        </View>
+        </TouchableOpacity>
 
     </View>
 
@@ -43,8 +44,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'white',
         padding: 10,
-        borderRadius: 10,
-
+        borderRadius: 10
     },
     modalClose: {
         marginTop: 20,

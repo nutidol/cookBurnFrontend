@@ -11,7 +11,6 @@ const OnboardingTwoScreen=({navigation}) => {
        <TouchableOpacity  onPress={() => navigation.navigate('Welcome')}
        style ={styles.skipboxStyle} >
                 <Text style ={styles.skipStyle} >Skip</Text>
-          
         </TouchableOpacity>
 
        <TouchableOpacity  onPress={() => navigation.navigate('On3')}

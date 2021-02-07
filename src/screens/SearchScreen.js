@@ -1,37 +1,172 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, Image,Text} from 'react-native';
-import MaterialTabs from 'react-native-material-tabs';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import SwitchSelector from "react-native-switch-selector";
 
-const SearchScreen= () => {
-  const [selectedTab, setSelectedTab] = useState(0);
-
+const SearchScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <MaterialTabs  
-        items={['max', '-', 'min']}
-        selectedIndex={selectedTab}
-        onChange={setSelectedTab}
-        barColor="#FF5733"
-        indicatorColor="white"
-        activeTextColor="white"
-        allowFontScaling={true}
-        textStyle ={{
-          fontSize: 10,
-          borderRadius: 5
-        }}
+
+    <View>
+      <Text style={styles.headerStyle}>Menu Filters</Text>
+      <Text style={styles.forStyle}>For</Text>
+      <Text style={styles.byStyle}>By</Text>
+      <TouchableOpacity style={styles.profilePicStyle}> </TouchableOpacity>
+      <View style={{
+        borderBottomColor: '#FF910D',
+        borderBottomWidth: 1,
+        top: 368 }}/>
+      <Text style={styles.optionStyle}> Difficulty Level{'\n'}Duration(min)</Text>
+      <SwitchSelector
+        style={styles.switchStyle}
+        height='21'
+        initial={1}
+        textColor='#FF5733'
+        selectedColor='white'
+        buttonColor='#FF5733'
+        borderColor='#FF5733'
+        hasPadding
+        options={[
+          { label: "max", value: 0 },
+          { label: "-", value: 1 },
+          { label: "min", value: 1 },
+        ]}
       />
-    </SafeAreaView>
+      <SwitchSelector
+        style={styles.switch1Style}
+        height='21'
+        initial={1}
+        textColor='#FF5733'
+        selectedColor='white'
+        buttonColor='#FF5733'
+        borderColor='#FF5733'
+        hasPadding
+        options={[
+          { label: "max", value: 0 },
+          { label: "-", value: 1 },
+          { label: "min", value: 1 },
+        ]}
+      />
+      <View style={{
+        borderBottomColor: '#FF910D',
+        borderBottomWidth: 1,
+        top: 580}}/>
+      <TouchableOpacity
+        style={styles.generateBoxStyle}
+        onPress={() => navigation.navigate('Search1')}>
+        <Text style={styles.generateStyle}> Generate</Text>
+      </TouchableOpacity>
+      <Text style={styles.servingStyle}>Serving Size</Text>
+      <TextInput style={styles.servingBoxStyle}
+        color='#FF5733'
+        textAlign='center'
+        defaultValue={1} />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    height: 5,
-    width: 150,
-    left: 200,
+  switchStyle: {
+    width: 120,
+    left: 239,
+    top: 415
+  },
+  headerStyle: {
+    fontSize: 20,
+    color: "#FF5733",
+    position: 'absolute',
+    textAlign: "center",
+    fontWeight: "bold",
+    left: 36,
+    top: 70
+  },
+  forStyle: {
+    fontSize: 15,
+    color: "#FF5733",
+    position: 'absolute',
+    textAlign: "center",
+    fontWeight: "bold",
+    left: 36,
+    top: 112
+
+  },
+  byStyle: {
+    fontSize: 15,
+    color: "#FF5733",
+    position: 'absolute',
+    textAlign: "center",
+    fontWeight: "bold",
+    left: 36,
+    top: 386
+  },
+  profilePicStyle: {
+    width: 88,
+    height: 101,
+    left: 37,
+    top: 135,
+    position: 'absolute',
+    borderColor: '#FF5733',
+    borderRadius: 8,
+    borderWidth: 1
+  },
+  generateStyle: {
+    fontSize: 10,
+    color: "white",
+    position: 'absolute',
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  generateBoxStyle: {
+    width: 120,
+    height: 37,
+    backgroundColor: "#FF5733",
+    position: "absolute",
+    left: 218,
+    top: 700,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: "#FF5733",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 10,
+  },
+  servingStyle: {
+    fontSize: 15,
+    color: "#FF5733",
+    position: 'absolute',
+    textAlign: "center",
+    fontWeight: "bold",
+    left: 44,
+    top: 647
+
+  },
+  servingBoxStyle: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#FF5733',
+    height: 30,
+    width: 64,
+    position: 'absolute',
+    left: 168,
+    top: 641,
+    color: '#FF5733',
+    fontSize: 10,
+    paddingHorizontal: 30
+  },
+  optionStyle: {
+    fontSize: 15,
+    color: "#FF5733",
+    position: 'absolute',
+    textAlign: "center",
+    left: 44,
     top: 417
   },
- 
+  switch1Style: {
+    width: 120,
+    left: 239,
+    top: 420
+  }
 });
 
 

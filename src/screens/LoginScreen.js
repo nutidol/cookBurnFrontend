@@ -150,13 +150,7 @@ const styles = StyleSheet.create({
   },
 
   forgotpwdStyle: {
-    color: "#FF5733",
-    fontSize: 10,
-    textAlign: "center",
-    position: "absolute",
-    left: "50%",
-    transform: "translateX(-50%)",
-    top: 569,
+   
   },
   wrongAuthStyle: {
     color: "red",
