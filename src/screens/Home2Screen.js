@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, Switch } from 'react-native';
 import SwitchSelector from "react-native-switch-selector";
 
 
-
-
 const Home2Screen = () => {
     
     const [Open, setOpen] = useState(0)
