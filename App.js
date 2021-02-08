@@ -37,7 +37,6 @@ import AddProfile1Screen from "./src/screens/AddProfile1Screen";
 import AddProfile2Screen from "./src/screens/AddProfile2Screen";
 import AddProfile4Screen from "./src/screens/AddProfile4Screen";
 import AddProfile3Screen from "./src/screens/AddProfile3Screen";
-import AddProfile5Screen from "./src/screens/AddProfile5Screen";
 import EditProfile1Screen from "./src/screens/EditProfile1Screen";
 import EditProfile2Screen from "./src/screens/EditProfile2Screen";
 import EditProfile3Screen from "./src/screens/EditProfile3Screen";
@@ -77,7 +76,6 @@ const navigator = createStackNavigator(
     AddProfile2: AddProfile2Screen,
     AddProfile3: AddProfile3Screen,
     AddProfile4: AddProfile4Screen,
-    AddProfile5: AddProfile5Screen,
     EditProfile1: EditProfile1Screen,
     EditProfile2: EditProfile2Screen,
     EditProfile21: EditProfile21Screen,
@@ -86,7 +84,7 @@ const navigator = createStackNavigator(
     Setting: SettingScreen,
   },
   {
-    initialRouteName: "Add",
+    initialRouteName: "Home1",
   }
 );
 
