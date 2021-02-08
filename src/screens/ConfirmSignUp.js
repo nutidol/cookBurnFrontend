@@ -3,19 +3,23 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Auth } from "aws-amplify";
 
-export default function SignIn({ navigation, updateAuthState }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
-  async function signIn() {
+export default function ConfirmSignUp({ navigation }) {
+  const [username, setUsername] = useState("");
+  const [authCode, setAuthCode] = useState("");
+  const [invalidMessage, setInvalidMessage] = useState(null);
+
+  async function confirmSignUp() {
     try {
-      await Auth.signIn(username, password);
-      console.log(" Success");
-      updateAuthState("loggedIn");
+      await Auth.confirmSignUp(username, authCode);
+      console.log(" Code confirmed");
+      navigation.navigate("Login");
     } catch (error) {
-      console.log(" Error signing in...", error);
-      setErrorMessage(error.message);
+      console.log(
+        " Verification code does not match. Please enter a valid verification code.",
+        error.code
+      );
+      setInvalidMessage(error.message);
     }
   }
   return (
@@ -27,50 +31,36 @@ export default function SignIn({ navigation, updateAuthState }) {
       />
 
       <Text style={styles.cookburnStyle}>CookBurn</Text>
-      <Text
-        style={styles.notregistStyle}
-        onPress={() => navigation.navigate("Signup")}
-      >
-        Not registered?{" "}
-      </Text>
 
       <Text style={styles.usernameStyle}> Username</Text>
 
       <TextInput
+        style={styles.usernameboxStyle}
         value={username}
         onChangeText={(text) => setUsername(text)}
-        style={styles.usernameboxStyle}
+        color="#FF5733"
         autoCapitalize="none"
-        placeholder="username"
+        placeholder="Enter username"
         placeholderTextColor="#FF5733"
       />
-      <Text style={styles.passwordStyle}> Password </Text>
+      <Text style={styles.verificationStyle}> verification code </Text>
       <TextInput
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        style={styles.passwordboxStyle}
-        secureTextEntry={true}
+        style={styles.verificationboxStyle}
+        value={authCode}
+        onChangeText={(text) => setAuthCode(text)}
+        color="#FF5733"
         autoCapitalize="none"
-        placeholder="password"
+        placeholder="Enter verification code"
+        keyboardType="numeric"
         placeholderTextColor="#FF5733"
       />
-      <TouchableOpacity style={styles.buttonStyle} onPress={signIn}>
-        <Text style={styles.textStyle}>Log in</Text>
+      <TouchableOpacity style={styles.buttonStyle} onPress={confirmSignUp}>
+        <Text style={styles.textStyle}>Confirm</Text>
       </TouchableOpacity>
-
-      <Text
-        style={styles.forgotpwdStyle}
-        onPress={() => navigation.navigate("Signup")}
-        //not yet done: need to create forget password page
-      >
-        {" "}
-        forgot your password?
-      </Text>
-      <Text style={styles.wrongAuthStyle}> {errorMessage}</Text>
+      <Text>{invalidMessage}</Text>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   logoStyle: {
     width: 157.4,
@@ -96,13 +86,6 @@ const styles = StyleSheet.create({
     left: 84,
     top: 260,
   },
-  notregistStyle: {
-    color: "#FF5733",
-    fontSize: 10,
-    position: "absolute",
-    left: 235,
-    top: 339,
-  },
   usernameboxStyle: {
     backgroundColor: "white",
     borderRadius: 8,
@@ -115,9 +98,8 @@ const styles = StyleSheet.create({
     top: 374,
     color: "#FF5733",
     fontSize: 10,
-    padding: 7,
   },
-  passwordboxStyle: {
+  verificationboxStyle: {
     backgroundColor: "white",
     borderRadius: 8,
     borderWidth: 1,
@@ -129,9 +111,7 @@ const styles = StyleSheet.create({
     top: 449,
     color: "#FF5733",
     fontSize: 10,
-    padding: 7,
   },
-
   usernameStyle: {
     fontWeight: "bold",
     marginLeft: 20,
@@ -141,7 +121,7 @@ const styles = StyleSheet.create({
     top: 358,
   },
 
-  passwordStyle: {
+  verificationStyle: {
     fontWeight: "bold",
     marginLeft: 20,
     color: "#FF5733",
@@ -149,26 +129,13 @@ const styles = StyleSheet.create({
     left: 20,
     top: 433,
   },
-
-  forgotpwdStyle: {
-   
-  },
-  wrongAuthStyle: {
-    color: "red",
-    fontSize: 10,
-    textAlign: "center",
-    position: "absolute",
-    left: "50%",
-    transform: "translateX(-50%)",
-    top: 590,
-  },
   buttonStyle: {
     width: 295,
     height: 37,
     backgroundColor: "#FF5733",
     position: "absolute",
     left: 40,
-    top: 520,
+    top: 581,
     borderRadius: 24,
     borderWidth: 1,
     borderColor: "#FF5733",

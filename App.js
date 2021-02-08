@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -51,6 +51,8 @@ const navigator = createStackNavigator({
     On1: OnboardingOneScreen,
     On2: OnboardingTwoScreen,
     On3: OnboardingThreeScreen,
+import ConfirmSignUp from "./src/screens/ConfirmSignUp";
+    ConfirmSignUp: ConfirmSignUp,
     Tab: TabScreen,
     Home1: Home1Screen,
     Home2: Home2Screen,
@@ -82,6 +84,4 @@ const navigator = createStackNavigator({
   
   });
 
-  
-  export default createAppContainer(navigator);
- 
+export default createAppContainer(navigator);
