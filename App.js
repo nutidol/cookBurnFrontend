@@ -38,6 +38,7 @@ import EditProfile22Screen from './src/screens/EditProfile22Screen';
 import SettingScreen from './src/screens/SettingScreen';
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
+import ConfirmSignUp from "./src/screens/ConfirmSignUp";
 Amplify.configure(aws_exports);
 
 
@@ -51,7 +52,7 @@ const navigator = createStackNavigator({
     On1: OnboardingOneScreen,
     On2: OnboardingTwoScreen,
     On3: OnboardingThreeScreen,
-import ConfirmSignUp from "./src/screens/ConfirmSignUp";
+
     ConfirmSignUp: ConfirmSignUp,
     Tab: TabScreen,
     Home1: Home1Screen,
