@@ -49,13 +49,13 @@ const AddScreen = ({ navigation }) => {
                 ]}
                 defaultIndex={0}
                 placeholder="select ingredients type"
-                containerStyle={{ height: 26, width: 200, top: 165, left: 37, position: 'absolute' }}
+                containerStyle={{ height: 26, width: 200, top: 165, left: 30, position: 'absolute' }}
                 labelStyle={{ color: "#FF5733" }}
                 onChangeItem={item => console.log(item.label, item.value)}
             />
 
-            <Text onPress={() => navigation.navigate('TotalAdd1')}
-                style={styles.igdStyle}>Your Ingredients</Text>
+            <Text onPress={() => navigation.navigate('TotalAdd')}
+                style={styles.igdStyle}>Your Ingredients &gt;</Text>
             <View style={styles.BoxStyle}>   </View >
 
             <TouchableOpacity

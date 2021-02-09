@@ -6,8 +6,10 @@ import { MaterialCommunityIcons, AntDesign, Ionicons } from '@expo/vector-icons'
 import Home1Screen from './Home1Screen';
 import AddScreen from './AddScreen';
 import SearchScreen from './SearchScreen';
-import Home4Screen from './Home4Screen';
-import Home5Screen from './Home5Screen';
+import WorkoutScreen from './WorkoutScreen';
+import SettingScreen from './SettingScreen';
+
+
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -55,10 +57,10 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="Exercise"
-        component={Home4Screen}
+        name="Workout"
+        component={WorkoutScreen}
         options={{
-          tabBarLabel: 'Exercise',
+          tabBarLabel: 'Workout',
           tabBarIcon: () => (
             <MaterialCommunityIcons name="human-handsup" color="#FF5733" size={26} />
           ),
@@ -67,7 +69,7 @@ function MyTabs() {
 
       <Tab.Screen
         name="Setting"
-        component={Home5Screen}
+        component={SettingScreen}
         options={{
           tabBarLabel: 'Setting',
           tabBarIcon: () => (

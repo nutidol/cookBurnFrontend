@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
+
 import Amplify, { Auth } from "aws-amplify";
 import { NavigationContainer } from "@react-navigation/native";
+import { MaterialCommunityIcons, AntDesign, Ionicons } from '@expo/vector-icons';
 // import { createStackNavigator } from "@react-navigation/stack";
-import {createStackNavigator} from 'react-navigation-stack';
-
+import { createStackNavigator } from 'react-navigation-stack';
+import { HomeScreenNavigator, AddScreenNavigator, SearchScreenNavigator, WorkoutScreenNavigator, SettingScreenNavigator } from "./src/screens//CustomNavigation";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createAppContainer } from "react-navigation";
 import config from "./aws-exports";
@@ -14,7 +16,7 @@ import ConfirmSignUp from "./src/screens/ConfirmSignUp";
 import Home from "./src/screens/Home";
 import ForgetPassword from "./src/screens/ForgetPassword";
 import KnowmoreScreen from "./src/screens/KnowmoreScreen";
-import TabScreen from "./src/screens/TabScreen";
+//import TabScreen from "./src/screens/TabScreen";
 import OnboardingOneScreen from "./src/screens/OnboardingOneScreen";
 import OnboardingTwoScreen from "./src/screens/OnboardingTwoScreen";
 import OnboardingThreeScreen from "./src/screens/OnboardingThreeScreen";
@@ -47,48 +49,121 @@ import SettingScreen from "./src/screens/SettingScreen";
 Amplify.configure(config);
 
 const navigator = createStackNavigator(
-  {
-    SignIn: SignIn,
-    Search: SearchScreen,
-    Search1: Search1Screen,
-    Search2: Search2Screen,
-    SignUp: SignUp,
-    ConfirmSignUp: ConfirmSignUp,
-    ForgetPassword: ForgetPassword,
-    Know: KnowmoreScreen,
-    On1: OnboardingOneScreen,
-    On2: OnboardingTwoScreen,
-    On3: OnboardingThreeScreen,
-    Tab: TabScreen,
-    Home1: Home1Screen,
-    Home2: Home2Screen,
-    Home3: Home3Screen,
-    Home4: Home4Screen,
-    Home5: Home5Screen,
-    Add: AddScreen,
-    TotalAdd: TotalAddScreen,
-    Workout: WorkoutScreen,
-    Workout1: Workout1Screen,
-    Workout2: Workout2Screen,
-    Workout3: Workout3Screen,
-    AddProfile: AddProfileScreen,
-    AddProfile1: AddProfile1Screen,
-    AddProfile2: AddProfile2Screen,
-    AddProfile3: AddProfile3Screen,
-    AddProfile4: AddProfile4Screen,
-    EditProfile1: EditProfile1Screen,
-    EditProfile2: EditProfile2Screen,
-    EditProfile21: EditProfile21Screen,
-    EditProfile3: EditProfile3Screen,
-    EditProfile22: EditProfile22Screen,
-    Setting: SettingScreen,
-  },
-  {
-    initialRouteName: "Home1",
-  }
+    {
+        SignIn: SignIn,
+        Search: SearchScreen,
+        Search1: Search1Screen,
+        Search2: Search2Screen,
+        SignUp: SignUp,
+        ConfirmSignUp: ConfirmSignUp,
+        ForgetPassword: ForgetPassword,
+        Know: KnowmoreScreen,
+        On1: OnboardingOneScreen,
+        On2: OnboardingTwoScreen,
+        On3: OnboardingThreeScreen,
+        //Tab: TabScreen,
+        Home1: Home1Screen,
+        Home2: Home2Screen,
+        Home3: Home3Screen,
+        Home4: Home4Screen,
+        Home5: Home5Screen,
+        Add: AddScreen,
+        TotalAdd: TotalAddScreen,
+        Workout: WorkoutScreen,
+        Workout1: Workout1Screen,
+        Workout2: Workout2Screen,
+        Workout3: Workout3Screen,
+        AddProfile: AddProfileScreen,
+        AddProfile1: AddProfile1Screen,
+        AddProfile2: AddProfile2Screen,
+        AddProfile3: AddProfile3Screen,
+        AddProfile4: AddProfile4Screen,
+        EditProfile1: EditProfile1Screen,
+        EditProfile2: EditProfile2Screen,
+        EditProfile21: EditProfile21Screen,
+        EditProfile3: EditProfile3Screen,
+        EditProfile22: EditProfile22Screen,
+        Setting: SettingScreen,
+    },
+    {
+        initialRouteName: "Home1",
+    }
 );
 
-export default createAppContainer(navigator);
+const Tab = createMaterialBottomTabNavigator();
+function App  ()  {
+    return (
+        <>
+            <NavigationContainer>
+                <Tab.Navigator
+                    initialRouteName="Home"
+                    activeColor="#FF5733"
+                    labelStyle={{ fontSize: 12 }}
+                    barStyle={{
+                        backgroundColor: 'white',
+                        width: 375, height: 48,
+                    }}
+                >
+                    <Tab.Screen
+                        name="Home"
+                        component={HomeScreenNavigator}
+                        options={{
+                            tabBarLabel: 'Home',
+                            tabBarIcon: () => (
+                                <MaterialCommunityIcons name="home" color="#FF5733" size={26} />
+                            ),
+                        }}
+                    />
+                    <Tab.Screen
+                        name="Add"
+                        component={AddScreenNavigator}
+                        options={{
+                            tabBarLabel: 'Add',
+                            tabBarIcon: () => (
+                              <Ionicons name="md-add-circle-sharp" color="#FF5733" size={26} />
+                            ),
+                          }}
+                    />
+                    <Tab.Screen
+                        name="Search"
+                        component={SearchScreenNavigator}
+                        options={{
+                            tabBarLabel: 'Search',
+                            tabBarIcon: () => (
+                              <MaterialCommunityIcons name="magnify" color="#FF5733" size={26} />
+                            ),
+                          }}
+                    />
+                    <Tab.Screen
+                        name="Workout"
+                        component={WorkoutScreenNavigator}
+                        options={{
+                            tabBarLabel: 'Workout',
+                            tabBarIcon: () => (
+                              <MaterialCommunityIcons name="human-handsup" color="#FF5733" size={26} />
+                            ),
+                          }}
+                    />
+                    <Tab.Screen
+                        name="Setting"
+                        component={SettingScreenNavigator}
+                        options={{
+                            tabBarLabel: 'Setting',
+                            tabBarIcon: () => (
+                              <AntDesign name="setting" color="#FF5733" size={26} />
+                            ),
+                          }}
+                    />
+                </Tab.Navigator>
+            </NavigationContainer>
+        </>
+    );
+};
+export default App;
+
+
+
+//export default createAppContainer(navigator);
 
 //devide navigation flow to two stack for lockin
 //for our app may need other stacks too...

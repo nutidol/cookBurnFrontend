@@ -26,7 +26,8 @@ const Home1Screen = ({ navigation }) => {
         <Text style={styles.dailyStyle}> Your daily information </Text>
         <Text style={styles.recentStyle}> Your recent activities </Text>
         <Text style={styles.historyStyle} onPress={() => navigation.navigate('Home2')}> See full history &gt; </Text>
-        <TouchableOpacity style={styles.boxStyle}>
+        <TouchableOpacity style={styles.boxStyle}
+        onPress={() => navigation.navigate('Home2')}>
             <Text style={styles.menuStyle}>Menu name: </Text>
             <Text style={styles.energyStyle}>enerygy: </Text>
             <Text style={styles.dateStyle}>date: </Text>

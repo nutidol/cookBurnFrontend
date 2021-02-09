@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import SwitchSelector from "react-native-switch-selector";
 
 
-const Home2Screen = () => {
+const Home2Screen = ({navigation}) => {
     
     const [Open, setOpen] = useState(0)
 
@@ -28,9 +28,9 @@ const Home2Screen = () => {
                 ]}
             />
            
-            <View style={styles.box1Style} > </View>
+            <TouchableOpacity  onPress={() => navigation.navigate('Home3')}style={styles.box1Style} > </TouchableOpacity>
+            <TouchableOpacity  onPress={() => navigation.navigate('Home5')}style={styles.box2Style} > </TouchableOpacity>
 
-            <View style={styles.box2Style}></View>
         </View>
 
     )
