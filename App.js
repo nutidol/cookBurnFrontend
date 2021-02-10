@@ -169,86 +169,86 @@ export default App;
 //for our app may need other stacks too...
 
 
-// const AuthenticationStack = createStackNavigator();
-// const AppStack = createStackNavigator();
+const AuthenticationStack = createStackNavigator();
+const AppStack = createStackNavigator();
 
 // //stack that has all screens related when the user is not logged in
-// const AuthenticationNavigator = (props) => {
-//   return (
-//     <AuthenticationStack.Navigator headerMode="none">
-//       <AuthenticationStack.Screen name="SignIn">
-//         {(screenProps) => (
-//           <SignIn {...screenProps} updateAuthState={props.updateAuthState} />
-//         )}
-//       </AuthenticationStack.Screen>
-//       <AuthenticationStack.Screen name="SignUp" component={SignUp} />
-//       <AuthenticationStack.Screen
-//         name="ConfirmSignUp"
-//         component={ConfirmSignUp}
-//       />
-//       <AuthenticationStack.Screen
-//         name="ForgetPassword"
-//         component={ForgetPassword}
-//       />
-//     </AuthenticationStack.Navigator>
-//   );
-// };
+const AuthenticationNavigator = (props) => {
+  return (
+    <AuthenticationStack.Navigator headerMode="none">
+      <AuthenticationStack.Screen name="SignIn">
+        {(screenProps) => (
+          <SignIn {...screenProps} updateAuthState={props.updateAuthState} />
+        )}
+      </AuthenticationStack.Screen>
+      <AuthenticationStack.Screen name="SignUp" component={SignUp} />
+      <AuthenticationStack.Screen
+        name="ConfirmSignUp"
+        component={ConfirmSignUp}
+      />
+      <AuthenticationStack.Screen
+        name="ForgetPassword"
+        component={ForgetPassword}
+      />
+    </AuthenticationStack.Navigator>
+  );
+};
 
-// // stack that has only one screen: the Home screen. This screen is only available if a user successfully logs in.
-// const AppNavigator = (props) => {
-//   return (
-//     <AppStack.Navigator>
-//       <AppStack.Screen name="Home">
-//         {(screenProps) => (
-//           <Home {...screenProps} updateAuthState={props.updateAuthState} />
-//         )}
-//       </AppStack.Screen>
-//     </AppStack.Navigator>
-//   );
-// };
+// stack that has only one screen: the Home screen. This screen is only available if a user successfully logs in.
+const AppNavigator = (props) => {
+  return (
+    <AppStack.Navigator>
+      <AppStack.Screen name="Home">
+        {(screenProps) => (
+          <Home {...screenProps} updateAuthState={props.updateAuthState} />
+        )}
+      </AppStack.Screen>
+    </AppStack.Navigator>
+  );
+};
 
-// //responsible to display a loading indicator when checking the state whether the user is logged in or not
-// const Initializing = () => {
-//   return (
-//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-//       <ActivityIndicator size="large" color="tomato" />
-//     </View>
-//   );
-// };
+//responsible to display a loading indicator when checking the state whether the user is logged in or not
+const Initializing = () => {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="large" color="tomato" />
+    </View>
+  );
+};
 
-// function App() {
-//   //... other stack logic?
+function App() {
+  //... other stack logic?
 
-//   const [isUserLoggedIn, setUserLoggedIn] = useState("initializing");
+  const [isUserLoggedIn, setUserLoggedIn] = useState("initializing");
 
-//   useEffect(() => {
-//     checkAuthState();
-//   }, []);
+  useEffect(() => {
+    checkAuthState();
+  }, []);
 
-//   async function checkAuthState() {
-//     try {
-//       await Auth.currentAuthenticatedUser();
-//       console.log(" User is signed in");
-//       setUserLoggedIn("loggedIn");
-//     } catch (err) {
-//       console.log(" User is not signed in");
-//       setUserLoggedIn("loggedOut");
-//     }
-//   }
+  async function checkAuthState() {
+    try {
+      await Auth.currentAuthenticatedUser();
+      console.log(" User is signed in");
+      setUserLoggedIn("loggedIn");
+    } catch (err) {
+      console.log(" User is not signed in");
+      setUserLoggedIn("loggedOut");
+    }
+  }
 
-//   function updateAuthState(isUserLoggedIn) {
-//     setUserLoggedIn(isUserLoggedIn);
-//   }
-//   return (
-//     <NavigationContainer>
-//       {isUserLoggedIn === "initializing" && <Initializing />}
-//       {isUserLoggedIn === "loggedIn" && (
-//         <AppNavigator updateAuthState={updateAuthState} />
-//       )}
-//       {isUserLoggedIn === "loggedOut" && (
-//         <AuthenticationNavigator updateAuthState={updateAuthState} />
-//       )}
-//     </NavigationContainer>
-//   );
-// }
-// export default App;
+  function updateAuthState(isUserLoggedIn) {
+    setUserLoggedIn(isUserLoggedIn);
+  }
+  return (
+    <NavigationContainer>
+      {isUserLoggedIn === "initializing" && <Initializing />}
+      {isUserLoggedIn === "loggedIn" && (
+        <AppNavigator updateAuthState={updateAuthState} />
+      )}
+      {isUserLoggedIn === "loggedOut" && (
+        <AuthenticationNavigator updateAuthState={updateAuthState} />
+      )}
+    </NavigationContainer>
+  );
+}
+export default App;
