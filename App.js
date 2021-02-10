@@ -3,10 +3,20 @@ import { ActivityIndicator, View } from "react-native";
 
 import Amplify, { Auth } from "aws-amplify";
 import { NavigationContainer } from "@react-navigation/native";
-import { MaterialCommunityIcons, AntDesign, Ionicons } from '@expo/vector-icons';
+import {
+  MaterialCommunityIcons,
+  AntDesign,
+  Ionicons,
+} from "@expo/vector-icons";
 // import { createStackNavigator } from "@react-navigation/stack";
-import { createStackNavigator } from 'react-navigation-stack';
-import { HomeScreenNavigator, AddScreenNavigator, SearchScreenNavigator, WorkoutScreenNavigator, SettingScreenNavigator } from "./src/screens//CustomNavigation";
+import { createStackNavigator } from "react-navigation-stack";
+import {
+  HomeScreenNavigator,
+  AddScreenNavigator,
+  SearchScreenNavigator,
+  WorkoutScreenNavigator,
+  SettingScreenNavigator,
+} from "./src/screens//CustomNavigation";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createAppContainer } from "react-navigation";
 import config from "./aws-exports";
@@ -48,207 +58,217 @@ import SettingScreen from "./src/screens/SettingScreen";
 
 Amplify.configure(config);
 
-const navigator = createStackNavigator(
-    {
-        SignIn: SignIn,
-        Search: SearchScreen,
-        Search1: Search1Screen,
-        Search2: Search2Screen,
-        SignUp: SignUp,
-        ConfirmSignUp: ConfirmSignUp,
-        ForgetPassword: ForgetPassword,
-        Know: KnowmoreScreen,
-        On1: OnboardingOneScreen,
-        On2: OnboardingTwoScreen,
-        On3: OnboardingThreeScreen,
-        //Tab: TabScreen,
-        Home1: Home1Screen,
-        Home2: Home2Screen,
-        Home3: Home3Screen,
-        Home4: Home4Screen,
-        Home5: Home5Screen,
-        Add: AddScreen,
-        TotalAdd: TotalAddScreen,
-        Workout: WorkoutScreen,
-        Workout1: Workout1Screen,
-        Workout2: Workout2Screen,
-        Workout3: Workout3Screen,
-        AddProfile: AddProfileScreen,
-        AddProfile1: AddProfile1Screen,
-        AddProfile2: AddProfile2Screen,
-        AddProfile3: AddProfile3Screen,
-        AddProfile4: AddProfile4Screen,
-        EditProfile1: EditProfile1Screen,
-        EditProfile2: EditProfile2Screen,
-        EditProfile21: EditProfile21Screen,
-        EditProfile3: EditProfile3Screen,
-        EditProfile22: EditProfile22Screen,
-        Setting: SettingScreen,
-    },
-    {
-        initialRouteName: "Home1",
-    }
-);
+// const navigator = createStackNavigator(
+//   {
+//     SignIn: SignIn,
+//     Search: SearchScreen,
+//     Search1: Search1Screen,
+//     Search2: Search2Screen,
+//     SignUp: SignUp,
+//     ConfirmSignUp: ConfirmSignUp,
+//     ForgetPassword: ForgetPassword,
+//     Know: KnowmoreScreen,
+//     On1: OnboardingOneScreen,
+//     On2: OnboardingTwoScreen,
+//     On3: OnboardingThreeScreen,
+//     //Tab: TabScreen,
+//     Home1: Home1Screen,
+//     Home2: Home2Screen,
+//     Home3: Home3Screen,
+//     Home4: Home4Screen,
+//     Home5: Home5Screen,
+//     Add: AddScreen,
+//     TotalAdd: TotalAddScreen,
+//     Workout: WorkoutScreen,
+//     Workout1: Workout1Screen,
+//     Workout2: Workout2Screen,
+//     Workout3: Workout3Screen,
+//     AddProfile: AddProfileScreen,
+//     AddProfile1: AddProfile1Screen,
+//     AddProfile2: AddProfile2Screen,
+//     AddProfile3: AddProfile3Screen,
+//     AddProfile4: AddProfile4Screen,
+//     EditProfile1: EditProfile1Screen,
+//     EditProfile2: EditProfile2Screen,
+//     EditProfile21: EditProfile21Screen,
+//     EditProfile3: EditProfile3Screen,
+//     EditProfile22: EditProfile22Screen,
+//     Setting: SettingScreen,
+//   },
+//   {
+//     initialRouteName: "Home1",
+//   }
+// );
 
 const Tab = createMaterialBottomTabNavigator();
-function App  ()  {
-    return (
-        <>
-            <NavigationContainer>
-                <Tab.Navigator
-                    initialRouteName="Home"
-                    activeColor="#FF5733"
-                    labelStyle={{ fontSize: 12 }}
-                    barStyle={{
-                        backgroundColor: 'white',
-                        width: 375, height: 48,
-                    }}
-                >
-                    <Tab.Screen
-                        name="Home"
-                        component={HomeScreenNavigator}
-                        options={{
-                            tabBarLabel: 'Home',
-                            tabBarIcon: () => (
-                                <MaterialCommunityIcons name="home" color="#FF5733" size={26} />
-                            ),
-                        }}
-                    />
-                    <Tab.Screen
-                        name="Add"
-                        component={AddScreenNavigator}
-                        options={{
-                            tabBarLabel: 'Add',
-                            tabBarIcon: () => (
-                              <Ionicons name="md-add-circle-sharp" color="#FF5733" size={26} />
-                            ),
-                          }}
-                    />
-                    <Tab.Screen
-                        name="Search"
-                        component={SearchScreenNavigator}
-                        options={{
-                            tabBarLabel: 'Search',
-                            tabBarIcon: () => (
-                              <MaterialCommunityIcons name="magnify" color="#FF5733" size={26} />
-                            ),
-                          }}
-                    />
-                    <Tab.Screen
-                        name="Workout"
-                        component={WorkoutScreenNavigator}
-                        options={{
-                            tabBarLabel: 'Workout',
-                            tabBarIcon: () => (
-                              <MaterialCommunityIcons name="human-handsup" color="#FF5733" size={26} />
-                            ),
-                          }}
-                    />
-                    <Tab.Screen
-                        name="Setting"
-                        component={SettingScreenNavigator}
-                        options={{
-                            tabBarLabel: 'Setting',
-                            tabBarIcon: () => (
-                              <AntDesign name="setting" color="#FF5733" size={26} />
-                            ),
-                          }}
-                    />
-                </Tab.Navigator>
-            </NavigationContainer>
-        </>
-    );
-};
-export default App;
-
-
-
-//export default createAppContainer(navigator);
-
-//devide navigation flow to two stack for lockin
-//for our app may need other stacks too...
-
-
-const AuthenticationStack = createStackNavigator();
-const AppStack = createStackNavigator();
-
-// //stack that has all screens related when the user is not logged in
-const AuthenticationNavigator = (props) => {
-  return (
-    <AuthenticationStack.Navigator headerMode="none">
-      <AuthenticationStack.Screen name="SignIn">
-        {(screenProps) => (
-          <SignIn {...screenProps} updateAuthState={props.updateAuthState} />
-        )}
-      </AuthenticationStack.Screen>
-      <AuthenticationStack.Screen name="SignUp" component={SignUp} />
-      <AuthenticationStack.Screen
-        name="ConfirmSignUp"
-        component={ConfirmSignUp}
-      />
-      <AuthenticationStack.Screen
-        name="ForgetPassword"
-        component={ForgetPassword}
-      />
-    </AuthenticationStack.Navigator>
-  );
-};
-
-// stack that has only one screen: the Home screen. This screen is only available if a user successfully logs in.
-const AppNavigator = (props) => {
-  return (
-    <AppStack.Navigator>
-      <AppStack.Screen name="Home">
-        {(screenProps) => (
-          <Home {...screenProps} updateAuthState={props.updateAuthState} />
-        )}
-      </AppStack.Screen>
-    </AppStack.Navigator>
-  );
-};
-
-//responsible to display a loading indicator when checking the state whether the user is logged in or not
-const Initializing = () => {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <ActivityIndicator size="large" color="tomato" />
-    </View>
-  );
-};
-
 function App() {
-  //... other stack logic?
-
-  const [isUserLoggedIn, setUserLoggedIn] = useState("initializing");
-
-  useEffect(() => {
-    checkAuthState();
-  }, []);
-
-  async function checkAuthState() {
-    try {
-      await Auth.currentAuthenticatedUser();
-      console.log(" User is signed in");
-      setUserLoggedIn("loggedIn");
-    } catch (err) {
-      console.log(" User is not signed in");
-      setUserLoggedIn("loggedOut");
-    }
-  }
-
-  function updateAuthState(isUserLoggedIn) {
-    setUserLoggedIn(isUserLoggedIn);
-  }
   return (
-    <NavigationContainer>
-      {isUserLoggedIn === "initializing" && <Initializing />}
-      {isUserLoggedIn === "loggedIn" && (
-        <AppNavigator updateAuthState={updateAuthState} />
-      )}
-      {isUserLoggedIn === "loggedOut" && (
-        <AuthenticationNavigator updateAuthState={updateAuthState} />
-      )}
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Tab.Navigator
+          initialRouteName="Home"
+          activeColor="#FF5733"
+          labelStyle={{ fontSize: 12 }}
+          barStyle={{
+            backgroundColor: "white",
+            width: 375,
+            height: 48,
+          }}
+        >
+          <Tab.Screen
+            name="Home"
+            component={HomeScreenNavigator}
+            options={{
+              tabBarLabel: "Home",
+              tabBarIcon: () => (
+                <MaterialCommunityIcons name="home" color="#FF5733" size={26} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Add"
+            component={AddScreenNavigator}
+            options={{
+              tabBarLabel: "Add",
+              tabBarIcon: () => (
+                <Ionicons
+                  name="md-add-circle-sharp"
+                  color="#FF5733"
+                  size={26}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Search"
+            component={SearchScreenNavigator}
+            options={{
+              tabBarLabel: "Search",
+              tabBarIcon: () => (
+                <MaterialCommunityIcons
+                  name="magnify"
+                  color="#FF5733"
+                  size={26}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Workout"
+            component={WorkoutScreenNavigator}
+            options={{
+              tabBarLabel: "Workout",
+              tabBarIcon: () => (
+                <MaterialCommunityIcons
+                  name="human-handsup"
+                  color="#FF5733"
+                  size={26}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Setting"
+            component={SettingScreenNavigator}
+            options={{
+              tabBarLabel: "Setting",
+              tabBarIcon: () => (
+                <AntDesign name="setting" color="#FF5733" size={26} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
 export default App;
+
+// //export default createAppContainer(navigator);
+
+// //devide navigation flow to two stack for lockin
+// //for our app may need other stacks too...
+
+// const AuthenticationStack = createStackNavigator();
+// const AppStack = createStackNavigator();
+
+// // //stack that has all screens related when the user is not logged in
+// const AuthenticationNavigator = (props) => {
+//   return (
+//     <AuthenticationStack.Navigator headerMode="none">
+//       <AuthenticationStack.Screen name="SignIn">
+//         {(screenProps) => (
+//           <SignIn {...screenProps} updateAuthState={props.updateAuthState} />
+//         )}
+//       </AuthenticationStack.Screen>
+//       <AuthenticationStack.Screen name="SignUp" component={SignUp} />
+//       <AuthenticationStack.Screen
+//         name="ConfirmSignUp"
+//         component={ConfirmSignUp}
+//       />
+//       <AuthenticationStack.Screen
+//         name="ForgetPassword"
+//         component={ForgetPassword}
+//       />
+//     </AuthenticationStack.Navigator>
+//   );
+// };
+
+// // stack that has only one screen: the Home screen. This screen is only available if a user successfully logs in.
+// const AppNavigator = (props) => {
+//   return (
+//     <AppStack.Navigator>
+//       <AppStack.Screen name="Home">
+//         {(screenProps) => (
+//           <Home {...screenProps} updateAuthState={props.updateAuthState} />
+//         )}
+//       </AppStack.Screen>
+//     </AppStack.Navigator>
+//   );
+// };
+
+// //responsible to display a loading indicator when checking the state whether the user is logged in or not
+// const Initializing = () => {
+//   return (
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <ActivityIndicator size="large" color="tomato" />
+//     </View>
+//   );
+// };
+
+// function App() {
+//   //... other stack logic?
+
+//   const [isUserLoggedIn, setUserLoggedIn] = useState("initializing");
+
+//   useEffect(() => {
+//     checkAuthState();
+//   }, []);
+
+//   async function checkAuthState() {
+//     try {
+//       await Auth.currentAuthenticatedUser();
+//       console.log(" User is signed in");
+//       setUserLoggedIn("loggedIn");
+//     } catch (err) {
+//       console.log(" User is not signed in");
+//       setUserLoggedIn("loggedOut");
+//     }
+//   }
+
+//   function updateAuthState(isUserLoggedIn) {
+//     setUserLoggedIn(isUserLoggedIn);
+//   }
+//   return (
+//     <NavigationContainer>
+//       {isUserLoggedIn === "initializing" && <Initializing />}
+//       {isUserLoggedIn === "loggedIn" && (
+//         <AppNavigator updateAuthState={updateAuthState} />
+//       )}
+//       {isUserLoggedIn === "loggedOut" && (
+//         <AuthenticationNavigator updateAuthState={updateAuthState} />
+//       )}
+//     </NavigationContainer>
+//   );
+// }
+// export default App;

@@ -9,7 +9,7 @@ const Workout1Screen= ({navigation}) => {
           <Text style={styles.text2Style}> Burn: 500 cals</Text>
           <TouchableOpacity
                 style={styles.doneBoxStyle}
-                onPress={() => navigation.navigate('Workout')}>
+                onPress={() => navigation.navigate('WorkoutScreen')}>
                 <Text style={styles.doneStyle}> Done</Text>
          </TouchableOpacity>
          <View style={styles.exPic1Style}>  </View>
