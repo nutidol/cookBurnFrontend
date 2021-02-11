@@ -8,6 +8,8 @@ const EditProfile1Screen = ({ navigation }) => {
         <View>
             <Text style={styles.header1Style}>Your Personal Information</Text>
             <Text style={styles.header2Style}>Your Daily Information</Text>
+            <Text style={styles.table1Style}>Gender{"\n"}Age(year){"\n"}Weight(kg){"\n"}Height(cm) </Text>
+            
             <TouchableOpacity
                 style={styles.editBoxStyle}
                 onPress={() => navigation.navigate('EditProfile2')}>
@@ -59,6 +61,15 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         left: 36,
         top: 276
+    },
+    table1Style:{
+        fontSize: 10,
+        color: "#FF5733",
+        position: 'absolute',
+        textAlign: "left",
+        fontWeight: "bold",
+        left: 43,
+        top: 122
     }
 
 

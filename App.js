@@ -1,32 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { ActivityIndicator, View } from "react-native";
-
+import { ActivityIndicator, View, ScrollView, Text } from "react-native";
+import { createDrawerNavigator} from '@react-navigation/drawer';
 import Amplify, { Auth } from "aws-amplify";
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  MaterialCommunityIcons,
-  AntDesign,
-  Ionicons,
-} from "@expo/vector-icons";
-// import { createStackNavigator } from "@react-navigation/stack";
-import { createStackNavigator } from "react-navigation-stack";
-import {
-  HomeScreenNavigator,
-  AddScreenNavigator,
-  SearchScreenNavigator,
-  WorkoutScreenNavigator,
-  SettingScreenNavigator,
-} from "./src/screens//CustomNavigation";
+import {MaterialCommunityIcons,AntDesign, Ionicons,} from "@expo/vector-icons"
+import { createStackNavigator, } from "react-navigation-stack";
+import {HomeScreenNavigator,AddScreenNavigator,SearchScreenNavigator,WorkoutScreenNavigator,SettingScreenNavigator,} from "./src/screens//CustomNavigation";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createAppContainer } from "react-navigation";
 import config from "./aws-exports";
 import SignIn from "./src/screens/SignInScreen";
-import SignUp from "./src/screens/SignUpScreen";
+//import SignUp from "./src/screens/SignUpScreen";
 import ConfirmSignUp from "./src/screens/ConfirmSignUp";
 import Home from "./src/screens/Home";
 import ForgetPassword from "./src/screens/ForgetPassword";
 import KnowmoreScreen from "./src/screens/KnowmoreScreen";
-//import TabScreen from "./src/screens/TabScreen";
 import OnboardingOneScreen from "./src/screens/OnboardingOneScreen";
 import OnboardingTwoScreen from "./src/screens/OnboardingTwoScreen";
 import OnboardingThreeScreen from "./src/screens/OnboardingThreeScreen";
@@ -55,8 +43,10 @@ import EditProfile3Screen from "./src/screens/EditProfile3Screen";
 import EditProfile21Screen from "./src/screens/EditProfile21Screen";
 import EditProfile22Screen from "./src/screens/EditProfile22Screen";
 import SettingScreen from "./src/screens/SettingScreen";
+import Icon from 'react-native-vector-icons/Ionicons'
+import { Button } from 'react-native';
 
-Amplify.configure(config);
+//Amplify.configure(config);
 
 // const navigator = createStackNavigator(
 //   {
@@ -71,7 +61,6 @@ Amplify.configure(config);
 //     On1: OnboardingOneScreen,
 //     On2: OnboardingTwoScreen,
 //     On3: OnboardingThreeScreen,
-//     //Tab: TabScreen,
 //     Home1: Home1Screen,
 //     Home2: Home2Screen,
 //     Home3: Home3Screen,
@@ -100,12 +89,80 @@ Amplify.configure(config);
 //   }
 // );
 
-const Tab = createMaterialBottomTabNavigator();
+import HouseScreen from "./src/screens/HouseScreen";
+import DetailsScreen from "./src/screens/DetailsScreen";
+
+//const Tab = createMaterialBottomTabNavigator();
+
+//const HouseStack = createStackNavigator();
+//const DetailsStack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+const HouseStackScreen =({navigation}) => (
+  <HouseStack.Navigator screenOptions={{
+    headerStyle:{
+      backgroundColor: 'black'
+    },
+    headerTintColor: "#FF5733",
+    headerTitleStyle:{
+      fontWeight: 'bold'
+    }  
+  }}>
+    <HouseStack.Screen name="House" component={HouseScreen}
+    options ={{
+      headerLeft:() => (
+        <Icon.Button name= 'ios-memu' size ={25} backgroundColor ='black'
+        onPress={() => navigation.openDrawer()}> </Icon.Button>
+      )
+    }} />
+ 
+  </HouseStack.Navigator>
+)
+
+const DetailsStackScreen =({navigation}) => (
+  <DetailsStack.Navigator screenOptions={{
+    headerTintColor: "#FF5733",
+    headerTitleStyle:{
+      fontWeight: 'bold'
+    }  
+  }}>
+    <DetailStack.Screen name="Details" component={DetailsScreen}
+    options ={{
+      headerLeft:() => (
+        <Icon.Button name= 'ios-memu' size ={25} backgroundColor ='black'
+        onPress={() => navigation.openDrawer()}> </Icon.Button>
+      )
+    }} />
+ 
+  </DetailsStack.Navigator>
+)
+
+
 function App() {
   return (
-    <>
+    
       <NavigationContainer>
-        <Tab.Navigator
+        <Drawer.Navigator initialRouteName="House"
+        
+         screenOptions={{
+          headerStyle:{
+            backgroundColor: "#FF5733"
+          },
+          headerTintColor: "#FF5733",
+          headerTitleStyle:{
+            fontWeight: 'bold'
+          }  
+        }}>
+        <Drawer.Screen name="House" component={HouseScreen} 
+       options={{
+         headerLeft:() => (
+          <Icon.Button name= 'ios-memu' size ={25} 
+          onPress={() => navigation.openDrawer()}> </Icon.Button>
+        )
+       }}/>
+        <Drawer.Screen name="Details" component={DetailsScreen} />
+      </Drawer.Navigator>
+      {/*<Tab.Navigator
           initialRouteName="Home"
           activeColor="#FF5733"
           labelStyle={{ fontSize: 12 }}
@@ -120,6 +177,8 @@ function App() {
             component={HomeScreenNavigator}
             options={{
               tabBarLabel: "Home",
+              
+
               tabBarIcon: () => (
                 <MaterialCommunityIcons name="home" color="#FF5733" size={26} />
               ),
@@ -177,12 +236,17 @@ function App() {
               ),
             }}
           />
-        </Tab.Navigator>
+          </Tab.Navigator> */}
+
       </NavigationContainer>
-    </>
+    
   );
-}
-export default App;
+
+};
+
+export default App
+
+
 
 // //export default createAppContainer(navigator);
 
@@ -272,3 +336,4 @@ export default App;
 //   );
 // }
 // export default App;
+

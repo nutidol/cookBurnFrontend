@@ -25,66 +25,40 @@ import EditProfile2Screen from "./EditProfile2Screen";
 import EditProfile21Screen from "./EditProfile21Screen";
 import EditProfile22Screen from "./EditProfile22Screen";
 import SettingScreen from "./SettingScreen";
-import {
-  MaterialCommunityIcons,
-  AntDesign,
-  Ionicons,
-} from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
 const HomeScreenNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerTintColor: "#FF5733",
+      headerTitleStyle:{
+        fontWeight: 'bold'
+      }  
+    }}>
       <Stack.Screen
         name="Home1"
         component={Home1Screen}
-        //   options={{
-        //     tabBarLabel: 'Home',
-        //     tabBarIcon: () => (
-        //         <MaterialCommunityIcons name="home" color="#FF5733" size={26} />
-        //     ),
-        // }}
       />
       <Stack.Screen
         name="Home2"
         component={Home2Screen}
-        //   options={{
-        //     tabBarLabel: 'Home',
-        //     tabBarIcon: () => (
-        //         <MaterialCommunityIcons name="home" color="#FF5733" size={26} />
-        //     ),
-        // }}
       />
       <Stack.Screen
         name="Home3"
         component={Home3Screen}
-        //   options={{
-        //     tabBarLabel: 'Home',
-        //     tabBarIcon: () => (
-        //         <MaterialCommunityIcons name="home" color="#FF5733" size={26} />
-        //     ),
-        // }}
       />
       <Stack.Screen
         name="Home4"
         component={Home4Screen}
-        //   options={{
-        //     tabBarLabel: 'Home',
-        //     tabBarIcon: () => (
-        //         <MaterialCommunityIcons name="home" color="#FF5733" size={26} />
-        //     ),
-        // }}
       />
       <Stack.Screen
         name="Home5"
         component={Home5Screen}
-        //   options={{
-        //     tabBarLabel: 'Home',
-        //     tabBarIcon: () => (
-        //         <MaterialCommunityIcons name="home" color="#FF5733" size={26} />
-        //     ),
-        // }}
+      />
+       <Stack.Screen
+        name="Workout3"
+        component={Workout3Screen}
       />
     </Stack.Navigator>
   );
@@ -93,26 +67,15 @@ export { HomeScreenNavigator };
 
 const AddScreenNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Add"
-        component={AddScreen}
-        // options={{
-        //   tabBarLabel: 'Add',
-        //   tabBarIcon: () => (
-        //     <Ionicons name="md-add-circle-sharp" color="#FF5733" size={26} />
-        //   ),
-        // }}
-      />
+    <Stack.Navigator screenOptions={{
+      headerTintColor: "#FF5733",
+      headerTitleStyle:{
+        fontWeight: 'bold'
+      }  
+    }}>
       <Stack.Screen
         name="TotalAdd"
         component={TotalAddScreen}
-        // options={{
-        //   tabBarLabel: 'Add',
-        //   tabBarIcon: () => (
-        //     <Ionicons name="md-add-circle-sharp" color="#FF5733" size={26} />
-        //   ),
-        // }}
       />
     </Stack.Navigator>
   );
@@ -121,26 +84,19 @@ export { AddScreenNavigator };
 
 const SearchScreenNavigator = () => {
   return (
-    <Stack.Navigator>
+     <Stack.Navigator screenOptions={{
+      headerTintColor: "#FF5733",
+      headerTitleStyle:{
+        fontWeight: 'bold'
+      }  
+    }}>
       <Stack.Screen
         name="Search"
         component={SearchScreen}
-        // options={{
-        //   tabBarLabel: 'Search',
-        //   tabBarIcon: () => (
-        //     <MaterialCommunityIcons name="magnify" color="#FF5733" size={26} />
-        //   ),
-        // }}
       />
       <Stack.Screen
         name="Search1"
         component={Search1Screen}
-        // options={{
-        //   tabBarLabel: 'Search',
-        //   tabBarIcon: () => (
-        //     <MaterialCommunityIcons name="magnify" color="#FF5733" size={26} />
-        //   ),
-        // }}
       />
     </Stack.Navigator>
   );
@@ -149,54 +105,27 @@ export { SearchScreenNavigator };
 
 const WorkoutScreenNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerTintColor: "#FF5733",
+      headerTitleStyle:{
+        fontWeight: 'bold'
+      }  
+    }}>
       <Stack.Screen
         name="Workout"
         component={WorkoutScreen}
-        //  options={{
-        //     tabBarLabel: 'Workout',
-        //     tabBarIcon: () => (
-        //       <MaterialCommunityIcons name="human-handsup" color="#FF5733" size={26} />
-        //     ),
-        //   }}
       />
       <Stack.Screen
         name="Workout1"
         component={Workout1Screen}
-        //  options={{
-        //       tabBarLabel: 'Workout',
-        //       tabBarIcon: () => (
-        //         <MaterialCommunityIcons name="human-handsup" color="#FF5733" size={26} />
-        //       ),
-        //     }}
       />
       <Stack.Screen
         name="Workout2"
         component={Workout2Screen}
-        // options={{
-        //   tabBarLabel: "Workout",
-        //   tabBarIcon: () => (
-        //     <MaterialCommunityIcons
-        //       name="human-handsup"
-        //       color="#FF5733"
-        //       size={26}
-        //     />
-        //   ),
-        // }}
       />
       <Stack.Screen
         name="Workout3"
         component={Workout3Screen}
-        // options={{
-        //   tabBarLabel: "Workout",
-        //   tabBarIcon: () => (
-        //     <MaterialCommunityIcons
-        //       name="human-handsup"
-        //       color="#FF5733"
-        //       size={26}
-        //     />
-        //   ),
-        // }}
       />
     </Stack.Navigator>
   );
@@ -205,106 +134,54 @@ export { WorkoutScreenNavigator };
 
 const SettingScreenNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerTintColor: "#FF5733",
+      headerTitleStyle:{
+        fontWeight: 'bold'
+      }  
+    }}>
       <Stack.Screen
         name="Setting"
         component={SettingScreen}
-        // options={{
-        //   tabBarLabel: "Setting",
-        //   tabBarIcon: () => (
-        //     <AntDesign name="setting" color="#FF5733" size={26} />
-        //   ),
-        // }}
+       
       />
       <Stack.Screen
-        name="Edit1"
+        name="EditProfile1"
         component={EditProfile1Screen}
-        // options={{
-        //   tabBarLabel: "Setting",
-        //   tabBarIcon: () => (
-        //     <AntDesign name="setting" color="#FF5733" size={26} />
-        //   ),
-        // }}
       />
       <Stack.Screen
-        name="Edit2"
+        name="EditProfile2"
         component={EditProfile2Screen}
-        // options={{
-        //   tabBarLabel: "Setting",
-        //   tabBarIcon: () => (
-        //     <AntDesign name="setting" color="#FF5733" size={26} />
-        //   ),
-        // }}
       />
       <Stack.Screen
-        name="Edit21"
+        name="EditProfile21"
         component={EditProfile21Screen}
-        // options={{
-        //   tabBarLabel: "Setting",
-        //   tabBarIcon: () => (
-        //     <AntDesign name="setting" color="#FF5733" size={26} />
-        //   ),
-        // }}
       />
       <Stack.Screen
-        name="Edit22"
+        name="EditProfile22"
         component={EditProfile22Screen}
-        // options={{
-        //   tabBarLabel: "Setting",
-        //   tabBarIcon: () => (
-        //     <AntDesign name="setting" color="#FF5733" size={26} />
-        //   ),
-        // }}
+      
       />
       <Stack.Screen
         name="AddProfile"
         component={AddProfileScreen}
-        // options={{
-        //   tabBarLabel: "Setting",
-        //   tabBarIcon: () => (
-        //     <AntDesign name="setting" color="#FF5733" size={26} />
-        //   ),
-        // }}
       />
       <Stack.Screen
         name="AddProfile1"
         component={AddProfile1Screen}
-        // options={{
-        //   tabBarLabel: "Setting",
-        //   tabBarIcon: () => (
-        //     <AntDesign name="setting" color="#FF5733" size={26} />
-        //   ),
-        // }}
       />
       <Stack.Screen
         name="AddProfile2"
         component={AddProfile2Screen}
-        // options={{
-        //   tabBarLabel: "Setting",
-        //   tabBarIcon: () => (
-        //     <AntDesign name="setting" color="#FF5733" size={26} />
-        //   ),
-        // }}
       />
       <Stack.Screen
         name="AddProfile3"
         component={AddProfile3Screen}
-        // options={{
-        //   tabBarLabel: "Setting",
-        //   tabBarIcon: () => (
-        //     <AntDesign name="setting" color="#FF5733" size={26} />
-        //   ),
-        // }}
       />
       <Stack.Screen
         name="AddProfile4"
         component={AddProfile4Screen}
-        // options={{
-        //   tabBarLabel: "Setting",
-        //   tabBarIcon: () => (
-        //     <AntDesign name="setting" color="#FF5733" size={26} />
-        //   ),
-        // }}
+
       />
     </Stack.Navigator>
   );
