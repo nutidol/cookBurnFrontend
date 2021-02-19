@@ -14,7 +14,7 @@ const SearchScreen = ({ navigation }) => {
       <View style={{
         borderBottomColor: '#FF910D',
         borderBottomWidth: 1,
-        top: 368 }}/>
+        top: 328 }}/>
       <Text style={styles.optionStyle}> Difficulty Level{'\n'}Duration(min)</Text>
       <SwitchSelector
         style={styles.switchStyle}
@@ -49,7 +49,7 @@ const SearchScreen = ({ navigation }) => {
       <View style={{
         borderBottomColor: '#FF910D',
         borderBottomWidth: 1,
-        top: 580}}/>
+        top: 540}}/>
       <TouchableOpacity
         style={styles.generateBoxStyle}
         onPress={() => navigation.navigate('Search1')}>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   switchStyle: {
     width: 120,
     left: 239,
-    top: 415
+    top: 375
   },
   headerStyle: {
     fontSize: 20,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     left: 36,
-    top: 70
+    top: 30
   },
   forStyle: {
     fontSize: 15,
@@ -86,8 +86,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     left: 36,
-    top: 112
-
+    top: 72
   },
   byStyle: {
     fontSize: 15,
@@ -96,13 +95,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     left: 36,
-    top: 386
+    top: 346
   },
   profilePicStyle: {
     width: 88,
     height: 101,
     left: 37,
-    top: 135,
+    top: 95,
     position: 'absolute',
     borderColor: '#FF5733',
     borderRadius: 8,
@@ -120,8 +119,8 @@ const styles = StyleSheet.create({
     height: 37,
     backgroundColor: "#FF5733",
     position: "absolute",
-    left: 218,
-    top: 700,
+    left: 228,
+    top: 645,
     borderRadius: 24,
     borderWidth: 1,
     borderColor: "#FF5733",
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     left: 44,
-    top: 647
+    top: 607
 
   },
   servingBoxStyle: {
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
     width: 64,
     position: 'absolute',
     left: 168,
-    top: 641,
+    top: 601,
     color: '#FF5733',
     fontSize: 10,
     paddingHorizontal: 30
@@ -160,12 +159,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     textAlign: "center",
     left: 44,
-    top: 417
+    top: 377
   },
   switch1Style: {
     width: 120,
     left: 239,
-    top: 420
+    top: 380
   }
 });
 

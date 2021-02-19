@@ -13,7 +13,7 @@ const Workout1Screen= ({navigation}) => {
                 <Text style={styles.doneStyle}> Done</Text>
          </TouchableOpacity>
          <View style={styles.exPic1Style}>  </View>
-         <Text style={styles.exStyle}> Burpee X10</Text>
+         <Text style={styles.exStyle}>Burpee X10</Text>
          <View style={styles.exPic2Style}>  </View>
       </View>
   )
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
         height: 37,
         backgroundColor: "#FF5733",
         position: "absolute",
-        left: 218,
-        top: 692,
+        left: 228,
+        top: 645,
         borderRadius: 24,
         borderWidth: 1,
         borderColor: "#FF5733",
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 36,
-        top: 70
+        top: 30
     },
     text2Style:{
         fontSize: 15,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 36,
-        top: 99
+        top: 59
     },
     exPic1Style:{
         width: 152,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: '#FF5733',
         left: 51,
-        top: 133
+        top: 93
     },
     exPic2Style:{
         width: 152,
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: '#FF5733',
         left: 51,
-        top: 150
+        top: 110
     },
     exStyle:{
         fontSize: 15,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 226,
-        top: 153
+        top: 113
     }
 });
 

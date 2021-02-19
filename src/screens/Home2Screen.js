@@ -12,7 +12,7 @@ const Home2Screen = ({navigation}) => {
     return (
         
         <View  >
-           <Text style={styles.historyStyle}> Your History</Text>
+           <Text style={styles.HeaderStyle}> Your History</Text>
             <SwitchSelector
                 onPress={value => setOpen({ value })}
                 style={styles.switchStyle}
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         width: 300,
         height: 37,
         left: 40,
-        top: 117
+        top: 77
     },
     box1Style: {
         width: 305,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         borderColor: '#FF5733',
         borderWidth: 1,
         left: 35,
-        top: 200
+        top: 160
     },
     box2Style: {
         width: 305,
@@ -57,16 +57,17 @@ const styles = StyleSheet.create({
         borderColor: '#FF5733',
         borderWidth: 1,
         left: 35,
-        top: 300
+        top: 260
     },
 
-    historyStyle:{
+    HeaderStyle:{
         fontSize: 20,
         color: '#FF5733',
         position: 'absolute',
         textAlign: 'center',
         left: 36,
-        top: 70 
+        top: 30 ,
+        fontWeight: 'bold',
     }
 })
 

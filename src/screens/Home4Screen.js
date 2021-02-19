@@ -5,7 +5,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 const Home4Screen = ({ navigation }) => {
     return (
         <View>
-            <Text style={styles.menuStyle}>Menu Name</Text>
+            <Text style={styles.HeaderStyle}>Menu Name</Text>
             <View style={styles.box1Style}> </View>
             <Text style={styles.igdStyle}>Ingredients:</Text>
             <Text style={styles.rcpStyle}>Recipe:</Text>
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FF5733",
         position: "absolute",
         left: 219,
-        top: 691,
+        top: 651,
         borderRadius: 24,
         display: "flex",
         alignItems: "center",
@@ -44,13 +44,13 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
     },
-    menuStyle: {
+    HeaderStyle: {
         fontSize: 20,
         color: '#FF5733',
         position: 'absolute',
         textAlign: 'center',
         left: 36,
-        top: 70,
+        top: 30,
         fontWeight: "bold",
     },
    igdStyle: {
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: "bold",
         left: 36,
-        top: 247,
+        top: 207,
     },
     rcpStyle: {
         fontSize: 15,
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: "bold",
         left: 36,
-        top: 371,
+        top: 331,
     },
     inStyle: {
         fontSize: 15,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: "bold",
         left: 36,
-        top: 490,
+        top: 450,
     },
     box1Style:{
         width: 303,
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         position: 'absolute',
         left: 37,
-        top: 104
+        top: 64
     }
 
 

@@ -19,12 +19,12 @@ const TotalAddScreen = () => {
                 ]}
                 defaultIndex={0}
                 placeholder="select ingredients type"
-                containerStyle={{ height: 26, width: 200, top: 101, left: 40, position: 'absolute' }}
+                containerStyle={{ height: 26, width: 200, top: 64, left: 36, position: 'absolute' }}
                 labelStyle={{ color: "#FF5733" }}
                 onChangeItem={item => console.log(item.label, item.value)}
             />
             <View style={styles.picStyle}> </View>
-            <Text style={styles.igdStyle}>Ingredient name {'\n'} amount</Text>
+            <Text style={styles.igdStyle}>Ingredient name{'\n'}amount</Text>
     </View>
   )
 };
@@ -37,14 +37,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     left: 36,
-    top: 70
+    top: 30
   },
   picStyle:{
     width: 84,
     height: 84,
     backgroundColor: '#FF5733',
     left: 36,
-    top: 138,
+    top: 98,
     borderRadius: 20
   },
   igdStyle:{
@@ -52,10 +52,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#FF5733",
     position: 'absolute',
-    textAlign: "center",
+    textAlign: "left",
     fontWeight: "bold",
     left: 152.5,
-    top: 159
+    top: 119
 
   }
 });

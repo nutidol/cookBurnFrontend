@@ -5,7 +5,7 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 const Home5Screen = ({navigation}) => {
     return (
         <View>
-            <Text style={styles.historyStyle}> Your History</Text>
+            <Text style={styles.HeaderStyle}> Your History</Text>
             
             <TouchableOpacity
                 onPress={() => navigation.navigate('Workout3')}
@@ -19,13 +19,13 @@ const Home5Screen = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-    historyStyle: {
+    HeaderStyle: {
         fontSize: 20,
         color: '#FF5733',
         position: 'absolute',
         textAlign: 'center',
         left: 36,
-        top: 70,
+        top: 30,
         fontWeight: "bold",
     },
     buttonTextStyle: {
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FF5733",
         position: "absolute",
         left: 219,
-        top: 248,
+        top: 208,
         borderRadius: 24,
         display: "flex",
         alignItems: "center",

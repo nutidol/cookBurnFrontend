@@ -68,14 +68,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     left: 36,
-    top: 70
+    top: 30
 },
   nameStyle:{
     fontSize: 10,
     color: '#FF5733',
     position: 'absolute',
     left: 36,
-    top: 133,
+    top: 93,
     textAlign: 'center'
 },
 nameboxStyle:{
@@ -84,7 +84,7 @@ nameboxStyle:{
     width: 302,
     height: 30,
     left: 36.75,
-    top: 147,
+    top: 107,
     backgroundColor: 'white',
     borderRadius: 8,
     borderWidth: 1,
@@ -97,7 +97,7 @@ genderStyle:{
     color: '#FF5733',
     position: 'absolute',
     left: 36.25,
-    top: 186,
+    top: 146,
     textAlign: 'center'
 },
 genderboxStyle:{
@@ -106,7 +106,7 @@ genderboxStyle:{
     width: 302,
     height: 30,
     left: 36.75,
-    top: 200,
+    top: 160,
     backgroundColor: 'white',
     borderRadius: 8,
     borderWidth: 1,
@@ -120,7 +120,7 @@ ageStyle:{
     color: '#FF5733',
     position: 'absolute',
     left: 36.25,
-    top: 239,
+    top: 199,
     textAlign: 'center'
 },
 ageboxStyle:{
@@ -129,7 +129,7 @@ ageboxStyle:{
     width: 302,
     height: 30,
     left: 36.75,
-    top: 253,
+    top: 213,
     backgroundColor: 'white',
     borderRadius: 8,
     borderWidth: 1,
@@ -142,7 +142,7 @@ weightStyle:{
     color: '#FF5733',
     position: 'absolute',
     left: 36.25,
-    top: 292,
+    top: 252,
     textAlign: 'center'
 },
 weightboxStyle:{
@@ -151,7 +151,7 @@ weightboxStyle:{
     width: 302,
     height: 30,
     left: 36.75,
-    top: 306,
+    top: 266,
     backgroundColor: 'white',
     borderRadius: 8,
     borderWidth: 1,
@@ -164,7 +164,7 @@ heightStyle:{
   color: '#FF5733',
   position: 'absolute',
   left: 36.25,
-  top: 345,
+  top: 305,
   textAlign: 'center'
 },
 heightboxStyle:{
@@ -173,7 +173,7 @@ heightboxStyle:{
   width: 302,
   height: 30,
   left: 36.75,
-  top: 359,
+  top: 319,
   backgroundColor: 'white',
   borderRadius: 8,
   borderWidth: 1,
@@ -186,7 +186,7 @@ iconStyle:{
     color: '#FF5733',
     position: 'absolute',
     left: 36.25,
-    top: 402,
+    top: 362,
     textAlign: 'center'
 },
 nextboxStyle:{
@@ -194,7 +194,7 @@ nextboxStyle:{
     width: 68,
     height: 24,
     left: 272,
-    top: 667,
+    top: 627,
     backgroundColor: '#FF5733',
     textAlign: 'center',
     display: 'flex',
@@ -215,7 +215,7 @@ iconBox1Style:{
     position:'absolute',
    borderColor: '#FF5733',
    left: 37,
-   top: 425
+   top: 385
 },
 iconBox2Style:{
     width: 88,
@@ -225,14 +225,14 @@ iconBox2Style:{
    borderColor: '#FF5733',
    position:'absolute',
    left: 144,
-   top: 425
+   top: 385
 },
 greetStyle:{
     fontSize: 10,
     color: '#FF5733',
     position: 'absolute',
     left: 36.25,
-    top: 96,
+    top: 56,
     textAlign: 'left'
 }
 

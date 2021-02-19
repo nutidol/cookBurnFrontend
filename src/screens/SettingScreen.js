@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 36,
-        top: 70
+        top: 30
       },
       accountStyle:{
         fontSize: 15,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 36,
-        top: 108
+        top: 68
       },
       profileStyle:{
         fontSize: 15,
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 36,
-        top: 150
+        top: 110
       },
       addStyle:{
         fontSize: 15,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 36,
-        top: 192
+        top: 152
       }
   
  

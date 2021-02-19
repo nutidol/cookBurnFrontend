@@ -5,7 +5,7 @@ import React from 'react';
 const Home3Screen = ({ navigation }) => {
     return (
         <View>
-            <Text style={styles.historyStyle}>Your History</Text>
+            <Text style={styles.HeaderStyle}>Your History</Text>
             <Text style={styles.inStyle}>Menu Information:</Text>
             <View style={styles.box1Style}> </View>
             <Text style={styles.preStyle}>Menu Preferences:</Text>
@@ -21,13 +21,13 @@ const Home3Screen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    historyStyle: {
+    HeaderStyle: {
         fontSize: 20,
         color: '#FF5733',
         position: 'absolute',
         textAlign: 'center',
         left: 36,
-        top: 70,
+        top: 30,
         fontWeight: "bold",
     },
     buttonStyle: {
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FF5733",
         position: "absolute",
         left: 219,
-        top: 691,
+        top: 651,
         borderRadius: 24,
         display: "flex",
         alignItems: "center",
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 36,
-        top: 246
+        top: 206
     },
     preStyle: {
         fontSize: 15,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 36,
-        top: 534
+        top: 494
     },
     box1Style:{
         width: 302,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         position: 'absolute',
         left: 37,
-        top: 274
+        top: 234
     },
     box2Style:{
         width: 302,
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         position: 'absolute',
         left: 37,
-        top: 562
+        top: 522
     },
 
 

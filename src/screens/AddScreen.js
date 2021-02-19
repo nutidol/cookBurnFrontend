@@ -3,41 +3,27 @@ import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput } from 'reac
 import { SearchBar } from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { MaterialIcons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons' ;
 
-const AddScreen = ({ navigation }) => {
+const AddScreen = ({ navigation }, ) => {
     const [modalOpen, setModalOpen] = useState(false)
     const [saveOpen, setSaveOpen] = useState(false)
-    const [value, onChangeText] = React.useState('');
-
+    const [term, onTermChange] = React.useState('');
 
     return (
         <View >
             <Text style={styles.addStyle}>Add Ingredients</Text>
-           
-            <SearchBar 
-                onChangeText={text => onChangeText(text)}
-                value={value}
-                placeholder="Search"
-                platform= 'ios'
-                cancelButtonProps={{
-                    color: 'white'
-                }}
-                placeholderTextColor="#FF5733"
-                containerStyle={{
-                    backgroundColor: "#FF5733"
-                }}
-                inputContainerStyle={{
-                    backgroundColor: "white",
-                    borderColor: "white",
-                    borderWidth: 1,
-                    borderRadius: 24
-                }}
-                searchIcon={{
-                    color: "#FF5733",
-                    size: 20
-                }}
-            />
-        
+                    <View  style={styles.serchbarStyle}>
+                        <Icon style={styles.iconStyle} name="ios-search" color='white'size={25} alignItems= 'center'/>
+                        <TextInput 
+                           style={styles.inputStyle} 
+                           placeholder ="Search"
+                           placeholderTextColor="#FF5733"
+                           value ={term}
+                           onChangeText = {newTerm =>onTermChange(newTerm)}
+                           />
+                         </View>
+                        
             <DropDownPicker
                 items={[
                     { label: 'Meat', value: '1' },
@@ -49,7 +35,7 @@ const AddScreen = ({ navigation }) => {
                 ]}
                 defaultIndex={0}
                 placeholder="select ingredients type"
-                containerStyle={{ height: 26, width: 200, top: 165, left: 30, position: 'absolute' }}
+                containerStyle={{ height: 26, width: 200, top: 125, left: 27, position: 'absolute' }}
                 labelStyle={{ color: "#FF5733" }}
                 onChangeItem={item => console.log(item.label, item.value)}
             />
@@ -123,6 +109,36 @@ const AddScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    iconStyle:{
+
+        alignSelf: 'center'
+    },
+    serchbarStyle:{
+        backgroundColor: '#FF5733',
+        height: 49,
+        width: 321,
+        marginHorizontal: 15,
+        flexDirection: 'row',
+        position: 'absolute',
+        top: 62,
+        left: 15
+
+    },
+    inputStyle:{
+        backgroundColor: 'white',
+        borderColor: 'white',
+        borderWidth: 1,
+        borderRadius: 24,
+        height: 37,
+        width: 290,
+        position: 'absolute',
+        left: 25,
+        top: 7,
+        padding: 7,
+        color: "#FF5733",
+       
+        
+    },
 
     addStyle: {
         fontSize: 20,
@@ -131,15 +147,15 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 36,
-        top: 70
+        top: 30
     },
     igdStyle: {
         fontSize: 15,
         color: "#FF5733",
         position: 'absolute',
         textAlign: "center",
-        left: 250,
-        top: 170
+        left: 240,
+        top: 130
     },
     BoxStyle: {
         width: 303,
@@ -149,7 +165,7 @@ const styles = StyleSheet.create({
         borderColor: '#FF5733',
         position: 'absolute',
         left: 35,
-        top: 210
+        top: 170
     },
     PicStyle: {
         width: 84,
@@ -158,7 +174,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF5733',
         position: 'absolute',
         left: 47,
-        top: 224
+        top: 184
     },
     foodStyle: {
         width: 147,
@@ -218,8 +234,8 @@ const styles = StyleSheet.create({
         height: 37,
         backgroundColor: "#FF5733",
         position: "absolute",
-        left: 210,
-        top: 718,
+        left: 228,
+        top: 678,
         borderRadius: 24,
         borderWidth: 1,
         borderColor: "#FF5733",
@@ -242,7 +258,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FF5733",
         position: "absolute",
         left: 117,
-        top: 421,
+        top: 381,
         borderRadius: 24,
         borderWidth: 1,
         borderColor: "#FF5733",
@@ -264,11 +280,14 @@ const styles = StyleSheet.create({
         color: "#FF5733",
         position: 'absolute',
         fontWeight: "bold",
-        top: 355,
+        top: 315,
         left: 125,
         textAlign: "center",
-
     },
+    barStyle:{
+        top: 36,
+        left: 62,
+    }
     
 });
 

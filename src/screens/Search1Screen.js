@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 const Search1Screen= ({navigation}) => {
     return(
         <View>
-            <Text style={styles.workoutStyle}>Menus</Text>
+            <Text style={styles.headerStyle}>Menus</Text>
             <TouchableOpacity
                 onPress={() => navigation.navigate('Home4')}
                 style={styles.box1Style}>
@@ -22,14 +22,14 @@ const Search1Screen= ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-    workoutStyle: {
+    headerStyle: {
         fontSize: 20,
         color: "#FF5733",
         position: 'absolute',
         textAlign: "center",
         fontWeight: "bold",
         left: 36,
-        top: 70
+        top: 30
     },
     box1Style: {
         width: 305,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         borderColor: '#FF910D',
         position: 'absolute',
         left: 35,
-        top: 112
+        top: 72
     },
     box2Style: {
         width: 305,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         borderColor: '#FF910D',
         position: 'absolute',
         left: 35,
-        top: 258
+        top: 218
     },
     menuStyle: {
         fontSize: 15,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 155,
-        top: 152
+        top: 112
     },
     infostyle: {
         fontSize: 10,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontWeight: "bold",
         left: 155,
-        top: 171
+        top: 131
     },
     imageStyle: {
         position: 'absolute',
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF910D',
         borderRadius: 20,
         left: 50,
-        top: 132
+        top: 92
     }
   
  

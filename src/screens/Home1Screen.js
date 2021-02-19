@@ -23,8 +23,8 @@ const Home1Screen = ({ navigation }) => {
             </View>
         </Modal>
 
-        <Text style={styles.dailyStyle}> Your daily information </Text>
-        <Text style={styles.recentStyle}> Your recent activities </Text>
+        <Text style={styles.Header1Style}> Your daily information </Text>
+        <Text style={styles.Header2Style}> Your recent activities </Text>
         <Text style={styles.historyStyle} onPress={() => navigation.navigate('Home2')}> See full history &gt; </Text>
         <TouchableOpacity style={styles.boxStyle}
         onPress={() => navigation.navigate('Home2')}>
@@ -90,22 +90,22 @@ const styles = StyleSheet.create({
         top: 520,
         textAlign: 'center'
     },
-    dailyStyle: {
+    Header1Style: {
         fontSize: 20,
         fontWeight: 'bold',
         color: '#FF5733',
         position: 'absolute',
         left: 36,
-        top: 70,
+        top: 30,
         textAlign: 'center'
     },
-    recentStyle: {
+    Header2Style: {
         fontSize: 20,
         fontWeight: 'bold',
         color: '#FF5733',
         position: 'absolute',
         left: 36,
-        top: 304,
+        top: 264,
         textAlign: 'center'
     },
     historyStyle: {
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         color: '#FF5733',
         position: 'absolute',
         left: 36,
-        top: 333,
+        top: 293,
         textAlign: 'center'
     },
     boxStyle: {
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
         borderColor: '#FF5733',
         borderWidth: 1,
         left: 35,
-        top: 358
+        top: 318
     },
     menuStyle: {
         fontSize: 15,

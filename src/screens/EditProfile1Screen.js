@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 36,
-        top: 70
+        top: 30
     },
     editBoxStyle: {
         width: 68,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FF5733",
         position: "absolute",
         left: 270,
-        top: 226,
+        top: 186,
         borderRadius: 24,
         borderWidth: 1,
         borderColor: "#FF5733",
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         left: 36,
-        top: 276
+        top: 236
     },
     table1Style:{
         fontSize: 10,
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         textAlign: "left",
         fontWeight: "bold",
         left: 43,
-        top: 122
+        top: 82
     }
 
 

@@ -7,8 +7,8 @@ const EditProfile2Screen= ({navigation}) => {
 return(
     <View>
          
-       <Text style={styles.personalStyle}>Your personal information</Text>
-       <Text style={styles.greetStyle}>Please enter or edit your personal information, so we can {'\n'}calculate your daily information for you!</Text>
+       <Text style={styles.headerStyle}>Your personal information</Text>
+       <Text style={styles.subheaderStyle}>Please enter or edit your personal information, so we can {'\n'}calculate your daily information for you!</Text>
        <Text style={styles.genderStyle}> Gender (male/female)</Text>
         <TextInput style={styles.genderboxStyle}
         color = '#FF5733'
@@ -57,13 +57,13 @@ return(
 };
 
 const styles = StyleSheet.create({
-    personalStyle:{
+    headerStyle:{
         fontSize: 20,
         fontWeight: 'bold',
         color: '#FF5733',
         position: 'absolute',
         left: 36,
-        top: 70,
+        top: 30,
         textAlign: 'center'
     },
     genderStyle:{
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         color: '#FF5733',
         position: 'absolute',
         left: 36,
-        top: 133,
+        top: 93,
         textAlign: 'center'
     },
     genderboxStyle:{
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         width: 302,
         height: 30,
         left: 36.75,
-        top: 147,
+        top: 107,
         backgroundColor: 'white',
         borderRadius: 8,
         borderWidth: 1,
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         color: '#FF5733',
         position: 'absolute',
         left: 36.25,
-        top: 186,
+        top: 146,
         textAlign: 'center'
     },
     ageboxStyle:{
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         width: 302,
         height: 30,
         left: 36.75,
-        top: 200,
+        top: 160,
         backgroundColor: 'white',
         borderRadius: 8,
         borderWidth: 1,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         color: '#FF5733',
         position: 'absolute',
         left: 36.25,
-        top: 239,
+        top: 199,
         textAlign: 'center'
     },
     weightboxStyle:{
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         width: 302,
         height: 30,
         left: 36.75,
-        top: 253,
+        top: 213,
         backgroundColor: 'white',
         borderRadius: 8,
         borderWidth: 1,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
         color: '#FF5733',
         position: 'absolute',
         left: 36.25,
-        top: 292,
+        top: 252,
         textAlign: 'center'
     },
     heightboxStyle:{
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         width: 302,
         height: 30,
         left: 36.75,
-        top: 306,
+        top: 266,
         backgroundColor: 'white',
         borderRadius: 8,
         borderWidth: 1,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
         color: '#FF5733',
         position: 'absolute',
         left: 36.25,
-        top: 344,
+        top: 304,
         textAlign: 'center'
     },
     nextboxStyle:{
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
         width: 68,
         height: 24,
         left: 272,
-        top: 609,
+        top: 569,
         backgroundColor: '#FF5733',
         textAlign: 'center',
         display: 'flex',
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
         position:'absolute',
        borderColor: '#FF5733',
        left: 37,
-       top: 367
+       top: 327
     },
     iconBox2Style:{
         width: 88,
@@ -199,14 +199,14 @@ const styles = StyleSheet.create({
        borderColor: '#FF5733',
        position:'absolute',
        left: 144,
-       top: 367
+       top: 327
     },
-    greetStyle:{
+   subheaderStyle:{
         fontSize: 10,
         color: '#FF5733',
         position: 'absolute',
         left: 36.25,
-        top: 96,
+        top: 56,
         textAlign: 'left'
     }
    
