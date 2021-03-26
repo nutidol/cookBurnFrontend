@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Auth } from "aws-amplify";
 
+
+
 export default function SignIn({ navigation, updateAuthState }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -12,6 +14,9 @@ export default function SignIn({ navigation, updateAuthState }) {
     try {
       await Auth.signIn(username, password);
       console.log(" Success");
+      const user = await Auth.currentAuthenticatedUser();
+      
+      console.log(user.attributes.sub);
       updateAuthState("loggedIn");
     } catch (error) {
       console.log(" Error signing in...", error);

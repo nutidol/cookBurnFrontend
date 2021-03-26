@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Auth } from "aws-amplify";
+import Cookie from 'react-native-cookie';
+// const user = "";
 
+// export function setUserID (){
+//   return user
+// }
 
 export default function ConfirmSignUp({ navigation }) {
   const [username, setUsername] = useState("");
@@ -13,9 +18,9 @@ export default function ConfirmSignUp({ navigation }) {
     try {
       await Auth.confirmSignUp(username, authCode);
       console.log(" Code confirmed");
-      //when navigate back to sign in how to reset the text input to be blank? 
-      //right now testing it and it keeps state...
-      navigation.navigate("SignIn");
+      const user = await Auth.currentAuthenticatedUser();
+      Cookie.set(userID, user.attributes.sub)
+      navigation.navigate("OnBoarding1");
     } catch (error) {
       console.log(
         " Verification code does not match. Please enter a valid verification code.",

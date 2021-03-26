@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Modal, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { color } from 'react-native-reanimated';
+
 
 
 const Home1Screen = ({ navigation }) => {
     const [modalOpen, setModalOpen] = useState(true)
+    const [person,setPerson] = useState([])
+    useEffect( async() =>{
+        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/dailyInfo/123");
+        const data = await response.json();
+        setPerson(data);
+        //console.log(data.energy);
+    },[]);
+
+  
     return (<View>
         <Modal visible={modalOpen} animationType='slide'>
             <View style={styles.modalContent}>
@@ -24,6 +35,7 @@ const Home1Screen = ({ navigation }) => {
         </Modal>
 
         <Text style={styles.Header1Style}> Your daily information </Text>
+        
         <Text style={styles.Header2Style}> Your recent activities </Text>
         <Text style={styles.historyStyle} onPress={() => navigation.navigate('Home2')}> See full history &gt; </Text>
         <TouchableOpacity style={styles.boxStyle}
@@ -33,6 +45,13 @@ const Home1Screen = ({ navigation }) => {
             <Text style={styles.dateStyle}>date: </Text>
             <Text style={styles.timeStyle}>time: </Text>
         </TouchableOpacity>
+        <div style={{
+            color : "#FF5733"
+          }}>
+            {person && <div>{'Energy (Kcal):'+person.energy+ "\n" +'fat (g)'+ person.fat + 'carb (g)'+ person.carb + 'protein (g)'+person.protein+ "\n" +'sugar (g)'+ person.sugar + 'sodium (g)'+ person.sodium + 'fiber (g)'+ person.fiber} </div>}
+            
+
+        </div>
 
     </View>
 

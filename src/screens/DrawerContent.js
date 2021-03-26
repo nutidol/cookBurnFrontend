@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { View, StyleSheet, ColorPropType } from 'react-native';
+import Amplify, { Auth, API } from "aws-amplify";
 import {
     useTheme,
     Avatar,
@@ -13,9 +14,19 @@ import {
 } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons';
 
-export function DrawerContent(props) {
+export function DrawerContent({props,updateAuthState} ) {
+  
+  async function signOut() {
+    try {
+      await Auth.signOut();
+      updateAuthState("loggedOut");
+      console.log("Sign out success")
+    } catch (error) {
+      console.log("Error signing out: ", error);
+    }
+  }
     return(
         <View style={{flex:1}}>
             <DrawerContentScrollView {...props}>
@@ -33,7 +44,7 @@ export function DrawerContent(props) {
                         />
                     )}
                     label="Sign Out"
-                    onPress={() => {}}
+                    onPress= {signOut}
                 />
             </Drawer.Section>
         </View>
