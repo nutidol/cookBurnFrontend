@@ -9,7 +9,7 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import { createAppContainer } from "react-navigation";
 import config from "./aws-exports";
 import SignIn from "./src/screens/SignInScreen";
-import SignUp from "./src/screens/SignUpScreen";
+import SignUp from "./src/screens/SignupScreen";
 
 import ConfirmSignUp from "./src/screens/ConfirmSignUp";
 import ForgetPassword from "./src/screens/ForgetPassword";
