@@ -2,12 +2,8 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Auth } from "aws-amplify";
-import Cookie from 'react-native-cookie';
-// const user = "";
-
-// export function setUserID (){
-//   return user
-// }
+// import Cookie from 'react-native-cookie';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ConfirmSignUp({ navigation }) {
   const [username, setUsername] = useState("");
@@ -18,13 +14,15 @@ export default function ConfirmSignUp({ navigation }) {
     try {
       await Auth.confirmSignUp(username, authCode);
       console.log(" Code confirmed");
+      const password = await AsyncStorage.getItem("password")
+      await Auth.signIn(username, password)
       const user = await Auth.currentAuthenticatedUser();
-      Cookie.set(userID, user.attributes.sub)
+      await AsyncStorage.setItem("userID", user.attributes.sub)
       navigation.navigate("OnBoarding1");
     } catch (error) {
       console.log(
         " Verification code does not match. Please enter a valid verification code.",
-        error.code
+        error
       );
       setInvalidMessage(error.message);
     }

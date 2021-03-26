@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Auth } from "aws-amplify";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function SignUp({ navigation }) {
   const [username, setUsername] = useState("");
@@ -9,9 +11,11 @@ export default function SignUp({ navigation }) {
   const [email, setEmail] = useState("");
   const [invalidMessage, setInvalidMessage] = useState(null);
 
+
   async function signUp() {
     try {
       await Auth.signUp({ username, password, attributes: { email } });
+      await AsyncStorage.setItem("password", password)
       console.log(" Sign-up Confirmed");
       navigation.navigate("ConfirmSignUp");
     } catch (error) {
