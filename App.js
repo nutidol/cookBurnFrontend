@@ -25,15 +25,15 @@ import Home1Screen from "./src/screens/Home1Screen";
 
 Amplify.configure(config);
 
-//const AuthenticationStack = createStackNavigator();
+const AuthenticationStack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <AuthenticationStack.Navigator headerMode="none">
-        <AuthenticationStack.Screen
+      <AuthenticationStack.Navigator headerMode="none"> 
+         <AuthenticationStack.Screen
           name="OnBoarding1"
           component={OnboardingOneScreen}
         />
@@ -42,17 +42,22 @@ function App() {
           component={OnboardingTwoScreen}
         />
 
-        {/* <Drawer.Navigator drawerContent ={props => <DrawerContent {...props}/>} >
-        <Drawer.Screen name="Home" component={CustomNavigation} />
-      </Drawer.Navigator> */}
+        <AuthenticationStack.Screen
+          name="OnBoarding3"
+          component={OnboardingThreeScreen}
+        />
+       
       </AuthenticationStack.Navigator>
+       {/* <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />} >
+          <Drawer.Screen name="Home" component={CustomNavigation} />
+        </Drawer.Navigator> */}
     </NavigationContainer>
   );
 }
 
 export default App;
 
-const AuthenticationStack = createStackNavigator();
+
 
 // //stack that has all screens related when the user is not logged in
 // const AuthenticationNavigator = (props) => {

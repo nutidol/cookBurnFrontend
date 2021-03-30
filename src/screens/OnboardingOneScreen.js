@@ -11,12 +11,12 @@ import {
 } from "react-native";
 import axios from "axios";
 import Amplify, { Auth, API } from "aws-amplify";
-import ConfirmSignUp from "./ConfirmSignUp";
-// import Cookie from 'react-native-cookie';
+//import ConfirmSignUp from "./ConfirmSignUp";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const OnboardingOneScreen = ({ navigation }) => {
-  const [posts, setPosts] = useState([]);
+  //const [posts, setPosts] = useState([]);
   const [image, setImage] = useState("");
   const [people, setPeople] = useState(null);
 
@@ -33,13 +33,15 @@ const OnboardingOneScreen = ({ navigation }) => {
       "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/profileIcon"
     );
     const data = await response.json();
+
     setPeople([
       { person: data[0], left: 38, top: 310 },
       { person: data[1], left: 145, top: 310 },
-      { person: data[4], left: 252, top: 310 },
-      { person: data[2], left: 38, top: 430 },
-      { person: data[5], left: 145, top: 430 },
-      { person: data[3], left: 252, top: 430 },
+      { person: data[2], left: 252, top: 310 },
+      { person: data[3], left: 38, top: 430 },
+      { person: data[4], left: 145, top: 430 },
+      { person: data[5], left: 252, top: 430 },
+
     ]);
     console.log(data);
   }, []);
@@ -138,13 +140,13 @@ const OnboardingOneScreen = ({ navigation }) => {
       >
         <Text style={styles.skipStyle}>Skip</Text>
       </TouchableOpacity>
+
       <TouchableOpacity
         disabled={isLoading}
         onPress={() => {
           postData();
         }}
-        style={styles.nextboxStyle}
-      >
+        style={styles.nextboxStyle}>
         <Text style={styles.nextStyle}>
           {isLoading && <ActivityIndicator size="small" />}Next
         </Text>
@@ -197,7 +199,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 39,
     top: 50,
-    textAlign: "center",
+   // textAlign: "center",
   },
   genderStyle: {
     fontSize: 10,

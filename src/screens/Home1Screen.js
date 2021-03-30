@@ -3,20 +3,36 @@ import { View, Text, StyleSheet, Modal, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { color } from 'react-native-reanimated';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
 const Home1Screen = ({ navigation }) => {
     const [modalOpen, setModalOpen] = useState(true)
-    const [person,setPerson] = useState([])
-    useEffect( async() =>{
+    const [info, setInfo] = useState({
+            PK: "",
+            SK: "",
+            carb: 0,
+            energy: 0,
+            fat: 0,
+            fiber: 0,
+            protein: 0,
+            sodium: 0,
+            sugar: 0,
+    })
+    useEffect(async () => {
+        const id = await AsyncStorage.getItem("userID");
         const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/dailyInfo/123");
         const data = await response.json();
-        setPerson(data);
-        //console.log(data.energy);
-    },[]);
+        setInfo(data[0]);
+       // console.log(data);
+       console.log(info.energy)
+    }, []);
 
   
+
+
+
     return (<View>
         <Modal visible={modalOpen} animationType='slide'>
             <View style={styles.modalContent}>
@@ -34,24 +50,39 @@ const Home1Screen = ({ navigation }) => {
             </View>
         </Modal>
 
+
+
         <Text style={styles.Header1Style}> Your daily information </Text>
-        
+
         <Text style={styles.Header2Style}> Your recent activities </Text>
         <Text style={styles.historyStyle} onPress={() => navigation.navigate('Home2')}> See full history &gt; </Text>
         <TouchableOpacity style={styles.boxStyle}
-        onPress={() => navigation.navigate('Home2')}>
+            onPress={() => navigation.navigate('Home2')}>
             <Text style={styles.menuStyle}>Menu name: </Text>
             <Text style={styles.energyStyle}>enerygy: </Text>
             <Text style={styles.dateStyle}>date: </Text>
             <Text style={styles.timeStyle}>time: </Text>
         </TouchableOpacity>
-        <div style={{
-            color : "#FF5733"
-          }}>
-            {person && <div>{'Energy (Kcal):'+person.energy+ "\n" +'fat (g)'+ person.fat + 'carb (g)'+ person.carb + 'protein (g)'+person.protein+ "\n" +'sugar (g)'+ person.sugar + 'sodium (g)'+ person.sodium + 'fiber (g)'+ person.fiber} </div>}
-            
 
-        </div>
+        <View style={styles.tableStyle}>
+            <Text style={styles.textStyle}>Energy(Kcal)                                      {info.energy} </Text>
+        </View>
+        <View style={styles.table1Style}>
+            <Text style={styles.textStyle}>Total fats(g)                                     {info.fat}</Text>
+        </View>
+        <View style={styles.table2Style}>
+            <Text style={styles.textStyle}>Carbohydrate(g)                                    {info.carb}</Text>
+        </View>
+        <View style={styles.table3Style}>
+            <Text style={styles.textStyle}>Sugar(g)                                            {info.sugar}</Text>
+        </View>
+
+        <View style={styles.table4Style}>
+            <Text style={styles.textStyle}>Protein(g)                                         {info.protein}</Text>
+        </View>
+        <View style={styles.table5Style}>
+            <Text style={styles.textStyle}>Sodium(g)                                          {info.sodium} </Text>
+        </View>
 
     </View>
 
@@ -59,6 +90,59 @@ const Home1Screen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    textStyle:{
+        color: "#FF5733",
+        padding: 7,
+        fontSize: 15
+    },
+    tableStyle: {
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top:70,
+        backgroundColor: '#FDCD94',
+    },
+    table1Style: {
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: 101,
+        backgroundColor: '#EAE8E8',
+    },
+    table2Style: {
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: 132,
+        backgroundColor: '#FDCD94',
+    },
+    table3Style: {
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: 163,
+        backgroundColor: '#EAE8E8',
+    },
+    table4Style: {
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: 194,
+        backgroundColor: '#FDCD94',
+    },
+    table5Style: {
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: 225,
+        backgroundColor: '#EAE8E8',
+    },
     modalToggle: {
         marginBottom: 100,
         borderWidth: 1,

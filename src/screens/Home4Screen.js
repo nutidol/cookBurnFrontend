@@ -15,7 +15,7 @@ const Home4Screen = ({ navigation }) => {
             <TouchableOpacity
                 onPress={() => navigation.navigate('Home1')}
                 style={styles.buttonStyle}>
-                <Text style={styles.buttonTextStyle}> Done</Text>
+                <Text style={styles.buttonTextStyle}>Cooked</Text>
             </TouchableOpacity>
 
         </View>

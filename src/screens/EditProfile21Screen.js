@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+
+import React, { useState, useEffect, } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import axios from 'axios'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EditProfile21Screen = ({ navigation }) => {
     const [person,setPerson] = useState(null);
@@ -30,6 +32,7 @@ const EditProfile21Screen = ({ navigation }) => {
         const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/tasteOfMenu");
         const data = await response.json();
         setPerson(data);
+          console.log(data);
     },[]);
 
     useEffect(() => {
