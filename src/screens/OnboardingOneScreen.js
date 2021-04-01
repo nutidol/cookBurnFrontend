@@ -11,21 +11,16 @@ import {
 } from "react-native";
 import axios from "axios";
 import Amplify, { Auth, API } from "aws-amplify";
-//import ConfirmSignUp from "./ConfirmSignUp";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const OnboardingOneScreen = ({ navigation }) => {
-  //const [posts, setPosts] = useState([]);
   const [image, setImage] = useState("");
   const [people, setPeople] = useState(null);
-
   const [url, setUrl] = useState("");
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
-
   const [isLoading, setLoading] = useState(false);
 
   useEffect(async () => {
@@ -37,23 +32,22 @@ const OnboardingOneScreen = ({ navigation }) => {
     setPeople([
       { person: data[0], left: 38, top: 310 },
       { person: data[1], left: 145, top: 310 },
-      { person: data[2], left: 252, top: 310 },
-      { person: data[3], left: 38, top: 430 },
-      { person: data[4], left: 145, top: 430 },
-      { person: data[5], left: 252, top: 430 },
+      { person: data[4], left: 252, top: 310 },
+      { person: data[2], left: 38, top: 430 },
+      { person: data[5], left: 145, top: 430 },
+      { person: data[3], left: 252, top: 430 },
 
     ]);
     console.log(data);
   }, []);
 
   useEffect(() => {
-    // POST request using axios inside useEffect React hook
     if (!url) return;
   }, [url]);
 
   async function postData() {
     if (isLoading || !gender || !age || !image) {
-      // show some error
+      
       return;
     }
     try {
@@ -168,6 +162,7 @@ const OnboardingOneScreen = ({ navigation }) => {
           return (
             <div>
               <TouchableOpacity
+              key={person.SK}
                 onPress={() => {
                   setImage(person.url === image ? "" : person.url);
                 }}

@@ -1,17 +1,128 @@
-import React, { useState } from 'react';
-import {View,Text,StyleSheet,Image, TouchableOpacity,TextInput,Button} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Button, ActivityIndicator } from 'react-native';
+import axios from 'axios'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const AddProfile2Screen = ({ navigation }) => {
+    const [image, setImage] = useState([]);
+    const [people, setPeople] = useState(null);
+    const [url, setUrl] = useState("");
+    const [isLoading, setLoading] = useState(false);
+    const [selectedImages, setSelectedImages] = useState([]);
+
+    const isSelected = (image) => {
+        for (var i in selectedImages) {
+            if (selectedImages[i].url === image)
+                return true;
+        }
+        return false;
+    }
+
+    const removeFromSelectedImages = (image) => {
+        var newSelected = [];
+        for (var i in selectedImages) {
+            if (selectedImages[i].url !== image)
+                newSelected.push(selectedImages[i]);
+        }
+        setSelectedImages(newSelected);
+    }
+    console.log(selectedImages);
+
+    useEffect(async () => {
+        const response = await fetch(
+            "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/tasteOfMenu"
+        );
+        const data = await response.json();
 
 
-const AddProfile2Screen= ({navigation}) => {
+        setPeople([
+            { person: data[0], left: 47, top: 120 },
+            { person: data[1], left: 143, top: 120 },
+            { person: data[2], left: 239, top: 120 },
+            { person: data[3], left: 47, top: 220 },
+            { person: data[4], left: 143, top: 220 },
+            { person: data[5], left: 239, top: 220 },
+            { person: data[6], left: 47, top: 320 },
+            { person: data[7], left: 143, top: 320 },
+            { person: data[8], left: 239, top: 320 },
+
+        ]);
+    }, []);
+
+    // async function postData() {
+    //     if (isLoading) {
+    //         return;
+    //     }
+    //     try {
+    //         const id = await AsyncStorage.getItem("userID");
+    //         console.log(id);
+
+    //         const article = {
+    //             userID: id,
+    //             profileOf: "",
+    //             menuTaste: selectedImages
+    //         };
+    //         setLoading(true);
+    //         const res = await axios.post(
+    //             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/tasteOfMenu",
+    //             article
+    //         );
+    //         console.log(article);
+    //         navigation.navigate("AddProfile3");
+    //         console.log(res);
+    //     } catch (error) {
+    //         console.log(error);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // }
+
+
     return (
         <View>
             <Text style={styles.headerStyle}>Add Other's Profile</Text>
-            <Text style={styles.subheaderStyle}> Please select the types of menu he/she like. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide them the satisfying menus</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('AddProfile3')}
+            <Text style={styles.subheaderStyle}>Please select <b><u>"the tastes"</u></b> of menu <b><u>he/she like</u></b>. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide them the satisfying menus</Text>
+            <TouchableOpacity
+                disabled={isLoading}
+                onPress={() => {
+                    // postData();
+                    navigation.navigate("AddProfile3");
+                }}
                 style={styles.nextboxStyle}>
-                <Text style={styles.nextStyle}  >Next</Text>
+                <Text style={styles.nextStyle}>
+                    {/* {isLoading && <ActivityIndicator size="small" />} */}
+                    Next
+                 </Text>
             </TouchableOpacity>
-            <View style={styles.BoxStyle}>   </View >
+            <View style={styles.BoxStyle}></View >
+            {people && people.map(({ person, left, top }) => {
+                return (
+
+                    <TouchableOpacity
+                        key={person.SK}
+                        onPress={() => {
+                            if (isSelected(person.url)) {
+                                removeFromSelectedImages(person.url);
+                            } else {
+                                setSelectedImages([...selectedImages, person])
+                            }
+                        }}
+                    >
+                        <Image
+                            source={{ uri: person.url }}
+                            style={{
+                                width: 84,
+                                height: 84,
+                                left,
+                                top,
+                                position: "absolute",
+                                opacity: isSelected(person.url) ? 1 : 0.3,
+                            }}
+                        />
+                    </TouchableOpacity>
+
+                );
+            })}
         </View>
     )
 };
@@ -62,8 +173,8 @@ const styles = StyleSheet.create({
         left: 36,
         top: 107
     }
-  
- 
+
+
 });
 
 

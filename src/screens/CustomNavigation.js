@@ -63,7 +63,7 @@ const CustomNavigation = () => (
         tabBarLabel: 'Add',
         tabBarColor: 'white',
         tabBarIcon: () => (
-          <Icon name="ios-add-circle-outline" color='#FF5733' size={26} />
+          <Icon name="add-circle" color='#FF5733' size={26} />
         ),
       }}
     />
@@ -96,7 +96,7 @@ const CustomNavigation = () => (
         tabBarLabel: 'Setting',
         tabBarColor: 'white',
         tabBarIcon: () => (
-          <Icon name="ios-settings-outline" color='#FF5733' size={26} />
+          <Icon name="ios-settings" color='#FF5733' size={26} />
         ),
       }}
     />

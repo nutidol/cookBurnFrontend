@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, ActivityIndicator, } from 'react-native';
 import axios from "axios";
 import Amplify, { Auth, API } from "aws-amplify";
-//import ConfirmSignUp from "./ConfirmSignUp";
-// import Cookie from 'react-native-cookie';
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
-//import { ConsoleLogger } from "@aws-amplify/core";
 
 
 const OnboardingTwoScreen = ({ navigation }) => {
@@ -13,35 +11,34 @@ const OnboardingTwoScreen = ({ navigation }) => {
     const [people, setPeople] = useState(null);
     const [url, setUrl] = useState("");
     const [isLoading, setLoading] = useState(false);
-    //const [theArray, setTheArray] = useState([]);
-
-   
+   const [theArray,setTheArray] =[];
     const[selectedImages, setSelectedImages] = useState([]);
 
     const isSelected = (image) => {
         for (var i  in selectedImages){
-            if(selectedImages[i] === image)
+            if(selectedImages[i].url === image)
                 return true;
         } 
         return false;
     }
    
     const removeFromSelectedImages = (image) =>{
-       
         var newSelected = [];
         for (var i  in selectedImages){
-            if(selectedImages[i] !== image)
+            if(selectedImages[i].url !== image)
                 newSelected.push(selectedImages[i]);
         }  
         setSelectedImages(newSelected);
+       
     }
+    console.log(selectedImages);
 
     useEffect(async () => {
         const response = await fetch(
             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/tasteOfMenu"
         );
         const data = await response.json();
-        console.log(data);
+      
 
         setPeople([
             { person: data[0], left: 47, top: 200 },
@@ -55,28 +52,18 @@ const OnboardingTwoScreen = ({ navigation }) => {
             { person: data[8], left: 239, top: 400 },
 
         ]);
-
-        console.log(data);
     }, []);
 
-    const isInArray = () =>{
-        for (var i in theArray) {
-            if (theArray[i].url == person.url) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     useEffect(() => {
-        // POST request using axios inside useEffect React hook
+        
         if (!url) return;
     }, [url]);
 
 
     async function postData() {
         if (isLoading) {
-            // show some error
             return;
         }
         try {
@@ -86,7 +73,7 @@ const OnboardingTwoScreen = ({ navigation }) => {
             const article = {
                 userID: id,
                 profileOf: "",
-                theArray
+                menuTaste: selectedImages
             };
             setLoading(true);
             const res = await axios.post(
@@ -119,7 +106,7 @@ const OnboardingTwoScreen = ({ navigation }) => {
                 }}
                 style={styles.nextboxStyle}>
                 <Text style={styles.nextStyle}>
-                    {!!isLoading && <ActivityIndicator size="small" />}Next
+                    {isLoading && <ActivityIndicator size="small" />}Next
                  </Text>
             </TouchableOpacity>
             <Text style={styles.point1Style}> . </Text>
@@ -129,16 +116,15 @@ const OnboardingTwoScreen = ({ navigation }) => {
 
             {people && people.map(({ person, left, top}) => {
                 return (
-                   
+    
                         <TouchableOpacity
                             key={person.SK}
                             onPress={() => {
                                 if(isSelected(person.url)){
                                     removeFromSelectedImages(person.url);
                                 }else{
-                                    setSelectedImages([...selectedImages,person.url])
+                                    setSelectedImages([...selectedImages,person])
                                 }
-            
                             }}
                         >
                             <Image

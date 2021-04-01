@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         textAlign: "left",
         left: 36,
-        top: 103
+        top: 56
     },
     addStyle: {
         width: 126,

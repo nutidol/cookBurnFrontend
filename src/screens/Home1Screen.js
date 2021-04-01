@@ -10,28 +10,24 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const Home1Screen = ({ navigation }) => {
     const [modalOpen, setModalOpen] = useState(true)
     const [info, setInfo] = useState({
-            PK: "",
-            SK: "",
-            carb: 0,
-            energy: 0,
-            fat: 0,
-            fiber: 0,
-            protein: 0,
-            sodium: 0,
-            sugar: 0,
+        PK: "",
+        SK: "",
+        carb: 0,
+        energy: 0,
+        fat: 0,
+        fiber: 0,
+        protein: 0,
+        sodium: 0,
+        sugar: 0,
     })
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
         const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/dailyInfo/123");
         const data = await response.json();
         setInfo(data[0]);
-       // console.log(data);
-       console.log(info.energy)
+
+        // console.log(info.energy)
     }, []);
-
-  
-
-
 
     return (<View>
         <Modal visible={modalOpen} animationType='slide'>
@@ -50,10 +46,7 @@ const Home1Screen = ({ navigation }) => {
             </View>
         </Modal>
 
-
-
         <Text style={styles.Header1Style}> Your daily information </Text>
-
         <Text style={styles.Header2Style}> Your recent activities </Text>
         <Text style={styles.historyStyle} onPress={() => navigation.navigate('Home2')}> See full history &gt; </Text>
         <TouchableOpacity style={styles.boxStyle}
@@ -65,43 +58,59 @@ const Home1Screen = ({ navigation }) => {
         </TouchableOpacity>
 
         <View style={styles.tableStyle}>
-            <Text style={styles.textStyle}>Energy(Kcal)                                      {info.energy} </Text>
+            <Text style={styles.textStyle}>Energy(Kcal)</Text>
+            <Text style={styles.infoStyle}>/ {info.energy}</Text>
         </View>
+
         <View style={styles.table1Style}>
-            <Text style={styles.textStyle}>Total fats(g)                                     {info.fat}</Text>
+            <Text style={styles.textStyle}>Total fats(g)</Text>
+            <Text style={styles.infoStyle}>/ {info.fat}</Text>
         </View>
+
         <View style={styles.table2Style}>
-            <Text style={styles.textStyle}>Carbohydrate(g)                                    {info.carb}</Text>
+            <Text style={styles.textStyle}>Carbohydrate(g)</Text>
+            <Text style={styles.infoStyle}>/ {info.carb}</Text>
         </View>
         <View style={styles.table3Style}>
-            <Text style={styles.textStyle}>Sugar(g)                                            {info.sugar}</Text>
+            <Text style={styles.textStyle}>Sugar(g)</Text>
+            <Text style={styles.infoStyle}>/ {info.sugar}</Text>
         </View>
 
         <View style={styles.table4Style}>
-            <Text style={styles.textStyle}>Protein(g)                                         {info.protein}</Text>
+            <Text style={styles.textStyle}>Protein(g)</Text>
+            <Text style={styles.infoStyle}>/ {info.protein}</Text>
         </View>
         <View style={styles.table5Style}>
-            <Text style={styles.textStyle}>Sodium(g)                                          {info.sodium} </Text>
+            <Text style={styles.textStyle}>Sodium(g) </Text>
+            <Text style={styles.infoStyle}>/ {info.sodium}</Text>
         </View>
-
     </View>
 
     );
 };
 
 const styles = StyleSheet.create({
-    textStyle:{
+    infoStyle: {
+        color: "#FF5733",
+        position: 'absolute',
+        zIndex: 5,
+        paddingLeft: 250,
+        paddingVertical: 7
+    },
+   
+    textStyle: {
         color: "#FF5733",
         padding: 7,
-        fontSize: 15
+        fontSize: 15,
     },
     tableStyle: {
         width: 302,
         height: 31,
         position: 'absolute',
         left: 37,
-        top:70,
+        top: 70,
         backgroundColor: '#FDCD94',
+        zIndex:1
     },
     table1Style: {
         width: 302,
@@ -110,6 +119,7 @@ const styles = StyleSheet.create({
         left: 37,
         top: 101,
         backgroundColor: '#EAE8E8',
+        zIndex:1
     },
     table2Style: {
         width: 302,
@@ -118,6 +128,7 @@ const styles = StyleSheet.create({
         left: 37,
         top: 132,
         backgroundColor: '#FDCD94',
+        zIndex:1
     },
     table3Style: {
         width: 302,
@@ -126,6 +137,7 @@ const styles = StyleSheet.create({
         left: 37,
         top: 163,
         backgroundColor: '#EAE8E8',
+        zIndex:1
     },
     table4Style: {
         width: 302,
@@ -134,6 +146,7 @@ const styles = StyleSheet.create({
         left: 37,
         top: 194,
         backgroundColor: '#FDCD94',
+        zIndex:1
     },
     table5Style: {
         width: 302,
@@ -142,6 +155,7 @@ const styles = StyleSheet.create({
         left: 37,
         top: 225,
         backgroundColor: '#EAE8E8',
+        zIndex:1
     },
     modalToggle: {
         marginBottom: 100,
@@ -260,7 +274,8 @@ const styles = StyleSheet.create({
         left: 130,
         top: 90
 
-    }
+    },
+
 
 
 });

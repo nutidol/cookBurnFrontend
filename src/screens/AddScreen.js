@@ -10,8 +10,6 @@ const AddScreen = ({ navigation } ) => {
     const [modalOpen, setModalOpen] = useState(false)
     const [saveOpen, setSaveOpen] = useState(false)
     const [term, onTermChange] = React.useState('');
-  
-
 
     return (
         <View >

@@ -32,7 +32,7 @@ const Drawer = createDrawerNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <AuthenticationStack.Navigator headerMode="none"> 
+      {/* <AuthenticationStack.Navigator headerMode="none"> 
          <AuthenticationStack.Screen
           name="OnBoarding1"
           component={OnboardingOneScreen}
@@ -47,10 +47,10 @@ function App() {
           component={OnboardingThreeScreen}
         />
        
-      </AuthenticationStack.Navigator>
-       {/* <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />} >
+      </AuthenticationStack.Navigator> */}
+       <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />} >
           <Drawer.Screen name="Home" component={CustomNavigation} />
-        </Drawer.Navigator> */}
+        </Drawer.Navigator>
     </NavigationContainer>
   );
 }

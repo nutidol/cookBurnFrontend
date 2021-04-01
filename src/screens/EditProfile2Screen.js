@@ -1,55 +1,73 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native';
 import axios from 'axios'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EditProfile2Screen = ({ navigation }) => {
-    const [person, setPerson] = useState(null)
-    const [theArray, setTheArray] = useState([]);
-    const [alternateImage, setAlternateImage] = useState(true);
-    const [alternateImage1, setAlternateImage1] = useState(true);
-    const [alternateImage2, setAlternateImage2] = useState(true);
-    const [alternateImage3, setAlternateImage3] = useState(true);
-    const [alternateImage4, setAlternateImage4] = useState(true);
-    const [alternateImage5, setAlternateImage5] = useState(true);
+    const [image, setImage] = useState("");
+    const [people, setPeople] = useState(null);
     const [url, setUrl] = useState("");
+    const [gender, setGender] = useState("");
+    const [age, setAge] = useState("");
+    const [height, setHeight] = useState("");
+    const [weight, setWeight] = useState("");
+    const [isLoading, setLoading] = useState(false);
 
-    const changeImage = () => { setAlternateImage(alternateImage => !alternateImage) }
-    const changeImage1 = () => { setAlternateImage1(alternateImage1 => !alternateImage1) }
-    const changeImage2 = () => { setAlternateImage2(alternateImage2 => !alternateImage2) }
-    const changeImage3 = () => { setAlternateImage3(alternateImage3 => !alternateImage3) }
-    const changeImage4 = () => { setAlternateImage4(alternateImage4 => !alternateImage4) }
-    const changeImage5 = () => { setAlternateImage5(alternateImage5 => !alternateImage5) }
 
     useEffect(async () => {
-        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/profileIcon");
+        const response = await fetch(
+            "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/profileIcon"
+        );
         const data = await response.json();
-        setPerson(data);
+
+        setPeople([
+            { person: data[0], left: 38, top: 303 },
+            { person: data[1], left: 145, top: 303 },
+            { person: data[4], left: 252, top: 303 },
+            { person: data[2], left: 38, top: 420 },
+            { person: data[5], left: 145, top: 420 },
+            { person: data[3], left: 252, top: 420 },
+
+        ]);
         console.log(data);
     }, []);
 
     useEffect(() => {
         // POST request using axios inside useEffect React hook
         if (!url) return;
-
-        async function postData() {
-            const article = {
-                userID: 123,
-                profileOf: "nutidol",
-                theArray
-            };
-
-            const res = await axios.post(url, article,)
-                .then((res) => {
-                    console.log(res);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-        postData();
-
     }, [url]);
 
+    async function postData() {
+        if (isLoading || !gender || !age || !image) {
+            // show some error
+            return;
+        }
+        try {
+            const id = await AsyncStorage.getItem("userID");
+            console.log(id);
+            const article = {
+                userID: id,
+                userName: "",
+                profileOf: "",
+                gender: gender,
+                age: age,
+                weight: weight,
+                height: height,
+                url: image,
+            };
+            setLoading(true);
+            const res = await axios.post(
+                "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/personalInfo",
+                article
+            );
+            navigation.navigate("EditProfile21");
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <View>
@@ -62,11 +80,15 @@ const EditProfile2Screen = ({ navigation }) => {
             <View style={styles.Box3Style}> </View >
             <View style={styles.Box4Style}> </View >
             <View style={styles.Box5Style}> </View >
+
             <TextInput style={styles.genderboxStyle}
                 color='#FF5733'
                 autoCapitalize='none'
                 placeholder='gender'
                 placeholderTextColor='#FF5733'
+                onChangeText={(value) => {
+                    setGender(value);
+                }}
             />
             <Text style={styles.ageStyle}> Age(year)</Text>
             <TextInput style={styles.ageboxStyle}
@@ -74,6 +96,9 @@ const EditProfile2Screen = ({ navigation }) => {
                 autoCapitalize='none'
                 placeholder='age'
                 placeholderTextColor='#FF5733'
+                onChangeText={(value) => {
+                    setAge(value);
+                }}
 
             />
             <Text style={styles.weightStyle}> Weight(kg)</Text>
@@ -82,6 +107,9 @@ const EditProfile2Screen = ({ navigation }) => {
                 autoCapitalize='none'
                 placeholder='weight'
                 placeholderTextColor='#FF5733'
+                onChangeText={(value) => {
+                    setWeight(value);
+                }}
 
             />
             <Text style={styles.heightStyle}> Height(cm)</Text>
@@ -90,108 +118,46 @@ const EditProfile2Screen = ({ navigation }) => {
                 autoCapitalize='none'
                 placeholder='height'
                 placeholderTextColor='#FF5733'
+                onChangeText={(value) => {
+                    setHeight(value);
+                }}
 
             />
             <Text style={styles.iconStyle} >Select icon for your profile</Text>
-            <TouchableOpacity onPress={() =>{
-                navigation.navigate('EditProfile21')
-                setUrl("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/profileIcon");
-            }
-                 }
-                style={styles.nextboxStyle} >
-                <Text style={styles.nextStyle}> Next</Text>
+            <TouchableOpacity
+                disabled={isLoading}
+                onPress={() => {
+                    postData();
+                }}
+                style={styles.nextboxStyle}>
+                <Text style={styles.nextStyle}>
+                    {isLoading && <ActivityIndicator size="small" />}Next
+                 </Text>
             </TouchableOpacity>
-
-            <div> {person &&
-                <TouchableOpacity
-                    onPress={() => {
-                        setTheArray([...theArray, person[0]]);
-                        changeImage();
-                        //setClicked(clicked+1);
-                    }} >
-                    {alternateImage && <Image source={{ uri: person[0].url }}
-                        style={{ width: 88, height: 101, left: 38, top: 305, position: 'absolute', opacity: 1 }}
-                    />}
-                    {!alternateImage && <Image source={{ uri: person[0].url }}
-                        style={{ width: 88, height: 101, left: 38, top: 305, position: 'absolute', opacity: 0.3 }} />}
-                </TouchableOpacity>}
-            </div>
-
-            <div> {person &&
-                <TouchableOpacity
-                    onPress={() => {
-                        setTheArray([...theArray, person[1]]);
-                        changeImage1();
-                        //setClicked(clicked+1);
-                    }} >
-                    {alternateImage1 && <Image source={{ uri: person[1].url }}
-                        style={{ width: 88, height: 101, left: 145, top: 305, position: 'absolute', opacity: 1 }}
-                    />}
-                    {!alternateImage1 && <Image source={{ uri: person[1].url }}
-                        style={{ width: 88, height: 101, left: 145, top: 305, position: 'absolute', opacity: 0.3 }} />}
-                </TouchableOpacity>}
-            </div>
-
-            <div> {person &&
-                <TouchableOpacity
-                    onPress={() => {
-                        setTheArray([...theArray, person[4]]);
-                        changeImage4();
-                        //setClicked(clicked+1);
-                    }} >
-                    {alternateImage4 && <Image source={{ uri: person[4].url }}
-                        style={{ width: 88, height: 101, left: 252, top: 305, position: 'absolute', opacity: 1 }}
-                    />}
-                    {!alternateImage4 && <Image source={{ uri: person[4].url }}
-                        style={{ width: 88, height: 101, left: 252, top: 305, position: 'absolute', opacity: 0.3 }} />}
-                </TouchableOpacity>}
-            </div>
-
-            <div> {person &&
-                <TouchableOpacity
-                    onPress={() => {
-                        setTheArray([...theArray, person[2]]);
-                        changeImage2();
-                        //setClicked(clicked+1);
-                    }} >
-                    {alternateImage2 && <Image source={{ uri: person[2].url }}
-                        style={{ width: 88, height: 101, left: 38, top: 422, position: 'absolute', opacity: 1 }}
-                    />}
-                    {!alternateImage2 && <Image source={{ uri: person[2].url }}
-                        style={{ width: 88, height: 101, left: 38, top: 422, position: 'absolute', opacity: 0.3 }} />}
-                </TouchableOpacity>}
-            </div>
-
-            <div> {person &&
-                <TouchableOpacity
-                    onPress={() => {
-                        setTheArray([...theArray, person[5]]);
-                        changeImage5();
-                        //setClicked(clicked+1);
-                    }} >
-                    {alternateImage5 && <Image source={{ uri: person[5].url }}
-                        style={{ width: 88, height: 101, left: 145, top: 422, position: 'absolute', opacity: 1 }}
-                    />}
-                    {!alternateImage5 && <Image source={{ uri: person[5].url }}
-                        style={{ width: 88, height: 101, left: 145, top: 422, position: 'absolute', opacity: 0.3 }} />}
-                </TouchableOpacity>}
-            </div>
-
-            <div> {person &&
-                <TouchableOpacity
-                    onPress={() => {
-                        setTheArray([...theArray, person[3]]);
-                        changeImage3();
-                        //setClicked(clicked+1);
-                    }} >
-                    {alternateImage3 && <Image source={{ uri: person[3].url }}
-                        style={{ width: 88, height: 101, left: 252, top: 422, position: 'absolute', opacity: 1 }}
-                    />}
-                    {!alternateImage3 && <Image source={{ uri: person[3].url }}
-                        style={{ width: 88, height: 101, left: 252, top: 422, position: 'absolute', opacity: 0.3 }} />}
-                </TouchableOpacity>}
-            </div>
-
+            {people &&
+                people.map(({ person, left, top }) => {
+                    return (
+                        <div>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    setImage(person.url === image ? "" : person.url);
+                                }}
+                            >
+                                <Image
+                                    source={{ uri: person.url }}
+                                    style={{
+                                        width: 88,
+                                        height: 101,
+                                        left,
+                                        top,
+                                        position: "absolute",
+                                        opacity: image && person.url === image ? 1 : 0.3,
+                                    }}
+                                />
+                            </TouchableOpacity>
+                        </div>
+                    );
+                })}
         </View>
 
     )
