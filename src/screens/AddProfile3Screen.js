@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image,ActivityIndicator } from 'react-native';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ConsoleLogger } from '@aws-amplify/core';
 
 const AddProfile3Screen= ({navigation}) => {
     const [image, setImage] = useState([]);
@@ -48,38 +49,40 @@ const AddProfile3Screen= ({navigation}) => {
         ]);
     }, []);
 
-    // useEffect(() => {
-    //     if (!url) return;
-    // }, [url]);
+    useEffect(() => {
+        if (!url) return;
+    }, [url]);
 
 
-    // async function postData() {
-    //     if (isLoading) {
-    //         return;
-    //     }
-    //     try {
-    //         const id = await AsyncStorage.getItem("userID");
-    //         console.log(id);
+    async function postData() {
+        if (isLoading) {
+            return;
+        }
+        try {
+            const id = await AsyncStorage.getItem("userID");
+            const profile = await AsyncStorage.getItem("profileOf");
+            console.log(id);
+            console.log(profile);
 
-    //         const article = {
-    //             userID: id,
-    //             profileOf: "",
-    //             menuCuisine: selectedImages
-    //         };
-    //         setLoading(true);
-    //         const res = await axios.post(
-    //             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/cuisineOfMenu",
-    //             article
-    //         );
-    //         console.log(article);
-    //         navigation.navigate("AddProfile4");
-    //         console.log(res);
-    //     } catch (error) {
-    //         console.log(error);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }
+            const article = {
+                userID: id,
+                profileOf: profile,
+                menuCuisine: selectedImages
+            };
+            setLoading(true);
+            const res = await axios.post(
+                "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/cuisineOfMenu",
+                article
+            );
+            console.log(article);
+            navigation.navigate("AddProfile4");
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return(  
         <View>

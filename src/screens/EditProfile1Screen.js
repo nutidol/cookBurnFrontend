@@ -4,8 +4,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EditProfile1Screen = ({ navigation }) => {
     const [info, setInfo] = useState({
-        PK: "",
-        SK: "",
         carb: 0,
         energy: 0,
         fat: 0,
@@ -13,34 +11,46 @@ const EditProfile1Screen = ({ navigation }) => {
         protein: 0,
         sodium: 0,
         sugar: 0,
+        SK: "",
+        PK: ""
+    })
+    const [personalInfo, setPersonalInfo] = useState({
+        height: 0,
+        url: "",
+        gender: "",
+        weight: 0,
+        age: 0,
+        SK: "",
+        PK: ""
     })
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
-        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/dailyInfo/123");
+        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/123");
         const data = await response.json();
-        setInfo(data[0]);
+        setInfo(data.dailyInfo);
+        setPersonalInfo(data.personalInfo)
     }, []);
 
     return (
         <View>
             <Text style={styles.header1Style}>Your Personal Information</Text>
             <Text style={styles.header2Style}>Your Daily Information</Text>
-            
+
             <View style={styles.tableuStyle}>
                 <Text style={styles.textStyle}>Gender</Text>
-                <Text style={styles.infoStyle}>/ </Text>
+                <Text style={styles.infoStyle}>{personalInfo.gender}</Text>
             </View>
             <View style={styles.tableu1Style}>
                 <Text style={styles.textStyle}>Age(year)</Text>
-                <Text style={styles.infoStyle}>/ </Text>
+                <Text style={styles.infoStyle}>{personalInfo.age}</Text>
             </View>
             <View style={styles.tableu2Style}>
                 <Text style={styles.textStyle}>Weight(kg)</Text>
-                <Text style={styles.infoStyle}>/ </Text>
+                <Text style={styles.infoStyle}>{personalInfo.weight}</Text>
             </View>
             <View style={styles.tableu3Style}>
                 <Text style={styles.textStyle}>Height(cm)</Text>
-                <Text style={styles.infoStyle}>/ </Text>
+                <Text style={styles.infoStyle}>{personalInfo.height}</Text>
             </View>
 
             <TouchableOpacity
@@ -50,30 +60,30 @@ const EditProfile1Screen = ({ navigation }) => {
             </TouchableOpacity>
             <View style={styles.tableStyle}>
                 <Text style={styles.textStyle}>Energy(Kcal)</Text>
-                <Text style={styles.infoStyle}>/ {info.energy}</Text>
+                <Text style={styles.infoStyle}>/{info.energy}</Text>
             </View>
 
             <View style={styles.table11Style}>
                 <Text style={styles.textStyle}>Total fats(g)</Text>
-                <Text style={styles.infoStyle}>/ {info.fat}</Text>
+                <Text style={styles.infoStyle}>/{info.fat}</Text>
             </View>
 
             <View style={styles.table2Style}>
                 <Text style={styles.textStyle}>Carbohydrate(g)</Text>
-                <Text style={styles.infoStyle}>/ {info.carb}</Text>
+                <Text style={styles.infoStyle}>/{info.carb}</Text>
             </View>
             <View style={styles.table3Style}>
                 <Text style={styles.textStyle}>Sugar(g)</Text>
-                <Text style={styles.infoStyle}>/ {info.sugar}</Text>
+                <Text style={styles.infoStyle}>/{info.sugar}</Text>
             </View>
 
             <View style={styles.table4Style}>
                 <Text style={styles.textStyle}>Protein(g)</Text>
-                <Text style={styles.infoStyle}>/ {info.protein}</Text>
+                <Text style={styles.infoStyle}>/{info.protein}</Text>
             </View>
             <View style={styles.table5Style}>
                 <Text style={styles.textStyle}>Sodium(g) </Text>
-                <Text style={styles.infoStyle}>/ {info.sodium}</Text>
+                <Text style={styles.infoStyle}>/{info.sodium}</Text>
             </View>
 
         </View>
@@ -226,7 +236,7 @@ const styles = StyleSheet.create({
         left: 36,
         top: 275
     },
-   
+
 
 
 });

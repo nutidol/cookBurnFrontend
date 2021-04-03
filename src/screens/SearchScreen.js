@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
   switch1Style: {
     width: 110,
     left: 220,
-    top: 362,
+    top: 360,
     zIndex: 5
   }
 });

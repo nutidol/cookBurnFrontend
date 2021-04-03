@@ -61,7 +61,6 @@ const EditProfile21Screen = ({ navigation }) => {
 
             const article = {
                 userID: id,
-                profileOf: "",
                 menuTaste: selectedImages
             };
             setLoading(true);

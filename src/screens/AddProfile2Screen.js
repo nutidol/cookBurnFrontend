@@ -32,8 +32,7 @@ const AddProfile2Screen = ({ navigation }) => {
         const response = await fetch(
             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/tasteOfMenu"
         );
-        const data = await response.json();
-
+        const data = await response.json()
 
         setPeople([
             { person: data[0], left: 47, top: 120 },
@@ -49,33 +48,35 @@ const AddProfile2Screen = ({ navigation }) => {
         ]);
     }, []);
 
-    // async function postData() {
-    //     if (isLoading) {
-    //         return;
-    //     }
-    //     try {
-    //         const id = await AsyncStorage.getItem("userID");
-    //         console.log(id);
+    async function postData() {
+        if (isLoading) {
+            return;
+        }
+        try {
+            const id = await AsyncStorage.getItem("userID");
+            const profile = await AsyncStorage.getItem("profileOf");
+            console.log(id);
+            console.log(profile);
 
-    //         const article = {
-    //             userID: id,
-    //             profileOf: "",
-    //             menuTaste: selectedImages
-    //         };
-    //         setLoading(true);
-    //         const res = await axios.post(
-    //             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/tasteOfMenu",
-    //             article
-    //         );
-    //         console.log(article);
-    //         navigation.navigate("AddProfile3");
-    //         console.log(res);
-    //     } catch (error) {
-    //         console.log(error);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }
+            const article = {
+                userID: id,
+                profileOf: profile,
+                menuTaste: selectedImages
+            };
+            setLoading(true);
+            const res = await axios.post(
+                "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/othersTasteOfMenus",
+                article
+            );
+            console.log(article);
+            navigation.navigate("AddProfile3");
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
 
     return (
@@ -85,12 +86,12 @@ const AddProfile2Screen = ({ navigation }) => {
             <TouchableOpacity
                 disabled={isLoading}
                 onPress={() => {
-                    // postData();
+                    postData();
                     navigation.navigate("AddProfile3");
                 }}
                 style={styles.nextboxStyle}>
                 <Text style={styles.nextStyle}>
-                    {/* {isLoading && <ActivityIndicator size="small" />} */}
+                    {isLoading && <ActivityIndicator size="small" />}
                     Next
                  </Text>
             </TouchableOpacity>

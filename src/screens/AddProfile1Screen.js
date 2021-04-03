@@ -14,6 +14,19 @@ const AddProfile1Screen = ({ navigation }) => {
   const [weight, setWeight] = useState("");
   const [isLoading, setLoading] = useState(false);
 
+  async function setProfile() {
+    try {
+      await AsyncStorage.setItem("profileOf", name)
+
+    } catch (error) {
+      console.log(
+        "Cannot set profile name",
+        error
+      );
+      setInvalidMessage(error.message);
+    }
+  }
+
   useEffect(async () => {
     const response = await fetch(
       "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/profileIcon"
@@ -32,41 +45,42 @@ const AddProfile1Screen = ({ navigation }) => {
     console.log(data);
   }, []);
 
-  // useEffect(() => {
-  //   if (!url) return;
-  // }, [url]);
+  useEffect(() => {
+    if (!url) return;
+  }, [url]);
 
-  // async function postData() {
-  //   if (isLoading || !gender || !age || !image) {
-  //     return;
-  //   }
-  //   try {
-  //     const id = await AsyncStorage.getItem("userID");
-  //     console.log(id);
-  //     const article = {
-  //       userID: id,
-  //       userName: "",
-  //       profileOf: "",
-  //       name: name,
-  //       gender: gender,
-  //       age: age,
-  //       weight: weight,
-  //       height: height,
-  //       url: image,
-  //     };
-  //     setLoading(true);
-  //     const res = await axios.post(
-  //       "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/personalInfo",
-  //       article
-  //     );
-  //     navigation.navigate("AddProfile2");
-  //     console.log(res);
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
+  async function postData() {
+    if (isLoading || !gender || !age || !image) {
+      return;
+    }
+    try {
+      const id = await AsyncStorage.getItem("userID");
+      console.log(id);
+      const article = {
+        userID: id,
+        profileOf: "",
+        name: name,
+        gender: gender,
+        age: age,
+        weight: weight,
+        height: height,
+        url: image,
+      };
+      setLoading(true);
+      const res = await axios.post(
+        "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/otherProfile",
+        article
+      );
+      navigation.navigate("AddProfile2");
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+    setProfile();
+
+  }
 
   return (
     <View>
@@ -132,12 +146,12 @@ const AddProfile1Screen = ({ navigation }) => {
         disabled={isLoading}
         onPress={() => {
           navigation.navigate("AddProfile2");
-          // postData();
+          postData();
 
         }}
         style={styles.nextboxStyle}>
         <Text style={styles.nextStyle}>
-          {/* {isLoading && <ActivityIndicator size="small" />} */}
+          {isLoading && <ActivityIndicator size="small" />}
           Next
          </Text>
       </TouchableOpacity>

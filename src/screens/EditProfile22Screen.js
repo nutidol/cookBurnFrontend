@@ -64,7 +64,6 @@ const EditProfile22Screen = ({ navigation }) => {
 
             const article = {
                 userID: id,
-                profileOf: "",
                 menuCuisine: selectedImages
             };
             setLoading(true);

@@ -25,6 +25,7 @@ const Home1Screen = ({ navigation }) => {
         const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/dailyInfo/123");
         const data = await response.json();
         setInfo(data[0]);
+        
 
         // console.log(info.energy)
     }, []);

@@ -12,13 +12,24 @@ const EditProfile2Screen = ({ navigation }) => {
     const [height, setHeight] = useState("");
     const [weight, setWeight] = useState("");
     const [isLoading, setLoading] = useState(false);
+   
 
+    const [personalInfo, setPersonalInfo] = useState({
+        height: 0,
+        url: "",
+        gender: "",
+        weight: 0,
+        age: 0,
+        SK: "",
+        PK: ""
+    })
 
     useEffect(async () => {
         const response = await fetch(
             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/profileIcon"
         );
         const data = await response.json();
+        //setPersonalInfo(data.personalInfo);
 
         setPeople([
             { person: data[0], left: 38, top: 303 },
@@ -32,10 +43,19 @@ const EditProfile2Screen = ({ navigation }) => {
         console.log(data);
     }, []);
 
+    useEffect(async () => {
+        const response = await fetch(
+            "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/123"
+        );
+        const data = await response.json();
+        setPersonalInfo(data.personalInfo);
+    }, []);
+
     useEffect(() => {
         // POST request using axios inside useEffect React hook
         if (!url) return;
     }, [url]);
+    
 
     async function postData() {
         if (isLoading || !gender || !age || !image) {
@@ -47,8 +67,6 @@ const EditProfile2Screen = ({ navigation }) => {
             console.log(id);
             const article = {
                 userID: id,
-                userName: "",
-                profileOf: "",
                 gender: gender,
                 age: age,
                 weight: weight,
@@ -84,7 +102,7 @@ const EditProfile2Screen = ({ navigation }) => {
             <TextInput style={styles.genderboxStyle}
                 color='#FF5733'
                 autoCapitalize='none'
-                placeholder='gender'
+                placeholder= {personalInfo.gender}
                 placeholderTextColor='#FF5733'
                 onChangeText={(value) => {
                     setGender(value);
@@ -94,7 +112,7 @@ const EditProfile2Screen = ({ navigation }) => {
             <TextInput style={styles.ageboxStyle}
                 color='#FF5733'
                 autoCapitalize='none'
-                placeholder='age'
+                placeholder= {personalInfo.age}
                 placeholderTextColor='#FF5733'
                 onChangeText={(value) => {
                     setAge(value);
@@ -105,7 +123,7 @@ const EditProfile2Screen = ({ navigation }) => {
             <TextInput style={styles.weightboxStyle}
                 color='#FF5733'
                 autoCapitalize='none'
-                placeholder='weight'
+                placeholder= {personalInfo.weight}
                 placeholderTextColor='#FF5733'
                 onChangeText={(value) => {
                     setWeight(value);
@@ -116,7 +134,7 @@ const EditProfile2Screen = ({ navigation }) => {
             <TextInput style={styles.heightboxStyle}
                 color='#FF5733'
                 autoCapitalize='none'
-                placeholder='height'
+                placeholder= {personalInfo.height}
                 placeholderTextColor='#FF5733'
                 onChangeText={(value) => {
                     setHeight(value);
@@ -144,7 +162,8 @@ const EditProfile2Screen = ({ navigation }) => {
                                 }}
                             >
                                 <Image
-                                    source={{ uri: person.url }}
+                                  
+                                    source={{ uri: person.url}}
                                     style={{
                                         width: 88,
                                         height: 101,
