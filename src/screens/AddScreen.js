@@ -7,14 +7,14 @@ import axios from 'axios'
 
 const AddScreen = ({ navigation }) => {
     const [modalOpen, setModalOpen] = useState(false);
-    const [image, setImage] = useState([]);
     const [saveOpen, setSaveOpen] = useState(false);
-    const [addOpen, setAddOpen] = useState(false);
+    // const [addOpen, setAddOpen] = useState(false);
     const [term, onTermChange] = React.useState('');
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(null);
+    let controller;
+    const [unit, setUnit] = useState(null);
     const [pic, setPic] = useState(null);
     const [selectedImages, setSelectedImages] = useState([]);
-    const [opa, setOpa] = useState('');
     const [click, setClick] = useState({
         unit: [],
         SK: "",
@@ -26,14 +26,26 @@ const AddScreen = ({ navigation }) => {
 
     );
 
-    const isSelected = () => {
-        if(opa === 1){
-            return true
-        } else if(opa ===0){
-            return false
+    const isSelected = (image) => {
+        for (var i in selectedImages) {
+            if (selectedImages[i] === image)
+                return true;
         }
+        return false;
     }
 
+    const removeFromSelectedImages = (image) => {
+        var newSelected = [];
+        for (var i in selectedImages) {
+            if (selectedImages[i] !== image)
+                newSelected.push(selectedImages[i]);
+        }
+        setSelectedImages(newSelected);
+    }
+
+    console.log(selectedImages);
+
+    console.log(unit);
 
     const getItem = async (value) => {
         let linkValue = ""
@@ -101,7 +113,7 @@ const AddScreen = ({ navigation }) => {
                 ]}
                 defaultIndex={0}
                 placeholder="select ingredients type"
-                containerStyle={{ height: 26, width: 200, top: 125, left: 27, position: 'absolute' }}
+                containerStyle={{ height: 26, width: 200, top: 125, left: 23, position: 'absolute' }}
                 labelStyle={{ color: "#FF5733" }}
                 onChangeItem={item => getItem(item.value)}
             />
@@ -120,52 +132,52 @@ const AddScreen = ({ navigation }) => {
                     size={24}
                     color='#FF5733'
                     onPress={() => setModalOpen(false)} />
-                
-               
-                    <Text style={styles.textStyle}>{click.name}</Text>
-                    <Image
-                        source={{ uri: click.url }}
-                        style={{
-                            width: 147,
-                            height: 147,
-                            left: 109,
-                            top: 300,
-                            position: "absolute",
-                        }}
-                    />
-                    <TouchableOpacity
-                        style={styles.addBoxStyle}
-                        onPress={() => {setModalOpen(false);
-                                        setOpa(1);}}
-                        >
-                        <Text style={styles.AddStyle}>add</Text>
-                    </TouchableOpacity>
 
-                    <TouchableOpacity
-                        style={styles.clearBoxStyle}
-                        onPress={() => {setModalOpen(false)
-                                        setOpa(0);}}>
-                        <Text style={styles.AddStyle}>clear</Text>
-                    </TouchableOpacity>
 
-                    <DropDownPicker
-                        items={[
-                            { label: 'Grams', value: '1' },
-                            { label: 'Pieces', value: '2' },
+                <Text style={styles.textStyle}>{click.name}</Text>
+                <Image
+                    source={{ uri: click.url }}
+                    style={{
+                        width: 147,
+                        height: 147,
+                        left: 109,
+                        top: 300,
+                        position: "absolute",
+                    }}
+                />
+                <TouchableOpacity
+                    style={styles.addBoxStyle}
+                    onPress={() => {
+                        setModalOpen(false);
+                        setSelectedImages([...selectedImages, click.url])
+                    }}
+                >
+                    <Text style={styles.AddStyle}>add</Text>
+                </TouchableOpacity>
 
-                        ]}
-                        defaultIndex={0}
-                        placeholder="units"
-                        containerStyle={{ height: 26, width: 70, left: 190, top: 482, position: 'absolute' }}
-                        labelStyle={{ color: "#FF5733" }}
-                        onChangeItem={item => console.log(item.label, item.value)}
-                    />
+                <TouchableOpacity
+                    style={styles.clearBoxStyle}
+                    onPress={() => {
+                        setModalOpen(false)
+                        removeFromSelectedImages(click.url);
+                    }}>
+                    <Text style={styles.AddStyle}>clear</Text>
+                </TouchableOpacity>
 
-                    <TextInput style={styles.numberStyle}
-                        color='#FF5733'
-                        textAlign='center'
-                        defaultValue={1}
-                    />
+                <DropDownPicker
+                    items={click.unit}
+                    defaultIndex={0}
+                    placeholder="units"
+                    containerStyle={{ height: 26, width: 100, left: 190, top: 482, position: 'absolute' }}
+                    labelStyle={{ color: "#FF5733" }}
+                    onChangeItem={item => setUnit(item)}
+                />
+
+                <TextInput style={styles.numberStyle}
+                    color='#FF5733'
+                    textAlign='center'
+                    defaultValue={1}
+                />
 
             </Modal>
             <TouchableOpacity
@@ -205,7 +217,6 @@ const AddScreen = ({ navigation }) => {
                                 left,
                                 top,
                                 position: "absolute",
-                               // opacity: opa
                                 opacity: isSelected(food.url) ? 1 : 0.3,
                             }}
                         />
@@ -252,7 +263,7 @@ const styles = StyleSheet.create({
 
 
     },
-  
+
     addStyle: {
         fontSize: 20,
         color: "#FF5733",
@@ -267,7 +278,7 @@ const styles = StyleSheet.create({
         color: "#FF5733",
         position: 'absolute',
         textAlign: "center",
-        left: 240,
+        left: 236,
         top: 130
     },
     BoxStyle: {
@@ -303,7 +314,7 @@ const styles = StyleSheet.create({
         height: 24,
         backgroundColor: "#FF5733",
         position: "absolute",
-        left: 191,
+        left: 200,
         top: 521,
         borderRadius: 24,
         borderWidth: 1,
