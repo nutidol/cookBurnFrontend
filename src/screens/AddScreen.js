@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Image , ActivityIndicator} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { MaterialIcons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AddScreen = ({ navigation }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [saveOpen, setSaveOpen] = useState(false);
     // const [addOpen, setAddOpen] = useState(false);
-    const [term, onTermChange] = React.useState('');
+    const [term, setTerm] = useState("");
     const [value, setValue] = useState(null);
-    let controller;
+    const [searchValue, setSearchValue] = useState('');
     const [unit, setUnit] = useState(null);
     const [pic, setPic] = useState(null);
-    const [selectedImages, setSelectedImages] = useState([]);
+    // const [selectedImages, setSelectedImages] = useState([]);
+    const [isLoading, setLoading] = useState(false);
+    const [quantity, setQuantity] = useState("");
     const [click, setClick] = useState({
         unit: [],
         SK: "",
@@ -23,12 +26,23 @@ const AddScreen = ({ navigation }) => {
         url: "",
         ingredientID: 0
     }
-
     );
+    const unitArray = array=>{
+        let unitArr = [];
+        for(let i ; i<array.length; i++ ){
+            unitArr.push({
+                label: array[i],
+                value: i+1
+            })
+
+        }
+        return unitArr;
+    }
+    const [response, setResponse] = useState([]);
 
     const isSelected = (image) => {
-        for (var i in selectedImages) {
-            if (selectedImages[i] === image)
+        for (var i in response) {
+            if (response[i].url === image)
                 return true;
         }
         return false;
@@ -36,17 +50,54 @@ const AddScreen = ({ navigation }) => {
 
     const removeFromSelectedImages = (image) => {
         var newSelected = [];
-        for (var i in selectedImages) {
-            if (selectedImages[i] !== image)
-                newSelected.push(selectedImages[i]);
+        for (var i in response) {
+            if (response[i].url !== image)
+                newSelected.push(response[i]);
         }
-        setSelectedImages(newSelected);
+        setResponse(newSelected);
     }
 
-    console.log(selectedImages);
+    console.log(response);
 
     console.log(unit);
 
+    // console.log(term)
+
+
+    const getSearchItem = async (term) => {
+        console.log(term);
+        const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/ingredientsPage/searchIngredient?ingredient=${term}`);
+        const data = await response.json();
+        console.log(data);
+        setPic([{ food: data[0], left: 47, top: 184 }]);
+        return term;
+    }
+
+
+
+
+    async function postData() {
+
+        try {
+            const id = await AsyncStorage.getItem("userID");
+            console.log(id);
+            const article = {
+                userID: id,
+                ingredients: response
+            };
+            setLoading(true);
+            const res = await axios.post(
+                "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/ingredientsPage/yourIngredients",
+                article
+            );
+            //navigation.navigate("OnBoarding2");
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
     const getItem = async (value) => {
         let linkValue = ""
         if (value === '1') {
@@ -92,14 +143,20 @@ const AddScreen = ({ navigation }) => {
         <View >
             <Text style={styles.addStyle}>Add Ingredients</Text>
             <View style={styles.serchbarStyle}>
-                <Icon style={styles.iconStyle} name="ios-search" color='white' size={25} alignItems='center' />
+                <TouchableOpacity
+                    onPress={() => getSearchItem(term)}>
+                    <Icon style={styles.iconStyle} name="ios-search" color='white' size={25} />
+                </TouchableOpacity>
+
                 <TextInput
                     style={styles.inputStyle}
                     placeholder="Search"
                     placeholderTextColor="#FF5733"
-                    value={term}
-                    onChangeText={newTerm => onTermChange(newTerm)}
+                    // value={term}
+                    onChangeText={newTerm => setTerm(newTerm)}
                 />
+
+
             </View>
 
             <DropDownPicker
@@ -148,8 +205,10 @@ const AddScreen = ({ navigation }) => {
                 <TouchableOpacity
                     style={styles.addBoxStyle}
                     onPress={() => {
+                        setResponse([...response, { ingredientID: click.ingredientID, name: click.name, quantity: quantity, unit: unit, url: click.url }])
                         setModalOpen(false);
-                        setSelectedImages([...selectedImages, click.url])
+                        // setSelectedImages([...selectedImages, click.url])
+
                     }}
                 >
                     <Text style={styles.AddStyle}>add</Text>
@@ -160,30 +219,37 @@ const AddScreen = ({ navigation }) => {
                     onPress={() => {
                         setModalOpen(false)
                         removeFromSelectedImages(click.url);
+                        setQuantity(0);
                     }}>
                     <Text style={styles.AddStyle}>clear</Text>
                 </TouchableOpacity>
 
                 <DropDownPicker
-                    items={click.unit}
+                    
+                    items={unitArray(click.unit)}
                     defaultIndex={0}
                     placeholder="units"
                     containerStyle={{ height: 26, width: 100, left: 190, top: 482, position: 'absolute' }}
                     labelStyle={{ color: "#FF5733" }}
                     onChangeItem={item => setUnit(item)}
+                    
                 />
 
                 <TextInput style={styles.numberStyle}
                     color='#FF5733'
                     textAlign='center'
-                    defaultValue={1}
+                    defaultValue={quantity}
+                    onChangeText={newTerm => setQuantity(newTerm)}
                 />
 
             </Modal>
             <TouchableOpacity
                 style={styles.saveBoxStyle}
-                onPress={() => setSaveOpen(true)}>
-                <Text style={styles.saveStyle}>save</Text>
+                onPress={() => {
+                    postData();
+                    setSaveOpen(true)
+                }}>
+                <Text style={styles.saveStyle}> {isLoading && <ActivityIndicator size="small" />} save</Text>
             </TouchableOpacity>
             <Modal visible={saveOpen}>
                 <MaterialIcons
@@ -234,8 +300,10 @@ const AddScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     iconStyle: {
-
-        alignSelf: 'center'
+        alignItems: 'center',
+        padding: 10,
+        paddingLeft: 295,
+        zIndex: 10
     },
     serchbarStyle: {
         backgroundColor: '#FF5733',
@@ -256,8 +324,8 @@ const styles = StyleSheet.create({
         height: 37,
         width: 290,
         position: 'absolute',
-        left: 25,
-        top: 7,
+        left: 3,
+        top: 6,
         padding: 7,
         color: "#FF5733",
 

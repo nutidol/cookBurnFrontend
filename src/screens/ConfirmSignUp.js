@@ -18,7 +18,7 @@ export default function ConfirmSignUp({ navigation }) {
       await Auth.signIn(username, password)
       const user = await Auth.currentAuthenticatedUser();
       await AsyncStorage.setItem("userID", user.attributes.sub)
-      navigation.navigate("OnBoarding1");
+      navigation.navigate("Knowmore");
     } catch (error) {
       console.log(
         " Verification code does not match. Please enter a valid verification code.",
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     top: 374,
     color: "#FF5733",
     fontSize: 10,
+    padding: 7
   },
   verificationboxStyle: {
     backgroundColor: "white",
@@ -116,6 +117,7 @@ const styles = StyleSheet.create({
     top: 449,
     color: "#FF5733",
     fontSize: 10,
+    padding: 7
   },
   usernameStyle: {
     fontWeight: "bold",
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF5733",
     position: "absolute",
     left: 40,
-    top: 581,
+    top: 528,
     borderRadius: 24,
     borderWidth: 1,
     borderColor: "#FF5733",
