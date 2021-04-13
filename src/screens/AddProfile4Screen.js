@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet,Text, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-const AddProfile4Screen= () => {
+const AddProfile4Screen = () => {
     const [info, setInfo] = useState({
         PK: "",
         SK: "",
@@ -25,9 +25,15 @@ const AddProfile4Screen= () => {
 
     return (
         <View>
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate("AddProfile3")
+                }}>
+                <Text style={styles.backStyle}> &lt;&lt;back</Text>
+            </TouchableOpacity>
             <Text style={styles.header1Style}>Your Personal Information</Text>
             <Text style={styles.header2Style}>Your Daily Information</Text>
-            
+
             <View style={styles.tableuStyle}>
                 <Text style={styles.textStyle}>Name</Text>
                 <Text style={styles.infoStyle}>/ </Text>
@@ -48,7 +54,7 @@ const AddProfile4Screen= () => {
                 <Text style={styles.textStyle}>Height(cm)</Text>
                 <Text style={styles.infoStyle}>/ </Text>
             </View>
-            
+
             <TouchableOpacity
                 style={styles.editBoxStyle}
                 onPress={() => navigation.navigate('AddProfile')}>
@@ -85,12 +91,16 @@ const AddProfile4Screen= () => {
 
         </View>
     )
-  
+
 
 
 };
 
 const styles = StyleSheet.create({
+    backStyle:{
+        color: '#FF5733',
+        fontSize: 10
+      },
     tableStyle: {
         width: 302,
         height: 31,
@@ -158,24 +168,24 @@ const styles = StyleSheet.create({
         padding: 7,
         fontSize: 15,
     },
-  
-    header1Style:{
+
+    header1Style: {
         fontSize: 20,
         fontWeight: 'bold',
         position: 'absolute',
         left: 36,
-         top: 30,
-         color: '#FF5733',
-     },
-     header2Style:{
+        top: 30,
+        color: '#FF5733',
+    },
+    header2Style: {
         fontSize: 20,
         fontWeight: 'bold',
         position: 'absolute',
         left: 36,
-         top: 290,
-         color: '#FF5733',
-     },
-     editBoxStyle: {
+        top: 290,
+        color: '#FF5733',
+    },
+    editBoxStyle: {
         width: 68,
         height: 24,
         backgroundColor: "#FF5733",
@@ -243,7 +253,7 @@ const styles = StyleSheet.create({
         zIndex: 1
     },
 
- 
+
 });
 
 

@@ -81,6 +81,12 @@ const AddProfile2Screen = ({ navigation }) => {
 
     return (
         <View>
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate("AddProfile1")
+                }}>
+                <Text style={styles.backStyle}> &lt;&lt;back</Text>
+            </TouchableOpacity>
             <Text style={styles.headerStyle}>Add Other's Profile</Text>
             <Text style={styles.subheaderStyle}>Please select <b><u>"the tastes"</u></b> of menu <b><u>he/she like</u></b>. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide them the satisfying menus</Text>
             <TouchableOpacity
@@ -129,6 +135,10 @@ const AddProfile2Screen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    backStyle:{
+        color: '#FF5733',
+        fontSize: 10
+      },
     headerStyle: {
         fontSize: 20,
         color: "#FF5733",

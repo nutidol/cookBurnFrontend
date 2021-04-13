@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Image , ActivityIndicator} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -15,9 +15,10 @@ const AddScreen = ({ navigation }) => {
     const [searchValue, setSearchValue] = useState('');
     const [unit, setUnit] = useState(null);
     const [pic, setPic] = useState(null);
-    // const [selectedImages, setSelectedImages] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [quantity, setQuantity] = useState("");
+    
+    const controller = useRef(null);
     const [click, setClick] = useState({
         unit: [],
         SK: "",
@@ -27,17 +28,17 @@ const AddScreen = ({ navigation }) => {
         ingredientID: 0
     }
     );
-    const unitArray = array=>{
+    const unitArray = array =>{
         let unitArr = [];
-        for(let i ; i<array.length; i++ ){
+        for(let i ; i <array.length; i++ ){
             unitArr.push({
                 label: array[i],
                 value: i+1
-            })
-
+            });
         }
         return unitArr;
     }
+
     const [response, setResponse] = useState([]);
 
     const isSelected = (image) => {
@@ -58,12 +59,8 @@ const AddScreen = ({ navigation }) => {
     }
 
     console.log(response);
-
-    console.log(unit);
-
-    // console.log(term)
-
-
+    
+    
     const getSearchItem = async (term) => {
         console.log(term);
         const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/ingredientsPage/searchIngredient?ingredient=${term}`);
@@ -72,8 +69,6 @@ const AddScreen = ({ navigation }) => {
         setPic([{ food: data[0], left: 47, top: 184 }]);
         return term;
     }
-
-
 
 
     async function postData() {
@@ -109,12 +104,12 @@ const AddScreen = ({ navigation }) => {
             linkValue = "veggie"
         }
         else if (value === '4') {
-            linkValue = "grains"
+            linkValue = "grain"
         }
         else if (value === '5') {
-            linkValue = "dairy"
+            linkValue = "condiment"
         } else {
-            linkValue = ""
+            linkValue = "others"
         }
         console.log(value);
         console.log(linkValue);
@@ -134,6 +129,9 @@ const AddScreen = ({ navigation }) => {
             { food: data[7], left: 143, top: 384 },
             { food: data[8], left: 239, top: 384 },
             { food: data[9], left: 47, top: 484 },
+            { food: data[10], left: 143, top: 484 },
+            { food: data[11], left: 239, top: 484 },
+            
 
         ]);
         return linkValue;
@@ -207,8 +205,7 @@ const AddScreen = ({ navigation }) => {
                     onPress={() => {
                         setResponse([...response, { ingredientID: click.ingredientID, name: click.name, quantity: quantity, unit: unit, url: click.url }])
                         setModalOpen(false);
-                        // setSelectedImages([...selectedImages, click.url])
-
+                        
                     }}
                 >
                     <Text style={styles.AddStyle}>add</Text>
@@ -225,13 +222,16 @@ const AddScreen = ({ navigation }) => {
                 </TouchableOpacity>
 
                 <DropDownPicker
-                    
-                    items={unitArray(click.unit)}
-                    defaultIndex={0}
+    
+                    //items={unitArray(click.unit)}
+                    items={click.unit}
+                    //defaultValue = {unit}
                     placeholder="units"
                     containerStyle={{ height: 26, width: 100, left: 190, top: 482, position: 'absolute' }}
                     labelStyle={{ color: "#FF5733" }}
                     onChangeItem={item => setUnit(item)}
+
+                    
                     
                 />
 

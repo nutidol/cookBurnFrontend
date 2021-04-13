@@ -34,12 +34,12 @@ const AddProfile1Screen = ({ navigation }) => {
     const data = await response.json();
 
     setPeople([
-      { person: data[0], left: 38, top: 356 },
-      { person: data[1], left: 145, top: 356 },
-      { person: data[4], left: 252, top: 356 },
-      { person: data[2], left: 38, top: 473 },
-      { person: data[5], left: 145, top: 473 },
-      { person: data[3], left: 252, top: 473 },
+      { person: data[0], left: 38, top: 340 },
+      { person: data[1], left: 145, top: 340 },
+      { person: data[4], left: 252, top: 340 },
+      { person: data[2], left: 38, top: 457 },
+      { person: data[5], left: 145, top: 457 },
+      { person: data[3], left: 252, top: 457 },
 
     ]);
     console.log(data);
@@ -84,6 +84,12 @@ const AddProfile1Screen = ({ navigation }) => {
 
   return (
     <View>
+      <TouchableOpacity 
+      onPress={() => {
+        navigation.navigate("AddProfile")}}>
+        <Text style={styles.backStyle}> &lt;&lt;back</Text>
+      </TouchableOpacity>
+     
       <Text style={styles.headerStyle}>Add Other's Profile</Text>
       <Text style={styles.greetStyle}>Please enter or edit your personal information, so we can {'\n'}calculate your daily information for you!</Text>
       <Text style={styles.nameStyle}> Name</Text>
@@ -195,6 +201,10 @@ const AddProfile1Screen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  backStyle:{
+    color: '#FF5733',
+    fontSize: 10
+  },
   BoxStyle: {
     color: '#FF5733',
     position: 'absolute',

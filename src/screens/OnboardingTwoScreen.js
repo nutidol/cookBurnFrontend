@@ -11,7 +11,6 @@ const OnboardingTwoScreen = ({ navigation }) => {
     const [people, setPeople] = useState(null);
     const [url, setUrl] = useState("");
     const [isLoading, setLoading] = useState(false);
-   const [theArray,setTheArray] =[];
     const[selectedImages, setSelectedImages] = useState([]);
 
     const isSelected = (image) => {

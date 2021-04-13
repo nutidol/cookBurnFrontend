@@ -25,7 +25,7 @@ const EditProfile1Screen = ({ navigation }) => {
     })
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
-        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/123");
+        const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/${id}`);
         const data = await response.json();
         setInfo(data.dailyInfo);
         setPersonalInfo(data.personalInfo)
@@ -82,7 +82,7 @@ const EditProfile1Screen = ({ navigation }) => {
                 <Text style={styles.infoStyle}>/{info.protein}</Text>
             </View>
             <View style={styles.table5Style}>
-                <Text style={styles.textStyle}>Sodium(g) </Text>
+                <Text style={styles.textStyle}>Sodium(mg) </Text>
                 <Text style={styles.infoStyle}>/{info.sodium}</Text>
             </View>
 

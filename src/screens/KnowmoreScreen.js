@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF5733',
         position: 'absolute',
         left: 40,
-        top: 590,
+        top: 690,
         borderRadius: 24,
         textAlign: "center",
         display: "flex",

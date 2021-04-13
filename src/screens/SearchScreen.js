@@ -1,9 +1,47 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, Image, } from 'react-native';
+import { Col, Row, Grid } from "react-native-easy-grid";
 import { TextInput } from 'react-native-gesture-handler';
 import SwitchSelector from "react-native-switch-selector";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const SearchScreen = ({ navigation }) => {
+  const [pic, setPic] = useState([]);
+  const [name, setName] = useState("");
+  //const [isLoading, setLoading] = useState(false);
+  const [selectedImages, setSelectedImages] = useState([]);
+
+
+  useEffect(async () => {
+    const id = await AsyncStorage.getItem("userID");
+    const response = await fetch(
+      "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menuFilterFor/123"
+    );
+    const data = await response.json();
+    addDataToArray(data);
+
+  }, []);
+
+  const addDataToArray = (data) => {
+    var array = [];
+    var positionTop = 70;
+    var positionLeft = 47;
+    for (var i in data) {
+      var dataWithPosition = { url: data[i].url, top: positionTop, left: positionLeft }
+
+      if (i % 3 === 0) {
+        positionLeft += 96
+      } else if (i % 3 === 1) {
+        positionLeft += 192
+      }
+      // else if( i%3 ===2){
+      //   positionLeft+= 96
+      // }
+      array.push(dataWithPosition)
+    }
+    setPic(array)
+    console.log(pic)
+  }
+
   return (
     <View>
       <Text style={styles.headerStyle}>Menu Filters</Text>
@@ -14,28 +52,40 @@ const SearchScreen = ({ navigation }) => {
       <View style={{
         borderBottomColor: '#FF910D',
         borderBottomWidth: 1,
-        top: 328
+        top: 295
       }} />
       <View style={styles.tableuStyle}>
         <Text style={styles.textStyle}>Duration(minutes)</Text>
-        <SwitchSelector
+        {/* <SwitchSelector
         style={styles.switchStyle}
-        initial={1}
-        height = {21}
-        textColor='#FF5733'
-        selectedColor='white'
-        buttonColor='#FF5733'
-        borderColor='#FF5733'
-        hasPadding
-        options={[
-          { label: "max", value: 0 },
-          { label: "min", value: 1 },
-        ]}
-      />
+          initial={1}
+          height={19}
+          textColor='#FF5733'
+          selectedColor='white'
+          buttonColor='#FF5733'
+          borderColor='#FF5733'
+          options={[
+            { label: "max", value: 0 },
+            { label: "min", value: 1 },
+          ]}
+           /> */}
       </View>
 
       <View style={styles.tableu1Style}>
         <Text style={styles.textStyle}>Energy(kcal)</Text>
+        {/* <SwitchSelector
+         style={styles.switch1Style}
+        height={19}
+        initial={1}
+        textColor='#FF5733'
+        selectedColor='white'
+        buttonColor='#FF5733'
+        borderColor='#FF5733'
+        options={[
+          { label: "max", value: "max" },
+          { label: "min", value: "min" },
+        ]}
+      /> */}
 
       </View>
       <View style={styles.tableu2Style}>
@@ -55,28 +105,15 @@ const SearchScreen = ({ navigation }) => {
 
       </View>
       <View style={styles.tableu6Style}>
-        <Text style={styles.textStyle}>Sodium(g)</Text>
+        <Text style={styles.textStyle}>Sodium(mg)</Text>
 
       </View>
 
-      <SwitchSelector
-        style={styles.switch1Style}
-        height={21}
-        initial={1}
-        textColor='#FF5733'
-        selectedColor='white'
-        buttonColor='#FF5733'
-        borderColor='#FF5733'
-        hasPadding
-        options={[
-          { label: "max", value: 0 },
-          { label: "min", value: 1 },
-        ]}
-      />
+
       <View style={{
         borderBottomColor: '#FF910D',
         borderBottomWidth: 1,
-        top: 540
+        top: 575
       }} />
       <TouchableOpacity
         style={styles.generateBoxStyle}
@@ -88,6 +125,41 @@ const SearchScreen = ({ navigation }) => {
         color='#FF5733'
         textAlign='center'
         defaultValue={1} />
+
+
+
+      {pic && pic.map(({ url,left, top }) => {  
+          return(
+         
+         <TouchableOpacity> 
+            <Image
+              source={url}
+              style={{
+                width: 88,
+                height: 101,
+                left,
+                top,
+                position: 'absolute',
+                // opacity: isSelected(person.url) ? 1 : 0.3,
+                
+              }}
+            />
+          </TouchableOpacity> 
+          );
+})}    
+
+
+      {/* {name && name.map(({ profileName, left, top }) => {
+        return (
+
+          <TouchableOpacity>
+            <Text style={{ left, top, color: "#FF5733", fontSize: 10, fontWeight: "bold", position: 'absolute'}}>{profileName}</Text>
+          </TouchableOpacity>
+
+        );
+      })} */}
+
+
     </View>
   );
 };
@@ -100,9 +172,9 @@ const styles = StyleSheet.create({
     paddingLeft: 250,
     paddingVertical: 7
   },
-
   textStyle: {
     color: "#FF5733",
+    position: 'absolute',
     padding: 7,
     fontSize: 15,
   },
@@ -111,7 +183,7 @@ const styles = StyleSheet.create({
     height: 31,
     position: 'absolute',
     left: 37,
-    top: 356,
+    top: 345,
     backgroundColor: '#FDCD94',
     zIndex: 1
   },
@@ -120,16 +192,16 @@ const styles = StyleSheet.create({
     height: 31,
     position: 'absolute',
     left: 37,
-    top: 387,
+    top: 376,
     backgroundColor: '#EAE8E8',
-    zIndex: 1
+    zIndex: 1,
   },
   tableu2Style: {
     width: 302,
     height: 31,
     position: 'absolute',
     left: 37,
-    top: 418,
+    top: 407,
     backgroundColor: '#FDCD94',
     zIndex: 1
   },
@@ -138,7 +210,7 @@ const styles = StyleSheet.create({
     height: 31,
     position: 'absolute',
     left: 37,
-    top: 449,
+    top: 438,
     backgroundColor: '#EAE8E8',
     zIndex: 1
   },
@@ -147,7 +219,7 @@ const styles = StyleSheet.create({
     height: 31,
     position: 'absolute',
     left: 37,
-    top: 480,
+    top: 469,
     backgroundColor: '#FDCD94',
     zIndex: 1
   },
@@ -156,7 +228,7 @@ const styles = StyleSheet.create({
     height: 31,
     position: 'absolute',
     left: 37,
-    top: 511,
+    top: 500,
     backgroundColor: '#EAE8E8',
     zIndex: 1
   },
@@ -165,7 +237,7 @@ const styles = StyleSheet.create({
     height: 31,
     position: 'absolute',
     left: 37,
-    top: 542,
+    top: 531,
     backgroundColor: '#FDCD94',
     zIndex: 1
   },
@@ -176,13 +248,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     textAlign: "center",
     left: 71,
-    top: 65
+    top: 66
   },
   switchStyle: {
     width: 120,
-    left: 239,
-    top: 375,
-    zIndex: 5
+    left: 163,
+
+  },
+  switch1Style: {
+    width: 120,
+    left: 163,
   },
   headerStyle: {
     fontSize: 20,
@@ -209,18 +284,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     left: 36,
-    top: 346
+    top: 310
   },
-  profilePicStyle: {
-    width: 88,
-    height: 101,
-    left: 37,
-    top: 95,
-    position: 'absolute',
-    borderColor: '#FF5733',
-    borderRadius: 8,
-    borderWidth: 1
-  },
+
   generateStyle: {
     fontSize: 10,
     color: "white",
@@ -277,12 +343,7 @@ const styles = StyleSheet.create({
     left: 44,
     top: 377
   },
-  switch1Style: {
-    width: 110,
-    left: 220,
-    top: 360,
-    zIndex: 5
-  }
+
 });
 
 
