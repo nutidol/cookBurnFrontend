@@ -189,12 +189,12 @@ const SearchStackScreen = ({ navigation }) => {
         fontWeight: 'bold'
       }
     }}>
-      <SearchStack.Screen name="Search" component={SearchScreen} options={{
+      {/* <SearchStack.Screen name="Search" component={SearchScreen} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
-      }} />
-      <SearchStack.Screen name="Search1" component={Search1Screen} options={{
+      }} /> */}
+      <SearchStack.Screen name="Search" component={Search1Screen} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
