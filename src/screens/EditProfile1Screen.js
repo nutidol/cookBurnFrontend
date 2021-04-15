@@ -25,7 +25,8 @@ const EditProfile1Screen = ({ navigation }) => {
     })
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
-        const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/${id}`);
+  //const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/${id}`);
+        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/123");
         const data = await response.json();
         setInfo(data.dailyInfo);
         setPersonalInfo(data.personalInfo)

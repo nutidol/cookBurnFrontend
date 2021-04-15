@@ -259,7 +259,11 @@ const AddScreen = ({ navigation }) => {
                     onPress={() => setSaveOpen(false)} />
                 <Text style={styles.aStyle}>Your Ingredients {'\n'} are Saved!</Text>
                 <TouchableOpacity
-                    style={styles.seeBoxStyle}>
+                    style={styles.seeBoxStyle}
+                    onPress= {() => {navigation.navigate('TotalAdd');
+                    setSaveOpen(false);
+                }
+                    }>
                     <Text style={styles.seeStyle}>See your ingredients</Text>
                 </TouchableOpacity>
             </Modal>

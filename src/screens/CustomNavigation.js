@@ -12,7 +12,7 @@ import Home4Screen from "./Home4Screen";
 import Home5Screen from "./Home5Screen";
 import SearchScreen from "./SearchScreen";
 import Search1Screen from "./Search1Screen";
-//import Search2Screen from "./Search2Screen";
+import Search2Screen from "./Search2Screen";
 import AddScreen from "./AddScreen";
 import WorkoutScreen from "./WorkoutScreen";
 import TotalAddScreen from "./TotalAddScreen";
@@ -195,6 +195,12 @@ const SearchStackScreen = ({ navigation }) => {
         )
       }} /> */}
       <SearchStack.Screen name="Search" component={Search1Screen} options={{
+        headerLeft: () => (
+          <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
+        )
+      }} />
+
+<SearchStack.Screen name="Search2" component={Search2Screen} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )

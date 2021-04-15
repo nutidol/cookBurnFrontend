@@ -47,6 +47,9 @@ const EditProfile21Screen = ({ navigation }) => {
             { person: data[6], left: 47, top: 320 },
             { person: data[7], left: 143, top: 320 },
             { person: data[8], left: 239, top: 320 },
+            { person: data[9], left: 47, top: 420 },
+            { person: data[10], left: 143, top: 420 },
+            { person: data[11], left: 239, top: 420 },
 
         ]);
     }, []);
@@ -80,6 +83,13 @@ const EditProfile21Screen = ({ navigation }) => {
 
     return (
         <View>
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate("EditProfile2")
+                }}>
+                <Text style={styles.backStyle}> &lt;&lt;back</Text>
+            </TouchableOpacity>
+            
             <Text style={styles.headerStyle}>Your personal information</Text>
             <Text style={styles.subheaderStyle}> Please select <b><u>"the tastes"</u></b> of menus you like. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide you the satisfying menus</Text>
            
@@ -128,6 +138,12 @@ const EditProfile21Screen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    backStyle:{
+        color: '#FF5733',
+        fontSize: 12,
+        top:10,
+        position: 'absolute',
+      },
     headerStyle:{
         fontSize: 20,
         fontWeight: 'bold',

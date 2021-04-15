@@ -66,7 +66,7 @@ const EditProfile2Screen = ({ navigation }) => {
             const id = await AsyncStorage.getItem("userID");
             console.log(id);
             const article = {
-                userID: id,
+                userID: 123,
                 gender: gender,
                 age: age,
                 weight: weight,
@@ -89,6 +89,12 @@ const EditProfile2Screen = ({ navigation }) => {
 
     return (
         <View>
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate("EditProfile1")
+                }}>
+                <Text style={styles.backStyle}> &lt;&lt;back</Text>
+            </TouchableOpacity>
             <Text style={styles.headerStyle}>Your personal information</Text>
             <Text style={styles.subheaderStyle}>Please enter or edit your personal information, so we can {'\n'}calculate your daily information for you!</Text>
             <Text style={styles.genderStyle}> Gender (male/female)</Text>
@@ -184,6 +190,12 @@ const EditProfile2Screen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    backStyle:{
+        color: '#FF5733',
+        fontSize: 12,
+        top:10,
+        position: 'absolute',
+      },
     BoxStyle: {
         color: '#FF5733',
         position: 'absolute',

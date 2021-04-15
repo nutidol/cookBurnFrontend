@@ -34,12 +34,12 @@ const AddProfile1Screen = ({ navigation }) => {
     const data = await response.json();
 
     setPeople([
-      { person: data[0], left: 38, top: 340 },
-      { person: data[1], left: 145, top: 340 },
-      { person: data[4], left: 252, top: 340 },
-      { person: data[2], left: 38, top: 457 },
-      { person: data[5], left: 145, top: 457 },
-      { person: data[3], left: 252, top: 457 },
+      { person: data[0], left: 38, top: 355 },
+      { person: data[1], left: 145, top: 355 },
+      { person: data[4], left: 252, top: 355 },
+      { person: data[2], left: 38, top: 477 },
+      { person: data[5], left: 145, top: 477 },
+      { person: data[3], left: 252, top: 477 },
 
     ]);
     console.log(data);
@@ -203,7 +203,9 @@ const AddProfile1Screen = ({ navigation }) => {
 const styles = StyleSheet.create({
   backStyle:{
     color: '#FF5733',
-    fontSize: 10
+    fontSize: 12,
+    top:10,
+    position: 'absolute',
   },
   BoxStyle: {
     color: '#FF5733',

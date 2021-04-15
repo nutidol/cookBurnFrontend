@@ -1,22 +1,99 @@
-import React from 'react';
-import { StyleSheet, View, Text, } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+
 
 
 const WorkoutScreen = ({ navigation }) => {
-    return (
-        <View>
-            <Text style={styles.headerStyle}> Your workout</Text>
-            <TouchableOpacity
-                onPress={() => navigation.navigate('Workout1')}
-                style={styles.box1Style}>
-            </TouchableOpacity>
-            <View style={styles.imageStyle}></View>
-                <Text style={styles.menuStyle}>Broccoli Chicken</Text>
-                <Text style={styles.burnstyle}>Burn: 500 cals</Text>
+    const [workout, setWorkout] = useState([]);
+    const [sortkey, setSortkey] = useState("");
+    AsyncStorage.setItem("sortKey", sortkey)
 
-            <TouchableOpacity style={styles.box2Style}>  </TouchableOpacity>
-        </View>
+    useEffect(async () => {
+
+        const id = await AsyncStorage.getItem("userID");
+        
+        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/workoutPage/genWorkout/123"
+        );
+        const data = await response.json();
+        addDataToArray(data);
+        console.log(data)
+    }, []);
+
+    const addDataToArray = (data) => {
+        var array = [];
+        var positionImageTop = -42;
+        var positionTitleTop = -38;
+        var positionEnergyTop = 30;
+        var positionBoxTop = -60;
+        for (var i in data) {
+            positionEnergyTop += 146
+            positionImageTop += 146
+            positionTitleTop += 146
+            positionBoxTop += 146
+            var dataWithPosition = { title: data[i].title, url: data[i].url, energy: data[i].energy, topImage: positionImageTop, topTitle: positionTitleTop, topBox: positionBoxTop, topEnergy: positionEnergyTop, sk: data[i].sortKey }
+            array.push(dataWithPosition);
+        }
+        setWorkout(array)
+    }
+    return (
+        <ScrollView>
+            <Text style={styles.headerStyle}> Your workout</Text>
+
+            {workout && workout.map(({ title, url, energy, topBox, topEnergy, topImage, topTitle, sk }) => {
+                return (
+                    <TouchableOpacity
+                        key={title}
+                        onPress={() => {
+                            setSortkey(sk);
+                            navigation.navigate("Workout1");
+                        }}>
+                        <Image
+                            source={url}
+                            style={{
+                                width: 95,
+                                height: 95,
+                                left: 50,
+                                top: topImage,
+                                position: 'absolute',
+                            }} />
+                        <View style={{
+                            left: 36,
+                            top: topBox,
+                            width: 305,
+                            height: 126,
+                            borderColor: '#FF5733',
+                            borderWidth: 1,
+                            position: 'absolute',
+                        }}></View>
+
+                        <Text style={{
+                            left: 155,
+                            top: topTitle,
+                            color: '#FF5733',
+                            fontSize: 15,
+                            position: 'absolute',
+                            fontWeight: 'bold',
+                            paddingRight:25
+                        }}>For:{title}</Text>
+
+                        <Text style={{
+                            left: 155,
+                            top: topEnergy,
+                            color: '#FF5733',
+                            fontSize: 15,
+                            fontWeight: 'bold',
+                            position: 'absolute',
+                        }}>Burn:{energy} kcal</Text>
+                    </TouchableOpacity>
+
+                );
+            })}
+        </ScrollView>
+
+
+
     )
 };
 
@@ -30,51 +107,8 @@ const styles = StyleSheet.create({
         left: 36,
         top: 30
     },
-    box1Style: {
-        width: 305,
-        height: 126,
-        borderWidth: 1,
-        borderColor: '#FF910D',
-        position: 'absolute',
-        left: 35,
-        top: 72
-    },
-    box2Style: {
-        width: 305,
-        height: 126,
-        borderWidth: 1,
-        borderColor: '#FF910D',
-        position: 'absolute',
-        left: 35,
-        top: 218
-    },
-    menuStyle: {
-        fontSize: 15,
-        color: "#FF5733",
-        position: 'absolute',
-        textAlign: "center",
-        fontWeight: "bold",
-        left: 155,
-        top: 112
-    },
-    burnstyle: {
-        fontSize: 10,
-        color: "#FF5733",
-        position: 'absolute',
-        textAlign: "left",
-        fontWeight: "bold",
-        left: 155,
-        top: 131
-    },
-    imageStyle: {
-        position: 'absolute',
-        width: 87,
-        height: 87,
-        backgroundColor: '#FF910D',
-        borderRadius: 20,
-        left: 50,
-        top: 92
-    }
+
+
 
 
 

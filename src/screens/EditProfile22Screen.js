@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image,ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -8,24 +8,24 @@ const EditProfile22Screen = ({ navigation }) => {
     const [people, setPeople] = useState(null);
     const [url, setUrl] = useState("");
     const [isLoading, setLoading] = useState(false);
-    const[selectedImages, setSelectedImages] = useState([]);
-  
+    const [selectedImages, setSelectedImages] = useState([]);
+
     const isSelected = (image) => {
-        for (var i  in selectedImages){
-            if(selectedImages[i].url === image)
+        for (var i in selectedImages) {
+            if (selectedImages[i].url === image)
                 return true;
-        } 
+        }
         return false;
     }
-   
-    const removeFromSelectedImages = (image) =>{
+
+    const removeFromSelectedImages = (image) => {
         var newSelected = [];
-        for (var i  in selectedImages){
-            if(selectedImages[i].url !== image)
+        for (var i in selectedImages) {
+            if (selectedImages[i].url !== image)
                 newSelected.push(selectedImages[i]);
-        }  
+        }
         setSelectedImages(newSelected);
-       
+
     }
     console.log(selectedImages);
 
@@ -45,6 +45,10 @@ const EditProfile22Screen = ({ navigation }) => {
             { person: data[6], left: 47, top: 320 },
             { person: data[7], left: 143, top: 320 },
             { person: data[8], left: 239, top: 320 },
+            { person: data[9], left: 47, top: 420 },
+            { person: data[10], left: 143, top: 420 },
+            { person: data[11], left: 239, top: 420 },
+
 
         ]);
     }, []);
@@ -84,8 +88,15 @@ const EditProfile22Screen = ({ navigation }) => {
 
     return (
         <View>
+
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate("EditProfile21")
+                }}>
+                <Text style={styles.backStyle}> &lt;&lt;back</Text>
+            </TouchableOpacity>
             <Text style={styles.headerStyle}>Your personal information</Text>
-            
+
             <Text style={styles.subheaderStyle}>Please select <b><u>the cuisines</u></b> you like. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide you the satisfying menus</Text>
             <TouchableOpacity
                 disabled={isLoading}
@@ -100,42 +111,48 @@ const EditProfile22Screen = ({ navigation }) => {
 
             <View style={styles.BoxStyle}></View >
 
-            {people && people.map(({ person, left, top}) => {
+            {people && people.map(({ person, left, top }) => {
                 return (
-    
-                        <TouchableOpacity
-                            key={person.SK}
-                            onPress={() => {
-                                if(isSelected(person.url)){
-                                    removeFromSelectedImages(person.url);
-                                }else{
-                                    setSelectedImages([...selectedImages,person])
-                                }
+
+                    <TouchableOpacity
+                        key={person.SK}
+                        onPress={() => {
+                            if (isSelected(person.url)) {
+                                removeFromSelectedImages(person.url);
+                            } else {
+                                setSelectedImages([...selectedImages, person])
+                            }
+                        }}
+                    >
+                        <Image
+                            source={{ uri: person.url }}
+                            style={{
+                                width: 84,
+                                height: 84,
+                                left,
+                                top,
+                                position: "absolute",
+                                opacity: isSelected(person.url) ? 1 : 0.3,
                             }}
-                        >
-                            <Image
-                                source={{ uri: person.url }}
-                                style={{
-                                    width: 84,
-                                    height: 84,
-                                    left,
-                                    top,
-                                    position: "absolute",
-                                    opacity: isSelected(person.url) ? 1 : 0.3,
-                                }}
-                            />
-                        </TouchableOpacity>
-                   
+                        />
+                    </TouchableOpacity>
+
                 );
             })}
 
-            
+
         </View>
 
     );
 };
 
 const styles = StyleSheet.create({
+    backStyle:{
+        color: '#FF5733',
+        fontSize: 12,
+        top:10,
+        position: 'absolute',
+      },
     headerStyle: {
         fontSize: 20,
         fontWeight: 'bold',

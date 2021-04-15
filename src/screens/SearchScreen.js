@@ -17,14 +17,13 @@ const SearchScreen = ({ navigation }) => {
   const[ protein, setProtein] = useState("")
   const[ sodium, setSodium] = useState("")
   const [servingSize, setServingSize] = useState("")
-  //const [isLoading, setLoading] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState([]);
 
   //console.log(energy);
   //console.log(pic)
 
 
-  const isSelected = (image) => {
+  const isSelected = (name) => {
     for (var i in selectedProfile) {
       if (selectedProfile === name.profile)
         return true;
@@ -32,7 +31,7 @@ const SearchScreen = ({ navigation }) => {
     return false;
   }
 
-  const removeFromSelectedImages = () => {
+  const removeFromSelectedImages = (name) => {
     var newSelected = [];
     for (var i in selectedProfile) {
       if (selectedProfile !== name.profile)
@@ -119,7 +118,7 @@ const SearchScreen = ({ navigation }) => {
             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menuFilter",
             article
         );
-        navigation.navigate("Search1Screen");
+        navigation.navigate("Search1");
         console.log(res);
     } catch (error) {
         console.log(error);

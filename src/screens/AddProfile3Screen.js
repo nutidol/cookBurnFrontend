@@ -45,6 +45,9 @@ const AddProfile3Screen = ({ navigation }) => {
             { person: data[6], left: 47, top: 345 },
             { person: data[7], left: 143, top: 345 },
             { person: data[8], left: 239, top: 345 },
+            { person: data[9], left: 47, top: 445},
+            { person: data[10], left: 143, top: 445 },
+            { person: data[11], left: 239, top: 445 },
 
         ]);
     }, []);
@@ -146,7 +149,9 @@ const AddProfile3Screen = ({ navigation }) => {
 const styles = StyleSheet.create({
     backStyle:{
         color: '#FF5733',
-        fontSize: 10
+        fontSize: 12,
+        top:10,
+        position: 'absolute',
       },
     headerStyle: {
         fontSize: 20,

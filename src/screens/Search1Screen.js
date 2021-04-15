@@ -3,9 +3,13 @@ import { StyleSheet, View, Text, TouchableOpacity, Image, ActivityIndicator, Scr
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
+
 const Search1Screen = ({ navigation }) => {
-    const [isLoading, setLoading] = useState(false);
     const [info, setInfo] = useState([]);
+    const [sortkey, setSortkey] = useState("");
+    AsyncStorage.setItem("sk", sortkey )
+
+
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
         const response = await fetch(
@@ -16,6 +20,7 @@ const Search1Screen = ({ navigation }) => {
         console.log(data)
     }, []);
 
+    console.log(sortkey);
     const addDataToArray = (data) => {
         var array = [];
         var positionImageTop = -42;
@@ -38,7 +43,7 @@ const Search1Screen = ({ navigation }) => {
                 duration: data[i].duration, title: data[i].title, url: data[i].url, topImage: positionImageTop,
                 leftImage: positionImageLeft, topTitle: postitionTitleTop, leftTitle: positionTitleLeft, topBox: postitionBoxTop,
                 leftBox: positionBoxLeft, topDuration: postitionDurationTop, leftDuration: positionDurationLeft, energy: data[i].nutrition.energy,
-                leftEnergy: positionEnergyLeft, topEnergy: postitionEnergyTop
+                leftEnergy: positionEnergyLeft, topEnergy: postitionEnergyTop, sk: data[i].SK
             }
             array.push(dataWithPosition)
         }
@@ -49,9 +54,14 @@ const Search1Screen = ({ navigation }) => {
         <ScrollView>
             <Text style={styles.headerStyle}>Menus</Text>
 
-            {info && info.map(({ url, topImage, leftImage, topTitle, leftTitle, title, duration, topBox, leftBox, leftDuration, topDuration, leftEnergy, topEnergy, energy }) => {
+            {info && info.map(({ url, topImage, leftImage, topTitle, leftTitle, title, duration, topBox, leftBox, leftDuration, topDuration, leftEnergy, topEnergy, energy, sk }) => {
                 return (
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    key = {sk}
+                    onPress={() => {setSortkey(sk);
+                                    navigation.navigate("Search2");
+                                    
+                    }}>
                         <Image
                             source={url}
                             style={{

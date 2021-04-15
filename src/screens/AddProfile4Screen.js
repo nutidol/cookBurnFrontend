@@ -99,7 +99,9 @@ const AddProfile4Screen = () => {
 const styles = StyleSheet.create({
     backStyle:{
         color: '#FF5733',
-        fontSize: 10
+        fontSize: 12,
+        top:10,
+        position: 'absolute',
       },
     tableStyle: {
         width: 302,
