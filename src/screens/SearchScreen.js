@@ -1,45 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, Image, } from 'react-native';
 import axios from "axios";
-import { TextInput } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import SwitchSelector from "react-native-switch-selector";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const SearchScreen = ({ navigation }) => {
   const [isLoading, setLoading] = useState(false);
   const [pic, setPic] = useState([]);
-  const [name, setName] = useState("");
   const [duration, setDuration] = useState("")
   const [energy, setEnergy] = useState("")
-
-  const[ fat, setFat] = useState("")
-  const[ carb, setCarb] = useState("")
-  const[ sugar, setSugar] = useState("")
-  const[ protein, setProtein] = useState("")
-  const[ sodium, setSodium] = useState("")
+  const [fat, setFat] = useState("")
+  const [carb, setCarb] = useState("")
+  const [sugar, setSugar] = useState("")
+  const [protein, setProtein] = useState("")
+  const [sodium, setSodium] = useState("")
+  const [fiber, setFiber] = useState("")
   const [servingSize, setServingSize] = useState("")
   const [selectedProfile, setSelectedProfile] = useState([]);
+  const [top, setTop] = useState("");
 
-  //console.log(energy);
-  //console.log(pic)
+  var dataWithPosition = {}
 
-
-  const isSelected = (name) => {
+  const isSelected = () => {
     for (var i in selectedProfile) {
-      if (selectedProfile === name.profile)
+      if (selectedProfile === profile)
         return true;
     }
+
     return false;
   }
 
-  const removeFromSelectedImages = (name) => {
+
+  const removeFromSelectedImages = () => {
     var newSelected = [];
     for (var i in selectedProfile) {
-      if (selectedProfile !== name.profile)
+      if (selectedProfile !== profile)
         newSelected.push(selectedProfile[i]);
     }
     setSelectedProfile(newSelected);
   }
-  //console.log(selectedProfile);
+
+  console.log(selectedProfile);
+
 
   useEffect(async () => {
     const id = await AsyncStorage.getItem("userID");
@@ -47,35 +49,40 @@ const SearchScreen = ({ navigation }) => {
       "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menuFilterFor/123"
     );
     const data = await response.json();
-    setName([
-      { profileName: data[0].profile, left: 74, top: 155 },
-      { profileName: data[1].profile, left: 170, top: 155 },
-      { profileName: data[2].profile, left: 266, top: 155 },
-    ])
     addDataToArray(data);
+
+
 
   }, []);
 
   const addDataToArray = (data) => {
     var array = [];
-    var positionLeft = 0;
+    var positionImageTop = -44;
+    var positionNameTop = 52;
+
 
     for (var i in data) {
-      var positionTop = 70;
 
-      if (i == 0) {
-        positionLeft = 47
+      if (i % 3 === 0) {
+        positionImageTop += 114;
+        positionNameTop += 114;
+        var positionImageLeft = 37;
+        var positionNameLeft = 64
+      }
+      else if (i % 3 === 1) {
+        positionImageLeft += 107;
+        positionNameLeft += 107;
+      }
+      else if (i % 3 == 2) {
+        positionImageLeft += 107;
+        positionNameLeft += 107;
 
       }
-      else if (i == 1) {
-        positionLeft = 143
-      }
-      else if (i == 2) {
-        positionLeft = 239
-      }
-      var dataWithPosition = { url: data[i].url, top: positionTop, left: positionLeft }
+      dataWithPosition = { url: data[i].url, leftImage: positionImageLeft, topImage: positionImageTop, leftName: positionNameLeft, topName: positionNameTop, profile: data[i].profile }
       array.push(dataWithPosition)
+
     }
+    setTop(positionNameTop);
 
     setPic(array)
     console.log(array)
@@ -85,62 +92,59 @@ const SearchScreen = ({ navigation }) => {
   async function postData() {
 
     try {
-        const id = await AsyncStorage.getItem("userID");
-        const timestamp =  Date.now(); 
-        console.log(id);
-        console.log(timestamp)
-        const article = {
-          userID: "123",
-          timestamp: timestamp,
-          genFor: [
-              {
-                  "profile": "mama",
-                  "url": "https://cookburn-profilepics.s3-ap-southeast-1.amazonaws.com/girl.png"
-              },
-              {
-                  "profile": "nutidol",
-                  "url": "https://cookburn-profilepics.s3-ap-southeast-1.amazonaws.com/girl.png"
-              }
-          ],
-          genBy:{
-            duration: duration,
-            energy: energy,
-            fat: fat,
-            carb: carb,
-            sugar: sugar,
-            protein: protein,
-            sodium: sodium
+      const id = await AsyncStorage.getItem("userID");
+      const timestamp = Date.now();
+      console.log(id);
+      console.log(timestamp)
+      const article = {
+        userID: "123",
+        timestamp: timestamp,
+        genFor: [
+          {
+            "profile": "mama",
+            "url": "https://cookburn-profilepics.s3-ap-southeast-1.amazonaws.com/girl.png"
           },
-          servingSize: servingSize
+          {
+            "profile": "nutidol",
+            "url": "https://cookburn-profilepics.s3-ap-southeast-1.amazonaws.com/girl.png"
+          }
+        ],
+        genBy: {
+          duration: duration,
+          energy: energy,
+          fat: fat,
+          carb: carb,
+          sugar: sugar,
+          protein: protein,
+          sodium: sodium
+        },
+        servingSize: servingSize
       };
-        setLoading(true);
-        const res = await axios.post(
-            "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menuFilter",
-            article
-        );
-        navigation.navigate("Search1");
-        console.log(res);
+      setLoading(true);
+      const res = await axios.post(
+        "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menuFilter",
+        article
+      );
+      navigation.navigate("Search1");
+      console.log(res);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-}
+  }
 
   return (
-    <View>
+    <ScrollView>
       <Text style={styles.headerStyle}>Menu Filters</Text>
       <Text style={styles.forStyle}>For</Text>
       <Text style={styles.subforStyle}>(You can select more than 1 person)</Text>
-      <Text style={styles.byStyle}>By</Text>
-      <Text style={styles.descriptionStyle}>(Please select the following constraints whether to maximize, minimize, 0 (zero value), - (default value))</Text>
+      <Text style={{ fontSize: 15, color: "#FF5733", position: 'absolute', textAlign: "center", fontWeight: "bold", left: 36, top: top + 50 }}>By</Text>
+      <Text style={{ color: "#FF5733", fontSize: 10, left: 60, top: top + 52, position: 'absolute', }}>(Please select the following constraints whether to maximize, minimize, 0 (zero value), - (default value))</Text>
       <TouchableOpacity style={styles.profilePicStyle}> </TouchableOpacity>
-      <View style={{
-        borderBottomColor: '#FF910D',
-        borderBottomWidth: 1,
-        top: 190
-      }} />
-      <View style={styles.tableuStyle}>
+      <View style={{ borderBottomColor: '#FF910D', borderBottomWidth: 1, top: top + 32 }} />
+
+      <View style={{ width: 302, height: 31, position: 'absolute', left: 37, top: top + 95, backgroundColor: '#FDCD94', zIndex: 1 }}>
         <Text style={styles.textStyle}>Duration(minutes)</Text>
         <SwitchSelector
           style={styles.switchStyle}
@@ -158,10 +162,18 @@ const SearchScreen = ({ navigation }) => {
         />
       </View>
 
-      <View style={styles.tableu1Style}>
+      <View style={{
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: top + 126,
+        backgroundColor: '#EAE8E8',
+        zIndex: 1,
+      }}>
         <Text style={styles.textStyle}>Energy(kcal)</Text>
         <SwitchSelector
-        style={styles.switchStyle}
+          style={styles.switchStyle}
           initial={1}
           height={29}
           textColor='#FF5733'
@@ -174,12 +186,20 @@ const SearchScreen = ({ navigation }) => {
             { label: "min", value: "min" },
           ]}
           onPress={value => setEnergy(value)}
-           /> 
+        />
       </View>
-      <View style={styles.tableu2Style}>
+      <View style={{
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: top + 157,
+        backgroundColor: '#FDCD94',
+        zIndex: 1
+      }}>
         <Text style={styles.textStyle}>Total fat(g)</Text>
         <SwitchSelector
-        style={styles.switchStyle}
+          style={styles.switchStyle}
           initial={1}
           height={29}
           textColor='#FF5733'
@@ -192,13 +212,21 @@ const SearchScreen = ({ navigation }) => {
             { label: "min", value: "min" },
           ]}
           onPress={value => setFat(value)}
-           /> 
+        />
 
       </View>
-      <View style={styles.tableu3Style}>
+      <View style={{
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: top + 188,
+        backgroundColor: '#EAE8E8',
+        zIndex: 1,
+      }}>
         <Text style={styles.textStyle}>Carbohydrate(g)</Text>
         <SwitchSelector
-        style={styles.switchStyle}
+          style={styles.switchStyle}
           initial={1}
           height={29}
           textColor='#FF5733'
@@ -211,13 +239,21 @@ const SearchScreen = ({ navigation }) => {
             { label: "min", value: "min" },
           ]}
           onPress={value => setCarb(value)}
-           /> 
+        />
 
       </View>
-      <View style={styles.tableu4Style}>
+      <View style={{
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: top + 219,
+        backgroundColor: '#FDCD94',
+        zIndex: 1
+      }}>
         <Text style={styles.textStyle}>Sugar(g)</Text>
         <SwitchSelector
-        style={styles.switchStyle}
+          style={styles.switchStyle}
           initial={1}
           height={29}
           textColor='#FF5733'
@@ -230,13 +266,21 @@ const SearchScreen = ({ navigation }) => {
             { label: "min", value: "min" },
           ]}
           onPress={value => setSugar(value)}
-           /> 
+        />
 
       </View>
-      <View style={styles.tableu5Style}>
+      <View style={{
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: top + 250,
+        backgroundColor: '#EAE8E8',
+        zIndex: 1,
+      }}>
         <Text style={styles.textStyle}>Protein(g)</Text>
         <SwitchSelector
-        style={styles.switchStyle}
+          style={styles.switchStyle}
           initial={1}
           height={29}
           textColor='#FF5733'
@@ -249,13 +293,21 @@ const SearchScreen = ({ navigation }) => {
             { label: "min", value: "min" },
           ]}
           onPress={value => setProtein(value)}
-           /> 
+        />
 
       </View>
-      <View style={styles.tableu6Style}>
+      <View style={{
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: top + 281,
+        backgroundColor: '#FDCD94',
+        zIndex: 1
+      }}>
         <Text style={styles.textStyle}>Sodium(mg)</Text>
         <SwitchSelector
-        style={styles.switchStyle}
+          style={styles.switchStyle}
           initial={1}
           height={29}
           textColor='#FF5733'
@@ -268,7 +320,35 @@ const SearchScreen = ({ navigation }) => {
             { label: "min", value: "min" },
           ]}
           onPress={value => setSodium(value)}
-           /> 
+        />
+
+      </View>
+
+      <View style={{
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: top + 312,
+        backgroundColor: '#EAE8E8',
+        zIndex: 1
+      }}>
+        <Text style={styles.textStyle}>Fiber(g)</Text>
+        <SwitchSelector
+          style={styles.switchStyle}
+          initial={1}
+          height={29}
+          textColor='#FF5733'
+          selectedColor='white'
+          buttonColor='#FF5733'
+          borderColor='#FF5733'
+          options={[
+            { label: "max", value: "max" },
+            { label: "0", value: "0" },
+            { label: "min", value: "min" },
+          ]}
+          onPress={value => setFiber(value)}
+        />
 
       </View>
 
@@ -276,74 +356,94 @@ const SearchScreen = ({ navigation }) => {
       <View style={{
         borderBottomColor: '#FF910D',
         borderBottomWidth: 1,
-        top: 490
+        top: top + 370
       }} />
       <TouchableOpacity
-        style={styles.generateBoxStyle}
+        style={{
+          width: 100,
+          height: 30,
+          backgroundColor: "#FF5733",
+          position: "absolute",
+          left: 240,
+          top: top + 450,
+          borderRadius: 24,
+          borderWidth: 1,
+          borderColor: "#FF5733",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingHorizontal: 10,
+        }}
         onPress={() => postData()}>
-        <Text style={styles.generateStyle}> Generate</Text>
+        <Text style={styles.generateStyle}>{isLoading && <ActivityIndicator size="small" />}Generate</Text>
       </TouchableOpacity>
 
-      <Text style={styles.servingStyle}>{isLoading && <ActivityIndicator size="small" />}Serving Size</Text>
-      <TextInput style={styles.servingBoxStyle}
+      <Text style={{fontSize: 15,color: "#FF5733",position: 'absolute', textAlign: "center", fontWeight: "bold",left: 44,top: top + 388}}>Serving Size</Text>
+      <TextInput style={{
+        backgroundColor: 'white',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#FF5733',
+        height: 30,
+        width: 64,
+        position: 'absolute',
+        left: 168,
+        top: top + 388,
+        color: '#FF5733',
+        fontSize: 10,
+        textAlign: 'center'
+      }}
         color='#FF5733'
         textAlign='center'
-        defaultValue={1} 
-        onChangeText = {newTerm => setServingSize(newTerm)}/>
+        defaultValue={1}
+        onChangeText={newTerm => setServingSize(newTerm)} />
 
 
-      {pic && pic.map(({ url, left, top }) => {
+      {pic && pic.map(({ url, leftImage, topImage, leftName, topName, profile }) => {
         return (
-
-          <Image
-            source={url}
-            style={{
-              width: 88,
-              height: 101,
-              left,
-              top,
-              position: 'absolute',
-              //opacity: isSelected(pic.url) ? 1 : 0.3,
-
-            }}
-          />
-
-        );
-      })}
-
-
-      {name && name.map(({ profileName, left, top }) => {
-        return (
-
           <TouchableOpacity
-            key={profileName.profile}
+            key={profile}
             onPress={() => {
-              if (isSelected(profileName.profile)) {
-                removeFromSelectedImages(profileName.profile);
+              if (isSelected(profile)) {
+                removeFromSelectedImages(profile);
               } else {
-                setSelectedProfile([...selectedProfile, profileName.profile])
+                setSelectedProfile([...selectedProfile, profile])
               }
-
             }}>
-            <Text style={{ left, top, color: "#FF5733", fontSize: 10, fontWeight: "bold", position: 'absolute' }}>{profileName}</Text>
+            <Image
+              source={url}
+              style={{
+                width: 88,
+                height: 101,
+                left: leftImage,
+                top: topImage,
+                position: 'absolute',
+                opacity: isSelected(profile) ? 1 : 0.3,
+              }}
+            />
+            <Text style={{
+              left: leftName,
+              top: topName,
+              color: '#FF5733',
+              fontSize: 10,
+              position: 'absolute',
+            }}>{profile}</Text>
+
+
           </TouchableOpacity>
 
         );
       })}
 
 
-    </View>
+
+
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  descriptionStyle:{
-    color: "#FF5733",
-    fontSize:10,
-    left: 60,
-    top: 214,
-    position: 'absolute',
-  },
+
   infoStyle: {
     color: "#FF5733",
     position: 'absolute',
@@ -356,69 +456,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     padding: 7,
     fontSize: 15,
-  },
-  tableuStyle: {
-    width: 302,
-    height: 31,
-    position: 'absolute',
-    left: 37,
-    top: 250,
-    backgroundColor: '#FDCD94',
-    zIndex: 1
-  },
-  tableu1Style: {
-    width: 302,
-    height: 31,
-    position: 'absolute',
-    left: 37,
-    top: 281,
-    backgroundColor: '#EAE8E8',
-    zIndex: 1,
-  },
-  tableu2Style: {
-    width: 302,
-    height: 31,
-    position: 'absolute',
-    left: 37,
-    top: 312,
-    backgroundColor: '#FDCD94',
-    zIndex: 1
-  },
-  tableu3Style: {
-    width: 302,
-    height: 31,
-    position: 'absolute',
-    left: 37,
-    top: 343,
-    backgroundColor: '#EAE8E8',
-    zIndex: 1
-  },
-  tableu4Style: {
-    width: 302,
-    height: 31,
-    position: 'absolute',
-    left: 37,
-    top: 374,
-    backgroundColor: '#FDCD94',
-    zIndex: 1
-  },
-  tableu5Style: {
-    width: 302,
-    height: 31,
-    position: 'absolute',
-    left: 37,
-    top: 405,
-    backgroundColor: '#EAE8E8',
-    zIndex: 1
-  },
-  tableu6Style: {
-    width: 302,
-    height: 31,
-    position: 'absolute',
-    left: 37,
-    top: 436,
-    backgroundColor: '#FDCD94',
-    zIndex: 1
   },
 
   subforStyle: {
@@ -453,15 +490,7 @@ const styles = StyleSheet.create({
     left: 36,
     top: 62
   },
-  byStyle: {
-    fontSize: 15,
-    color: "#FF5733",
-    position: 'absolute',
-    textAlign: "center",
-    fontWeight: "bold",
-    left: 36,
-    top: 210
-  },
+
 
   generateStyle: {
     fontSize: 10,
@@ -470,47 +499,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
   },
-  generateBoxStyle: {
-    width: 100,
-    height: 30,
-    backgroundColor: "#FF5733",
-    position: "absolute",
-    left: 240,
-    top: 590,
-    borderRadius: 24,
-    borderWidth: 1,
-    borderColor: "#FF5733",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 10,
-  },
 
 
-  servingStyle: {
-    fontSize: 15,
-    color: "#FF5733",
-    position: 'absolute',
-    textAlign: "center",
-    fontWeight: "bold",
-    left: 44,
-    top: 520
 
-  },
-  servingBoxStyle: {
-    backgroundColor: 'white',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#FF5733',
-    height: 30,
-    width: 64,
-    position: 'absolute',
-    left: 168,
-    top: 520,
-    color: '#FF5733',
-    fontSize: 10,
-    textAlign: 'center'
-  },
+
   optionStyle: {
     fontSize: 15,
     color: "#FF5733",

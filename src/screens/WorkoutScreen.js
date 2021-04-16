@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 
-const WorkoutScreen = ({ navigation }) => {
+const WorkoutScreen = ({ navigation, route }) => {
     const [workout, setWorkout] = useState([]);
     const [sortkey, setSortkey] = useState("");
     AsyncStorage.setItem("sortKey", sortkey)
@@ -19,7 +19,23 @@ const WorkoutScreen = ({ navigation }) => {
         const data = await response.json();
         addDataToArray(data);
         console.log(data)
-    }, []);
+    }, [route]);
+
+    // useEffect(async () => {
+    //     const id = await AsyncStorage.getItem("userID");
+    //     console.log("hello");
+    //     let isMounted = true;
+    //     fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/workoutPage/genWorkout/123")
+    //         .then(async(res) => {
+    //             const data = await res.json();
+    //             if (isMounted ) {
+    //             addDataToArray(data);
+    //             console.log("hi");
+    //             }
+    //         })
+    //     return () => { isMounted = false };
+
+    // }, [route])
 
     const addDataToArray = (data) => {
         var array = [];

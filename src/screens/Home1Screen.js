@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Modal, Image } from 'react-native';
+import { View, Text, StyleSheet, Modal, Image, ScrollView } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { color } from 'react-native-reanimated';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
 const Home1Screen = ({ navigation }) => {
+    const [detail, setDetail] = useState([]);
     const [modalOpen, setModalOpen] = useState(true)
     const [info, setInfo] = useState({
         PK: "",
@@ -19,6 +19,19 @@ const Home1Screen = ({ navigation }) => {
         protein: 0,
         sodium: 0,
         sugar: 0,
+        fiber: 0
+    });
+    const [updateInfo, setUpdateInfo] = useState({
+        PK: "",
+        SK: "",
+        carb: 0,
+        energy: 0,
+        fat: 0,
+        fiber: 0,
+        protein: 0,
+        sodium: 0,
+        sugar: 0,
+        fiber: 0
     })
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
@@ -26,12 +39,50 @@ const Home1Screen = ({ navigation }) => {
         //const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/dailyInfo/${id}`);
         const data = await response.json();
         setInfo(data[0]);
-        
 
-        // console.log(info.energy)
     }, []);
 
-    return (<View>
+    useEffect(async () => {
+        //const id = await AsyncStorage.getItem("userID");
+        const response1 = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/updateDailyInfo/123");
+        //const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/updateDailyInfo/${id}`);
+        const data1 = await response1.json();
+        setUpdateInfo(data1);
+
+       console.log(data1)
+    }, []);
+
+    useEffect(async () => {
+        //const id = await AsyncStorage.getItem("userID");
+        const response2 = await fetch(
+            "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/recentActivities/123"
+        );
+        const data2 = await response2.json();
+        addDataToArray(data2);
+        console.log(data2)
+    }, []);
+
+
+    const addDataToArray = (data2) => {
+        var array = [];
+        var positionImageTop = 246;
+        var postitionNameTop = 250;
+        var postitionBoxTop = 228;
+        var postitionEnergyTop = 295;
+        for (var i in data2) {
+             positionImageTop += 146 ;
+             postitionNameTop += 146 ;
+             postitionBoxTop += 146 ;
+             postitionEnergyTop += 146 ;
+             var dataWithPosition = { name:data2[i].name, url: data2[i].url, energy: data2[i].energy, topImage: positionImageTop, topName: postitionNameTop, topEnergy: postitionEnergyTop, topBox: postitionBoxTop}
+             array.push(dataWithPosition);
+        }
+        setDetail(array);
+     
+    }
+
+
+    return (<ScrollView>
         <Modal visible={modalOpen} animationType='slide'>
             <View style={styles.modalContent}>
                 <MaterialIcons
@@ -51,42 +102,89 @@ const Home1Screen = ({ navigation }) => {
         <Text style={styles.Header1Style}> Your daily information </Text>
         <Text style={styles.Header2Style}> Your recent activities </Text>
         <Text style={styles.historyStyle} onPress={() => navigation.navigate('Home2')}> See full history &gt; </Text>
-        <TouchableOpacity style={styles.boxStyle}
-            onPress={() => navigation.navigate('Home2')}>
-            <Text style={styles.menuStyle}>Menu name: </Text>
-            <Text style={styles.energyStyle}>enerygy: </Text>
-            <Text style={styles.dateStyle}>date: </Text>
-            <Text style={styles.timeStyle}>time: </Text>
-        </TouchableOpacity>
+        
 
         <View style={styles.tableStyle}>
             <Text style={styles.textStyle}>Energy(Kcal)</Text>
-            <Text style={styles.infoStyle}>/ {info.energy}</Text>
+            <Text style={styles.infoStyle}>{updateInfo.energy}/ {info.energy}</Text>
         </View>
 
         <View style={styles.table1Style}>
             <Text style={styles.textStyle}>Total fats(g)</Text>
-            <Text style={styles.infoStyle}>/ {info.fat}</Text>
+            <Text style={styles.infoStyle}>{updateInfo.fat}/ {info.fat}</Text>
         </View>
 
         <View style={styles.table2Style}>
             <Text style={styles.textStyle}>Carbohydrate(g)</Text>
-            <Text style={styles.infoStyle}>/ {info.carb}</Text>
+            <Text style={styles.infoStyle}>{updateInfo.carb}/ {info.carb}</Text>
         </View>
         <View style={styles.table3Style}>
             <Text style={styles.textStyle}>Sugar(g)</Text>
-            <Text style={styles.infoStyle}>/ {info.sugar}</Text>
+            <Text style={styles.infoStyle}> {updateInfo.sugar}/ {info.sugar}</Text>
         </View>
 
         <View style={styles.table4Style}>
             <Text style={styles.textStyle}>Protein(g)</Text>
-            <Text style={styles.infoStyle}>/ {info.protein}</Text>
+            <Text style={styles.infoStyle}>{updateInfo.protein}/ {info.protein}</Text>
         </View>
         <View style={styles.table5Style}>
-            <Text style={styles.textStyle}>Sodium(mg) </Text>
-            <Text style={styles.infoStyle}>/ {info.sodium}</Text>
+            <Text style={styles.textStyle}>Sodium(mg)</Text>
+            <Text style={styles.infoStyle}>{updateInfo.sodium}/ {info.sodium}</Text>
         </View>
-    </View>
+
+        <View style={styles.table6Style}>
+            <Text style={styles.textStyle}>Fiber(g)</Text>
+            <Text style={styles.infoStyle}>{updateInfo.fiber}/ {info.fiber}</Text>
+        </View>
+
+      
+            
+
+            {detail && detail.map(({ url, name, energy, topBox, topEnergy, topImage, topName }) => {
+                return (
+                    <TouchableOpacity>
+                        <Image
+                            source={url}
+                            style={{
+                                width: 95,
+                                height: 95,
+                                left: 50,
+                                top: topImage,
+                                position: 'absolute',
+                            }} />
+                        <Text style={{
+                            left: 162,
+                            top: topName,
+                            color: '#FF5733',
+                            fontSize: 15,
+                            fontWeight: 'bold',
+                            position: 'absolute'
+                        }}>{name}</Text>
+
+
+                        <Text style={{
+                            left: 162,
+                            top: topEnergy,
+                            color: '#FF5733',
+                            fontSize: 10,
+                            position: 'absolute',
+                        }}>Energy:{energy} kcal</Text>
+
+                        <View style={{
+                            left: 36,
+                            top: topBox,
+                            width: 305,
+                            height: 126,
+                            borderColor: '#FF5733',
+                            borderWidth: 1,
+                            position: 'absolute',
+                        }}></View>
+                    </TouchableOpacity>
+
+                );
+            })}
+       
+       </ScrollView>
 
     );
 };
@@ -96,7 +194,7 @@ const styles = StyleSheet.create({
         color: "#FF5733",
         position: 'absolute',
         zIndex: 5,
-        paddingLeft: 250,
+        paddingLeft: 220,
         paddingVertical: 7
     },
    
@@ -156,6 +254,15 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 37,
         top: 225,
+        backgroundColor: '#EAE8E8',
+        zIndex:1
+    },
+    table6Style: {
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: 256,
         backgroundColor: '#EAE8E8',
         zIndex:1
     },
@@ -224,7 +331,7 @@ const styles = StyleSheet.create({
         color: '#FF5733',
         position: 'absolute',
         left: 36,
-        top: 264,
+        top: 295,
         textAlign: 'center'
     },
     historyStyle: {
@@ -232,7 +339,7 @@ const styles = StyleSheet.create({
         color: '#FF5733',
         position: 'absolute',
         left: 36,
-        top: 293,
+        top: 324,
         textAlign: 'center'
     },
     boxStyle: {

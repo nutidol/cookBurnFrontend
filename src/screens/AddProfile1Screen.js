@@ -173,6 +173,7 @@ const AddProfile1Screen = ({ navigation }) => {
           return (
             <div>
               <TouchableOpacity
+              key ={person.SK}
                 onPress={() => {
                   setImage(person.url === image ? "" : person.url);
                 }}

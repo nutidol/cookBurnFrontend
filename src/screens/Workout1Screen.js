@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
 const Workout1Screen = ({ navigation }) => {
     const [workout, setWorkout] = useState([]);
@@ -11,13 +12,12 @@ const Workout1Screen = ({ navigation }) => {
     const [top, setTop] = useState(0);
     const [dt, setDt] = useState([]);
 
-  
-
+ 
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
-        const sk = await AsyncStorage.getItem("sk")
-        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/workoutPage/workoutInfo/123/cooked_1617946739991_11111");
-        //const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/workoutPage/workoutInfo/${id}/${sk}`
+        const sk = await AsyncStorage.getItem("sortKey")
+        //const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/workoutPage/workoutInfo/123/cooked_1617946739991_11111");
+        const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/workoutPage/workoutInfo/${123}/${sk}`);
         const data = await response.json();
         setDt(data)
         addDataToArray(data);
@@ -48,7 +48,7 @@ const Workout1Screen = ({ navigation }) => {
                 article
             );
             console.log(res);
-            navigation.navigate('Workout');
+            navigation.navigate('Workout', {refresh: true});
         } catch (error) {
             console.log(error);
         } finally {
@@ -82,7 +82,6 @@ const Workout1Screen = ({ navigation }) => {
         setTop(positionImageTop);
     }
 
-
     return (
         <ScrollView>
             {header && header.map(({ title, energy }) => {
@@ -91,7 +90,7 @@ const Workout1Screen = ({ navigation }) => {
                     <TouchableOpacity
                         key={title}>
                         <Text style={{ left: 36, top: 30, color: '#FF5733', fontSize: 20, position: 'absolute', fontWeight: 'bold' }}>For: {title}</Text>
-                        <Text style={{ left: 36, top: 59, color: '#FF5733', fontSize: 15, position: 'absolute', fontWeight: 'bold' }}>Burn: {energy} kcal</Text>
+                        <Text style={{ left: 36, top: 80, color: '#FF5733', fontSize: 15, position: 'absolute', fontWeight: 'bold' }}>Burn: {energy} kcal</Text>
                     </TouchableOpacity>
 
                 );
@@ -122,8 +121,7 @@ const Workout1Screen = ({ navigation }) => {
             <TouchableOpacity
                 disabled={isLoading}
                 onPress={() => {
-                    postData()
-                     
+                    postData();
                 }}
                 style={{
                     width: 120, height: 37, backgroundColor: '#FF5733', position: 'absolute', left: 239,
