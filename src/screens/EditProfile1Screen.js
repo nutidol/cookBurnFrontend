@@ -23,13 +23,36 @@ const EditProfile1Screen = ({ navigation }) => {
         SK: "",
         PK: ""
     })
+
+    const [updateInfo, setUpdateInfo] = useState({
+        PK: "",
+        SK: "",
+        carb: 0,
+        energy: 0,
+        fat: 0,
+        fiber: 0,
+        protein: 0,
+        sodium: 0,
+        sugar: 0,
+        fiber: 0
+    })
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
-  //const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/${id}`);
-        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/123");
+        const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/${id}`);
+        //const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/123");
         const data = await response.json();
         setInfo(data.dailyInfo);
         setPersonalInfo(data.personalInfo)
+    }, []);
+
+    useEffect(async () => {
+        const id = await AsyncStorage.getItem("userID");
+        const timestamp = Date.now();
+        //const response1 = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/updateDailyInfo/123");
+        const response1 = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/updateDailyInfo/${id}/${timestamp}`);
+        const data1 = await response1.json();
+        setUpdateInfo(data1);
+       console.log(data1)
     }, []);
 
     return (
@@ -61,30 +84,35 @@ const EditProfile1Screen = ({ navigation }) => {
             </TouchableOpacity>
             <View style={styles.tableStyle}>
                 <Text style={styles.textStyle}>Energy(Kcal)</Text>
-                <Text style={styles.infoStyle}>/{info.energy}</Text>
+                <Text style={styles.infoStyle}>{updateInfo.energy}/{info.energy}</Text>
             </View>
 
             <View style={styles.table11Style}>
                 <Text style={styles.textStyle}>Total fats(g)</Text>
-                <Text style={styles.infoStyle}>/{info.fat}</Text>
+                <Text style={styles.infoStyle}>{updateInfo.fat}/{info.fat}</Text>
             </View>
 
             <View style={styles.table2Style}>
                 <Text style={styles.textStyle}>Carbohydrate(g)</Text>
-                <Text style={styles.infoStyle}>/{info.carb}</Text>
+                <Text style={styles.infoStyle}>{updateInfo.carb}/{info.carb}</Text>
             </View>
             <View style={styles.table3Style}>
                 <Text style={styles.textStyle}>Sugar(g)</Text>
-                <Text style={styles.infoStyle}>/{info.sugar}</Text>
+                <Text style={styles.infoStyle}>{updateInfo.sugar}/{info.sugar}</Text>
             </View>
 
             <View style={styles.table4Style}>
                 <Text style={styles.textStyle}>Protein(g)</Text>
-                <Text style={styles.infoStyle}>/{info.protein}</Text>
+                <Text style={styles.infoStyle}>{updateInfo.protein}/{info.protein}</Text>
             </View>
             <View style={styles.table5Style}>
                 <Text style={styles.textStyle}>Sodium(mg) </Text>
-                <Text style={styles.infoStyle}>/{info.sodium}</Text>
+                <Text style={styles.infoStyle}>{updateInfo.sodium}/{info.sodium}</Text>
+            </View>
+            
+            <View style={styles.table6Style}>
+                <Text style={styles.textStyle}>Sodium(mg) </Text>
+                <Text style={styles.infoStyle}>{updateInfo.fiber}/{info.fiber}</Text>
             </View>
 
         </View>
@@ -98,7 +126,7 @@ const styles = StyleSheet.create({
         color: "#FF5733",
         position: 'absolute',
         zIndex: 5,
-        paddingLeft: 250,
+        paddingLeft: 200,
         paddingVertical: 7
     },
 
@@ -158,6 +186,15 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 37,
         top: 465,
+        backgroundColor: '#EAE8E8',
+        zIndex: 1
+    },
+    table6Style: {
+        width: 302,
+        height: 31,
+        position: 'absolute',
+        left: 37,
+        top: 496,
         backgroundColor: '#EAE8E8',
         zIndex: 1
     },

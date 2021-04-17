@@ -9,10 +9,23 @@ const AddProfileScreen = ({ navigation }) => {
     const [pic, setPic] = useState([]);
     const [top, setTop] = useState([]);
 
+    async function setProfile(name) {
+        try {
+          await AsyncStorage.setItem("profileOf", name)
+    
+        } catch (error) {
+          console.log(
+            "Cannot set profile name",
+            error
+          );
+          setInvalidMessage(error.message);
+        }
+      }
+
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
-        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/getOtherProfiles/123");
-        // const response = await fetch( `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/getOtherProfiles/${id}`);
+        //const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/getOtherProfiles/123");
+         const response = await fetch( `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/getOtherProfiles/${id}`);
         const data = await response.json();
         addDataToArray(data);
         console.log(data)
@@ -53,7 +66,10 @@ const AddProfileScreen = ({ navigation }) => {
             {pic && pic.map(({ url, leftImage, topImage, profile, topName, leftName }) => {
                 return (
                     <TouchableOpacity
-                        key={profile}>
+                        key={profile}
+                        onPress={() => {{navigation.navigate('AddProfile4')}
+                                        setProfile(profile)}}
+                        >
                         <Image
                             source={url}
                             style={{
@@ -85,11 +101,11 @@ const AddProfileScreen = ({ navigation }) => {
              
       
               }}
-                style={{ width: 100,
-                    height: 30,
+                style={{ width: 295,
+                    height: 37,
                     backgroundColor: "#FF5733",
                     position: "absolute",
-                    left: 240,
+                    left: 45,
                     top: top+30,
                     borderRadius: 24,
                     borderWidth: 1,

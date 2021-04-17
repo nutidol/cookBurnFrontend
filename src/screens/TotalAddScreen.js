@@ -10,9 +10,9 @@ const TotalAddScreen = (navigation) => {
 
   useEffect(async () => {
     const id = await AsyncStorage.getItem("userID");
-    const sk = await AsyncStorage.getItem("sk")
+    //const sk = await AsyncStorage.getItem("sk")
     const response = await fetch(
-      "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/ingredientsPage/yourIngredients/123"
+      `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/ingredientsPage/yourIngredients/${id}`
     );
     const data = await response.json();
     addDataToArray(data);
@@ -73,7 +73,7 @@ const TotalAddScreen = (navigation) => {
             }}>{quantity}</Text>
 
             <Text style={{
-              left: 175,
+              left: 185,
               top: topUnit,
               color: '#FF5733',
               fontSize: 15,
@@ -85,12 +85,12 @@ const TotalAddScreen = (navigation) => {
         );
       })}
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => {
           navigation.navigate("Add")
         }}>
         <Text style={styles.backStyle}> &lt;&lt;back</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </ScrollView>
   )
 };

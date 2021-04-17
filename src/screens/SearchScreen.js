@@ -18,12 +18,14 @@ const SearchScreen = ({ navigation }) => {
   const [servingSize, setServingSize] = useState("")
   const [selectedProfile, setSelectedProfile] = useState([]);
   const [top, setTop] = useState("");
+  const [timestamp, setTimestamp] = useState("");
+  AsyncStorage.setItem("timestamp", timestamp )
 
   var dataWithPosition = {}
 
-  const isSelected = () => {
+  const isSelected = (profile) => {
     for (var i in selectedProfile) {
-      if (selectedProfile === profile)
+      if (selectedProfile[i] === profile)
         return true;
     }
 
@@ -31,22 +33,23 @@ const SearchScreen = ({ navigation }) => {
   }
 
 
-  const removeFromSelectedImages = () => {
+  const removeFromSelectedImages = (profile) => {
     var newSelected = [];
     for (var i in selectedProfile) {
-      if (selectedProfile !== profile)
+      if (selectedProfile[i] !== profile)
         newSelected.push(selectedProfile[i]);
     }
     setSelectedProfile(newSelected);
   }
 
-  console.log(selectedProfile);
+  //console.log(selectedProfile);
 
 
   useEffect(async () => {
     const id = await AsyncStorage.getItem("userID");
+    
     const response = await fetch(
-      "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menuFilterFor/123"
+      `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menuFilterFor/${id}`
     );
     const data = await response.json();
     addDataToArray(data);
@@ -94,19 +97,16 @@ const SearchScreen = ({ navigation }) => {
     try {
       const id = await AsyncStorage.getItem("userID");
       const timestamp = Date.now();
+      setTimestamp(timestamp);
       console.log(id);
       console.log(timestamp)
       const article = {
-        userID: "123",
+        userID: id,
         timestamp: timestamp,
         genFor: [
           {
-            "profile": "mama",
-            "url": "https://cookburn-profilepics.s3-ap-southeast-1.amazonaws.com/girl.png"
-          },
-          {
-            "profile": "nutidol",
-            "url": "https://cookburn-profilepics.s3-ap-southeast-1.amazonaws.com/girl.png"
+            profile: "winnienwr",
+            url: "https://cookburn-profilepics.s3-ap-southeast-1.amazonaws.com/mom.png"
           }
         ],
         genBy: {
@@ -116,17 +116,19 @@ const SearchScreen = ({ navigation }) => {
           carb: carb,
           sugar: sugar,
           protein: protein,
-          sodium: sodium
+          sodium: sodium,
+          fiber: fiber
         },
         servingSize: servingSize
       };
+      console.log(article);
       setLoading(true);
       const res = await axios.post(
         "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menuFilter",
         article
       );
-      navigation.navigate("Search1");
       console.log(res);
+      navigation.navigate("Search1");
     } catch (error) {
       console.log(error);
     } finally {

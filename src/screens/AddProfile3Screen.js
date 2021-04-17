@@ -101,7 +101,7 @@ const AddProfile3Screen = ({ navigation }) => {
             <TouchableOpacity
                 disabled={isLoading}
                 onPress={() => {
-                    // 
+                    postData();
                     navigation.navigate("AddProfile4");
                 }}
                 style={styles.saveboxStyle}>

@@ -13,7 +13,7 @@ const Home2Screen = ({navigation}) => {
         
         <View  >
            <Text style={styles.HeaderStyle}> Your History</Text>
-            <SwitchSelector
+            {/* <SwitchSelector
                 onPress={value => setOpen({ value })}
                 style={styles.switchStyle}
                 initial={0}
@@ -26,10 +26,9 @@ const Home2Screen = ({navigation}) => {
                     { label: "Cooked History", value: 0 },
                     { label: "Workout History", value: 1 }
                 ]}
-            />
+            /> */}
            
-            <TouchableOpacity  onPress={() => navigation.navigate('Home3')}style={styles.box1Style} > </TouchableOpacity>
-            <TouchableOpacity  onPress={() => navigation.navigate('Home5')}style={styles.box2Style} > </TouchableOpacity>
+           
 
         </View>
 

@@ -14,7 +14,7 @@ const WorkoutScreen = ({ navigation, route }) => {
 
         const id = await AsyncStorage.getItem("userID");
         
-        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/workoutPage/genWorkout/123"
+        const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/workoutPage/genWorkout/${id}`
         );
         const data = await response.json();
         addDataToArray(data);

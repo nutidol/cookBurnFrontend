@@ -14,21 +14,23 @@ const Search2Screen = ({ navigation }) => {
     const [top2, setTop2] = useState(0);
     const [url, setUrl] = useState("");
     const [isLoading, setLoading] = useState(false);
+    const [dt, setDt] = useState([]);
 
-    let data = {};
+    let data = [];
 
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
         const sk = await AsyncStorage.getItem("sk")
         const response = await fetch(
-            `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menu/123/${sk}`
+            `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menu/${id}/${sk}`
         );
         data = await response.json();
+        setDt(data)
         addDataToArray(data);
         console.log(data)
     }, []);
 
-    console.log(top)
+    //console.log(data)
 
 
     useEffect(() => {
@@ -42,17 +44,19 @@ const Search2Screen = ({ navigation }) => {
         }
         try {
             const id = await AsyncStorage.getItem("userID");
+            console.log(dt[0]);
+            console.log(dt);
             const article = {
                 userID: id,
-                cookedMenu: data
+                cookedMenu: dt
 
             };
+            console.log(article);
             setLoading(true);
             const res = await axios.post(
                 "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menu",
                 article
             );
-            console.log(article);
             //navigation.navigate("Home1");
             console.log(res);
         } catch (error) {
@@ -73,8 +77,8 @@ const Search2Screen = ({ navigation }) => {
         var positionIgdTop = 240;
         for (var i in data[0].ingredientData) {
             var positionIgdLeft = 44;
-            var positionAmountLeft = 200;
-            var positionUnitLeft = 330;
+            var positionAmountLeft = 250;
+            var positionUnitLeft = 280;
             positionIgdTop += 25
             var igdWithPosition = {
                 igdname: data[0].ingredientData[i].name, leftIgd: positionIgdLeft, topIgd: positionIgdTop,
@@ -94,7 +98,7 @@ const Search2Screen = ({ navigation }) => {
 
         for (var j in data[0].recipe) {
             var positionInstructionLeft = 46;
-            positionInstructionTop += 25;
+            positionInstructionTop += 60;
             var recipeWithPosition = { recipeInstruction: data[0].recipe[j].instruction, step: data[0].recipe[j].step, leftInstruction: positionInstructionLeft, topInstruction: positionInstructionTop }
             recipeArray.push(recipeWithPosition);
         }
@@ -116,9 +120,6 @@ const Search2Screen = ({ navigation }) => {
         console.log(nutritionArray);
         setTop2(positionNutritionTop);
     }
-
-
-
 
 
 

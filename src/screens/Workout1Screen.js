@@ -17,7 +17,7 @@ const Workout1Screen = ({ navigation }) => {
         const id = await AsyncStorage.getItem("userID");
         const sk = await AsyncStorage.getItem("sortKey")
         //const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/workoutPage/workoutInfo/123/cooked_1617946739991_11111");
-        const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/workoutPage/workoutInfo/${123}/${sk}`);
+        const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/workoutPage/workoutInfo/${id}/${sk}`);
         const data = await response.json();
         setDt(data)
         addDataToArray(data);
@@ -37,7 +37,7 @@ const Workout1Screen = ({ navigation }) => {
             const id = await AsyncStorage.getItem("userID");
             const timestamp = Date.now();
             const article = {
-                userID: 123,
+                userID: id,
                 timestamp: timestamp,
                 workoutInfo: dt
             };

@@ -6,9 +6,20 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
-const Home1Screen = ({ navigation }) => {
+const Home1Screen = ({ navigation, route }) => {
     const [detail, setDetail] = useState([]);
+    const [sortkey, setSortkey] = useState("");
     const [modalOpen, setModalOpen] = useState(true)
+
+    AsyncStorage.setItem("sk", sortkey)
+
+    const mapSK = (sortkey) =>{
+        if(sortkey.includes("workout")) {
+            navigation.navigate("Workout1")
+        }else{
+            navigation.navigate("Search2")
+        }
+    }
     const [info, setInfo] = useState({
         PK: "",
         SK: "",
@@ -35,46 +46,46 @@ const Home1Screen = ({ navigation }) => {
     })
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
-        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/dailyInfo/123");
-        //const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/dailyInfo/${id}`);
+       // const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/dailyInfo/123");
+        const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/dailyInfo/${id}`);
         const data = await response.json();
         setInfo(data[0]);
 
     }, []);
 
     useEffect(async () => {
-        //const id = await AsyncStorage.getItem("userID");
-        const response1 = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/updateDailyInfo/123");
-        //const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/updateDailyInfo/${id}`);
+        const id = await AsyncStorage.getItem("userID");
+        const timestamp = Date.now();
+        //const response1 = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/updateDailyInfo/123");
+        const response1 = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/updateDailyInfo/${id}/${timestamp}`);
         const data1 = await response1.json();
         setUpdateInfo(data1);
-
        console.log(data1)
     }, []);
 
     useEffect(async () => {
-        //const id = await AsyncStorage.getItem("userID");
+        const id = await AsyncStorage.getItem("userID");
         const response2 = await fetch(
-            "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/recentActivities/123"
+            `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/recentActivities/${id}`
         );
         const data2 = await response2.json();
         addDataToArray(data2);
         console.log(data2)
-    }, []);
+    }, [route]);
 
 
     const addDataToArray = (data2) => {
         var array = [];
-        var positionImageTop = 246;
-        var postitionNameTop = 250;
-        var postitionBoxTop = 228;
-        var postitionEnergyTop = 295;
+        var positionImageTop = 241;
+        var postitionNameTop = 245;
+        var postitionBoxTop = 223;
+        var postitionEnergyTop = 290;
         for (var i in data2) {
              positionImageTop += 146 ;
              postitionNameTop += 146 ;
              postitionBoxTop += 146 ;
              postitionEnergyTop += 146 ;
-             var dataWithPosition = { name:data2[i].name, url: data2[i].url, energy: data2[i].energy, topImage: positionImageTop, topName: postitionNameTop, topEnergy: postitionEnergyTop, topBox: postitionBoxTop}
+             var dataWithPosition = { name:data2[i].name, url: data2[i].url, energy: data2[i].energy, topImage: positionImageTop, topName: postitionNameTop, topEnergy: postitionEnergyTop, topBox: postitionBoxTop, sk: data2[i].SK}
              array.push(dataWithPosition);
         }
         setDetail(array);
@@ -140,9 +151,15 @@ const Home1Screen = ({ navigation }) => {
       
             
 
-            {detail && detail.map(({ url, name, energy, topBox, topEnergy, topImage, topName }) => {
+            {detail && detail.map(({ url, name, energy, topBox, topEnergy, topImage, topName, sk}) => {
                 return (
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    key = {sk}
+                    onPress={() => { 
+                        setSortkey(sk);
+                        mapSK(sk);
+                        
+                    }}>
                         <Image
                             source={url}
                             style={{

@@ -14,7 +14,7 @@ const AddProfile1Screen = ({ navigation }) => {
   const [weight, setWeight] = useState("");
   const [isLoading, setLoading] = useState(false);
 
-  async function setProfile() {
+  async function setProfile(name) {
     try {
       await AsyncStorage.setItem("profileOf", name)
 
@@ -58,8 +58,7 @@ const AddProfile1Screen = ({ navigation }) => {
       console.log(id);
       const article = {
         userID: id,
-        profileOf: "",
-        name: name,
+        profileOf: name,
         gender: gender,
         age: age,
         weight: weight,
@@ -67,6 +66,7 @@ const AddProfile1Screen = ({ navigation }) => {
         url: image,
       };
       setLoading(true);
+      setProfile(name);
       const res = await axios.post(
         "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/otherProfile",
         article
@@ -78,7 +78,6 @@ const AddProfile1Screen = ({ navigation }) => {
     } finally {
       setLoading(false);
     }
-    setProfile();
 
   }
 
@@ -171,9 +170,9 @@ const AddProfile1Screen = ({ navigation }) => {
       {people &&
         people.map(({ person, left, top }) => {
           return (
-            <div>
+        
               <TouchableOpacity
-              key ={person.SK}
+               key ={person.url}
                 onPress={() => {
                   setImage(person.url === image ? "" : person.url);
                 }}
@@ -190,7 +189,7 @@ const AddProfile1Screen = ({ navigation }) => {
                   }}
                 />
               </TouchableOpacity>
-            </div>
+          
           );
         })}
 

@@ -7,13 +7,14 @@ import axios from "axios";
 const Search1Screen = ({ navigation }) => {
     const [info, setInfo] = useState([]);
     const [sortkey, setSortkey] = useState("");
-    AsyncStorage.setItem("sk", sortkey )
-
-
+    
+    AsyncStorage.setItem("sk", sortkey)
+  
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
+        const timestamp = await AsyncStorage.getItem("timestamp")
         const response = await fetch(
-            "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menus/123/1617946739991"
+            `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menus/${id}/${timestamp}`
         );
         const data = await response.json();
         addDataToArray(data);
@@ -26,8 +27,8 @@ const Search1Screen = ({ navigation }) => {
         var positionImageTop = -42;
         var postitionTitleTop = -38;
         var postitionBoxTop = -60;
-        var postitionDurationTop = -15;
-        var postitionEnergyTop = -3;
+        var postitionDurationTop = -5;
+        var postitionEnergyTop = 7;
         for (var i in data) {
             var positionImageLeft = 50;
             var positionTitleLeft = 162;
