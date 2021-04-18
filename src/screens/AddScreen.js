@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 const AddScreen = ({ navigation }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [saveOpen, setSaveOpen] = useState(false);
@@ -17,8 +18,9 @@ const AddScreen = ({ navigation }) => {
     const [pic, setPic] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [quantity, setQuantity] = useState("");
-    
-    const controller = useRef(null);
+    const [defaultUnit, setDefaultUnit] = useState("");
+    const [defaultQty, setDefaultQty] = useState("");
+    const [igdName, setIgdName] = useState("");
     const [click, setClick] = useState({
         unit: [],
         SK: "",
@@ -28,16 +30,19 @@ const AddScreen = ({ navigation }) => {
         ingredientID: 0
     }
     );
-    const unitArray = array =>{
-        let unitArr = [];
-        for(let i ; i <array.length; i++ ){
-            unitArr.push({
-                label: array[i],
-                value: i+1
-            });
-        }
-        return unitArr;
-    }
+
+    const ingredientDefault = async (ingredientName) => {
+        const id = await AsyncStorage.getItem("userID");
+        const response1 = await fetch(
+          `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/ingredientsPage/IngredientInfo/${id}/${ingredientName}`
+        );
+        const data1 = await response1.json();
+        setDefaultQty(data1.quantity);
+        setDefaultUnit(data1.unit);
+        
+      }
+
+   
 
     const [response, setResponse] = useState([]);
 
@@ -85,7 +90,6 @@ const AddScreen = ({ navigation }) => {
                 "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/ingredientsPage/yourIngredients",
                 article
             );
-            //navigation.navigate("OnBoarding2");
             console.log(res);
         } catch (error) {
             console.log(error);
@@ -222,23 +226,18 @@ const AddScreen = ({ navigation }) => {
                 </TouchableOpacity>
 
                 <DropDownPicker
-    
-                    //items={unitArray(click.unit)}
                     items={click.unit}
-                    //defaultValue = {unit}
-                    placeholder="units"
-                    containerStyle={{ height: 26, width: 100, left: 190, top: 482, position: 'absolute' }}
+                    placeholder= {defaultUnit}
+                    containerStyle={{ height: 26, width: 100, left: 190, top: 482, position: 'absolute', zIndex:1 }}
                     labelStyle={{ color: "#FF5733" }}
                     onChangeItem={item => setUnit(item)}
-
-                    
-                    
+                    placeholderStyle ={{ textAlign: 'center'}}
                 />
 
                 <TextInput style={styles.numberStyle}
                     color='#FF5733'
                     textAlign='center'
-                    defaultValue={quantity}
+                    defaultValue={defaultQty}
                     onChangeText={newTerm => setQuantity(newTerm)}
                 />
 
@@ -251,6 +250,7 @@ const AddScreen = ({ navigation }) => {
                 }}>
                 <Text style={styles.saveStyle}> {isLoading && <ActivityIndicator size="small" />} save</Text>
             </TouchableOpacity>
+           
             <Modal visible={saveOpen}>
                 <MaterialIcons
                     name='close'
@@ -276,7 +276,7 @@ const AddScreen = ({ navigation }) => {
                         onPress={() => {
                             setClick(food);
                             setModalOpen(true);
-
+                            ingredientDefault(food.name);
                         }}
                     >
                         <Image

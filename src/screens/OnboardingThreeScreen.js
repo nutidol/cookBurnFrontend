@@ -47,6 +47,9 @@ const OnboardingThreeScreen = ({ navigation }) => {
             { person: data[6], left: 47, top: 400 },
             { person: data[7], left: 143, top: 400 },
             { person: data[8], left: 239, top: 400 },
+            { person: data[9], left: 47, top: 500 },
+            { person: data[10], left: 143, top: 500 },
+            { person: data[11], left: 239, top: 500 },
 
         ]);
     }, []);

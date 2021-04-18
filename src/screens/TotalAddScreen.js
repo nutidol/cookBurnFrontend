@@ -73,7 +73,7 @@ const TotalAddScreen = (navigation) => {
             }}>{quantity}</Text>
 
             <Text style={{
-              left: 185,
+              left: 190,
               top: topUnit,
               color: '#FF5733',
               fontSize: 15,

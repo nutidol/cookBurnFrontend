@@ -25,7 +25,7 @@ const SearchScreen = ({ navigation }) => {
 
   const isSelected = (profile) => {
     for (var i in selectedProfile) {
-      if (selectedProfile[i] === profile)
+      if (selectedProfile[i]=== profile)
         return true;
     }
 
@@ -42,7 +42,7 @@ const SearchScreen = ({ navigation }) => {
     setSelectedProfile(newSelected);
   }
 
-  //console.log(selectedProfile);
+console.log(selectedProfile)
 
 
   useEffect(async () => {
@@ -59,7 +59,7 @@ const SearchScreen = ({ navigation }) => {
   }, []);
 
   const addDataToArray = (data) => {
-    var array = [];
+    var array =[];
     var positionImageTop = -44;
     var positionNameTop = 52;
 
@@ -105,8 +105,7 @@ const SearchScreen = ({ navigation }) => {
         timestamp: timestamp,
         genFor: [
           {
-            profile: "winnienwr",
-            url: "https://cookburn-profilepics.s3-ap-southeast-1.amazonaws.com/mom.png"
+            profile: selectedProfile
           }
         ],
         genBy: {
@@ -397,7 +396,7 @@ const SearchScreen = ({ navigation }) => {
       }}
         color='#FF5733'
         textAlign='center'
-        defaultValue={1}
+       // defaultValue={1}
         onChangeText={newTerm => setServingSize(newTerm)} />
 
 
