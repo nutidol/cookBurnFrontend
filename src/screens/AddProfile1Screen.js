@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const AddProfile1Screen = ({ navigation }) => {
   const [image, setImage] = useState("");
@@ -83,12 +84,13 @@ const AddProfile1Screen = ({ navigation }) => {
 
   return (
     <View>
-      <TouchableOpacity 
-      onPress={() => {
-        navigation.navigate("AddProfile")}}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("AddProfile")
+        }}>
         <Text style={styles.backStyle}> &lt;&lt;back</Text>
       </TouchableOpacity>
-     
+
       <Text style={styles.headerStyle}>Add Other's Profile</Text>
       <Text style={styles.greetStyle}>Please enter or edit your personal information, so we can {'\n'}calculate your daily information for you!</Text>
       <Text style={styles.nameStyle}> Name</Text>
@@ -103,16 +105,27 @@ const AddProfile1Screen = ({ navigation }) => {
         }}
       />
 
-      <Text style={styles.genderStyle}> Gender (male/female)</Text>
-      <TextInput style={styles.genderboxStyle}
-        color='#FF5733'
-        autoCapitalize='none'
-        placeholder='gender'
-        placeholderTextColor='#FF5733'
-        onChangeText={(value) => {
-          setGender(value);
-        }}
+      <DropDownPicker
+        items={[
+          { label: 'Male', value: 'male' },
+          { label: 'Female', value: 'female' },
+        ]}
+        defaultIndex={0}
+        arrowColor="#FF5733"
+        placeholder="gender"
+        containerStyle={{ height: 30, width: 302, top: 160, left: 36.75, position: 'absolute' ,  backgroundColor: 'white', borderRadius: 8, borderWidth: 1,  borderColor: '#FF5733'}}
+  
+        labelStyle={{
+          fontSize: 10,
+          textAlign: 'left',
+          color: "#FF5733" ,
+      }}
+        onChangeItem={item =>  setGender(item.value)}
       />
+
+
+      <Text style={styles.genderStyle}> Gender (male/female)</Text>
+     
       <Text style={styles.ageStyle}> Age(year)</Text>
       <TextInput style={styles.ageboxStyle}
         color='#FF5733'
@@ -170,26 +183,26 @@ const AddProfile1Screen = ({ navigation }) => {
       {people &&
         people.map(({ person, left, top }) => {
           return (
-        
-              <TouchableOpacity
-               key ={person.url}
-                onPress={() => {
-                  setImage(person.url === image ? "" : person.url);
+
+            <TouchableOpacity
+              key={person.url}
+              onPress={() => {
+                setImage(person.url === image ? "" : person.url);
+              }}
+            >
+              <Image
+                source={{ uri: person.url }}
+                style={{
+                  width: 88,
+                  height: 101,
+                  left,
+                  top,
+                  position: "absolute",
+                  opacity: image && person.url === image ? 1 : 0.3,
                 }}
-              >
-                <Image
-                  source={{ uri: person.url }}
-                  style={{
-                    width: 88,
-                    height: 101,
-                    left,
-                    top,
-                    position: "absolute",
-                    opacity: image && person.url === image ? 1 : 0.3,
-                  }}
-                />
-              </TouchableOpacity>
-          
+              />
+            </TouchableOpacity>
+
           );
         })}
 
@@ -201,10 +214,10 @@ const AddProfile1Screen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  backStyle:{
+  backStyle: {
     color: '#FF5733',
     fontSize: 12,
-    top:10,
+    top: 10,
     position: 'absolute',
   },
   BoxStyle: {
@@ -302,7 +315,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#FF5733',
     fontSize: 10,
-    padding: 7,
+    padding: 15,
   },
   genderStyle: {
     fontSize: 10,
@@ -312,21 +325,7 @@ const styles = StyleSheet.create({
     top: 146,
     textAlign: 'center'
   },
-  genderboxStyle: {
-    color: '#FF5733',
-    position: 'absolute',
-    width: 302,
-    height: 30,
-    left: 36.75,
-    top: 160,
-    backgroundColor: 'white',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#FF5733',
-    fontSize: 10,
-    padding: 7,
 
-  },
   ageStyle: {
     fontSize: 10,
     color: '#FF5733',
@@ -347,7 +346,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#FF5733',
     fontSize: 10,
-    padding: 7,
+    padding: 15,
   },
   weightStyle: {
     fontSize: 10,
@@ -369,7 +368,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#FF5733',
     fontSize: 10,
-    padding: 7,
+    padding: 15
   },
   heightStyle: {
     fontSize: 10,
@@ -391,7 +390,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#FF5733',
     fontSize: 10,
-    padding: 7,
+    padding: 15,
   },
   iconStyle: {
     fontSize: 10,

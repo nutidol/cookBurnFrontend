@@ -7,15 +7,15 @@ import axios from "axios";
 const Search1Screen = ({ navigation }) => {
     const [info, setInfo] = useState([]);
     const [sortkey, setSortkey] = useState("");
-    
+
     AsyncStorage.setItem("sk", sortkey)
-  
+
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
         const timestamp = await AsyncStorage.getItem("timestamp")
-        const response = await fetch(
-            `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menus/${id}/${timestamp}`
-        );
+        const response = await fetch( "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menus/123/1618473042624");
+        //const response = await fetch( `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menus/${id}/${timestamp}` );
+
         const data = await response.json();
         addDataToArray(data);
         console.log(data)
@@ -29,7 +29,9 @@ const Search1Screen = ({ navigation }) => {
         var postitionBoxTop = -60;
         var postitionDurationTop = -5;
         var postitionEnergyTop = 7;
+       
         for (var i in data) {
+
             var positionImageLeft = 50;
             var positionTitleLeft = 162;
             var positionDurationLeft = 162;
@@ -40,11 +42,12 @@ const Search1Screen = ({ navigation }) => {
             postitionBoxTop += 146;
             postitionDurationTop += 146;
             postitionEnergyTop += 146;
+           
             var dataWithPosition = {
                 duration: data[i].duration, title: data[i].title, url: data[i].url, topImage: positionImageTop,
                 leftImage: positionImageLeft, topTitle: postitionTitleTop, leftTitle: positionTitleLeft, topBox: postitionBoxTop,
                 leftBox: positionBoxLeft, topDuration: postitionDurationTop, leftDuration: positionDurationLeft, energy: data[i].nutrition.energy,
-                leftEnergy: positionEnergyLeft, topEnergy: postitionEnergyTop, sk: data[i].SK
+                leftEnergy: positionEnergyLeft, topEnergy: postitionEnergyTop, sk: data[i].SK, 
             }
             array.push(dataWithPosition)
         }
@@ -55,14 +58,15 @@ const Search1Screen = ({ navigation }) => {
         <ScrollView>
             <Text style={styles.headerStyle}>Menus</Text>
 
-            {info && info.map(({ url, topImage, leftImage, topTitle, leftTitle, title, duration, topBox, leftBox, leftDuration, topDuration, leftEnergy, topEnergy, energy, sk }) => {
+            {info && info.map(({ url, topImage, leftImage, topTitle, leftTitle, title, duration, topBox, leftBox, leftDuration, topDuration, leftEnergy, topEnergy, energy, sk}) => {
                 return (
                     <TouchableOpacity
-                    key = {sk}
-                    onPress={() => {setSortkey(sk);
-                                    navigation.navigate("Search2");
-                                    
-                    }}>
+                        key={sk}
+                        onPress={() => {
+                            setSortkey(sk);
+                            navigation.navigate("Search2");
+
+                        }}>
                         <Image
                             source={url}
                             style={{
@@ -78,7 +82,8 @@ const Search1Screen = ({ navigation }) => {
                             color: '#FF5733',
                             fontSize: 15,
                             fontWeight: 'bold',
-                            position: 'absolute'
+                            position: 'absolute',
+                            paddingRight: 50
                         }}>{title}</Text>
 
                         <Text style={{
@@ -87,7 +92,7 @@ const Search1Screen = ({ navigation }) => {
                             color: '#FF5733',
                             fontSize: 10,
                             position: 'absolute',
-                        }}>Duration: {duration} mins</Text>
+                        }}><b>Duration: </b>{duration} mins</Text>
 
                         <Text style={{
                             left: leftEnergy,
@@ -95,7 +100,8 @@ const Search1Screen = ({ navigation }) => {
                             color: '#FF5733',
                             fontSize: 10,
                             position: 'absolute',
-                        }}>Energy:{energy} kcal</Text>
+                        }}><b>Energy:</b>{energy} kcal</Text>
+
 
                         <View style={{
                             left: leftBox,

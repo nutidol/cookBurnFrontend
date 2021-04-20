@@ -7,20 +7,18 @@ import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
+
 const AddScreen = ({ navigation }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [saveOpen, setSaveOpen] = useState(false);
-    // const [addOpen, setAddOpen] = useState(false);
+
     const [term, setTerm] = useState("");
-    const [value, setValue] = useState(null);
-    const [searchValue, setSearchValue] = useState('');
     const [unit, setUnit] = useState(null);
     const [pic, setPic] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [quantity, setQuantity] = useState("");
     const [defaultUnit, setDefaultUnit] = useState("");
     const [defaultQty, setDefaultQty] = useState("");
-    const [igdName, setIgdName] = useState("");
     const [click, setClick] = useState({
         unit: [],
         SK: "",
@@ -75,7 +73,7 @@ const AddScreen = ({ navigation }) => {
         return term;
     }
 
-
+    
     async function postData() {
 
         try {
@@ -171,6 +169,7 @@ const AddScreen = ({ navigation }) => {
                     { label: 'Others', value: '6' },
                 ]}
                 defaultIndex={0}
+                arrowColor = "#FF5733"
                 placeholder="select ingredients type"
                 containerStyle={{ height: 26, width: 200, top: 125, left: 23, position: 'absolute' }}
                 labelStyle={{ color: "#FF5733" }}
@@ -226,11 +225,13 @@ const AddScreen = ({ navigation }) => {
                 </TouchableOpacity>
 
                 <DropDownPicker
-                    items={click.unit}
-                    placeholder= {defaultUnit}
+                    items={ click.unit}
+                    arrowColor = "#FF5733"
                     containerStyle={{ height: 26, width: 100, left: 190, top: 482, position: 'absolute', zIndex:1 }}
                     labelStyle={{ color: "#FF5733" }}
-                    onChangeItem={item => setUnit(item)}
+                    //onChangeItem={item => setUnit(item
+                     defaultValue = {unit}
+                    placeholder= {defaultUnit}
                     placeholderStyle ={{ textAlign: 'center'}}
                 />
 

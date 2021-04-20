@@ -84,16 +84,24 @@ const OnboardingOneScreen = ({ navigation }) => {
         Please enter your {"\n"}personal information
       </Text>
       <Text style={styles.genderStyle}> Gender (male/female)</Text>
-      <TextInput
-        style={styles.genderboxStyle}
-        color="#FF5733"
-        autoCapitalize="none"
+      <DropDownPicker
+        items={[
+          { label: 'Male', value: 'male' },
+          { label: 'Female', value: 'female' },
+        ]}
+        defaultIndex={0}
+        arrowColor="#FF5733"
         placeholder="gender"
-        placeholderTextColor="#FF5733"
-        onChangeText={(value) => {
-          setGender(value);
-        }}
+        containerStyle={{ height: 30, width: 302, top: 129, left: 36.75, position: 'absolute' ,  backgroundColor: 'white', borderRadius: 8, borderWidth: 1,  borderColor: '#FF5733'}}
+  
+        labelStyle={{
+          fontSize: 10,
+          textAlign: 'left',
+          color: "#FF5733" ,
+      }}
+        onChangeItem={item =>  setGender(item.value)}
       />
+
       <Text style={styles.ageStyle}> Age(year)</Text>
       <TextInput
         style={styles.ageboxStyle}
@@ -216,7 +224,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#FF5733",
     fontSize: 10,
-    padding: 7,
+    padding: 15,
   },
   ageStyle: {
     fontSize: 10,
@@ -238,7 +246,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#FF5733",
     fontSize: 10,
-    padding: 7,
+    padding: 15,
   },
   weightStyle: {
     fontSize: 10,
@@ -260,7 +268,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#FF5733",
     fontSize: 10,
-    padding: 7,
+    padding: 15,
   },
   heightStyle: {
     fontSize: 10,
@@ -282,7 +290,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#FF5733",
     fontSize: 10,
-    padding: 7,
+    padding: 15,
   },
   iconStyle: {
     fontSize: 10,
