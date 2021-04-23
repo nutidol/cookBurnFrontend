@@ -31,8 +31,6 @@ const styles = StyleSheet.create({
         left: 109,
         top: 105,
         zIndex: 5
-
-
     },
     squareStyle: {
         width: 375,

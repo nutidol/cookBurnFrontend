@@ -112,7 +112,7 @@ const Home1Screen = ({ navigation, route }) => {
 
         <Text style={styles.Header1Style}> Your daily information </Text>
         <Text style={styles.Header2Style}> Your recent activities </Text>
-        <Text style={styles.historyStyle} onPress={() => navigation.navigate('Home2')}> See full history &gt; </Text>
+        {/* <Text style={styles.historyStyle} onPress={() => navigation.navigate('Home2')}> See full history &gt; </Text> */}
         
 
         <View style={styles.tableStyle}>
