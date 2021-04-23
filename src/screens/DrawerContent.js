@@ -63,7 +63,7 @@ export function DrawerContent({ props, updateAuthState }) {
           style={{
             width: 88,
             height: 101,
-            left: 37,
+            left: 100,
             top: 50,
             position: "absolute",
           }}
@@ -114,8 +114,8 @@ const styles = StyleSheet.create({
   },
   username: {
     fontSize: 16,
-    marginTop: 130,
-    marginLeft: 37,
+    marginTop: 135,
+    marginLeft: 100,
     fontWeight: 'bold',
     color: '#FF5733'
   },
