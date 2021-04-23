@@ -49,9 +49,6 @@ const Drawer = createDrawerNavigator();
 
 // export default App;
 
-
-
-// stack that has all screens related when the user is not logged in
 const AuthenticationNavigator = (props) => {
   return (
     <AuthenticationStack.Navigator headerMode="none">
@@ -68,7 +65,7 @@ const AuthenticationNavigator = (props) => {
       <AuthenticationStack.Screen
         name="ForgetPassword"
         component={ForgetPassword}
-      />
+      /> 
 
       <AuthenticationStack.Screen
         name="OnBoarding1"
@@ -102,7 +99,7 @@ const AuthenticationNavigator = (props) => {
   );
 };
 
-// stack that has only one screen: the Home screen. This screen is only available if a user successfully logs in.
+
 const AppNavigator = (props) => {
   return (
     <Drawer.Navigator drawerContent={screenProps => <DrawerContent {...screenProps} updateAuthState={props.updateAuthState} />} >
@@ -113,7 +110,7 @@ const AppNavigator = (props) => {
 
 };
 
-//responsible to display a loading indicator when checking the state whether the user is logged in or not
+
 const Initializing = () => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -123,7 +120,7 @@ const Initializing = () => {
 };
 
 function App() {
-  //... other stack logic?
+
 
   const [isUserLoggedIn, setUserLoggedIn] = useState("initializing");
 

@@ -32,7 +32,6 @@ const SearchScreen = ({ navigation }) => {
     return false;
   }
 
-
   const removeFromSelectedImages = (profile) => {
     var newSelected = [];
     for (var i in selectedProfile) {

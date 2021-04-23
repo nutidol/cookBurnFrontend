@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Button } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const EditProfile1Screen = ({ navigation }) => {
+const EditProfile1Screen = ({ navigation, route }) => {
     const [info, setInfo] = useState({
         carb: 0,
         energy: 0,
@@ -39,21 +39,35 @@ const EditProfile1Screen = ({ navigation }) => {
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
         const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/${id}`);
-        //const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/123");
         const data = await response.json();
         setInfo(data.dailyInfo);
         setPersonalInfo(data.personalInfo)
-    }, []);
+    }, [route]);
+
+
+    //     useEffect(async () => {
+    //     const id = await AsyncStorage.getItem("userID");
+    //     let isMounted = true;
+    //     fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/userProfile/${id}`)
+    //         .then(async(res) => {
+    //             const data = await res.json();
+    //             if (isMounted ) {
+    //                 setInfo(data.dailyInfo);
+    //                 setPersonalInfo(data.personalInfo)
+    //             }
+    //         })
+    //     return () => { isMounted = false };
+
+    // }, [route])
 
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
         const timestamp = Date.now();
-        //const response1 = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/updateDailyInfo/123");
         const response1 = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/homePage/updateDailyInfo/${id}/${timestamp}`);
         const data1 = await response1.json();
         setUpdateInfo(data1);
        console.log(data1)
-    }, []);
+    }, [route]);
 
     return (
         <View>

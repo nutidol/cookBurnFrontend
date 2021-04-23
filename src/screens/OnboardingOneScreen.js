@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  Button,
-} from "react-native";
+import DropDownPicker from 'react-native-dropdown-picker';
+import { View,Text,StyleSheet,ActivityIndicator,Image,TouchableOpacity,TextInput,} from "react-native";
 import axios from "axios";
 import Amplify, { Auth, API } from "aws-amplify";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -23,12 +15,13 @@ const OnboardingOneScreen = ({ navigation }) => {
   const [weight, setWeight] = useState("");
   const [isLoading, setLoading] = useState(false);
 
-  useEffect(async () => {
-    const response = await fetch(
-      "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/profileIcon"
-    );
-    const data = await response.json();
-
+  useEffect(async() => {
+      const response = await fetch(
+        "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/profileIcon"
+      );
+      const data = await response.json();
+    
+    
     setPeople([
       { person: data[0], left: 38, top: 310 },
       { person: data[1], left: 145, top: 310 },
@@ -79,11 +72,8 @@ const OnboardingOneScreen = ({ navigation }) => {
 
   return (
     <View>
-      <Text style={styles.personalStyle}>
-        {" "}
-        Please enter your {"\n"}personal information
-      </Text>
-      <Text style={styles.genderStyle}> Gender (male/female)</Text>
+      <Text style={styles.personalStyle}>Please enter your {"\n"}personal information</Text>
+      <Text style={styles.genderStyle}>Gender (male/female)</Text>
       <DropDownPicker
         items={[
           { label: 'Male', value: 'male' },
@@ -93,7 +83,6 @@ const OnboardingOneScreen = ({ navigation }) => {
         arrowColor="#FF5733"
         placeholder="gender"
         containerStyle={{ height: 30, width: 302, top: 129, left: 36.75, position: 'absolute' ,  backgroundColor: 'white', borderRadius: 8, borderWidth: 1,  borderColor: '#FF5733'}}
-  
         labelStyle={{
           fontSize: 10,
           textAlign: 'left',
@@ -102,7 +91,7 @@ const OnboardingOneScreen = ({ navigation }) => {
         onChangeItem={item =>  setGender(item.value)}
       />
 
-      <Text style={styles.ageStyle}> Age(year)</Text>
+      <Text style={styles.ageStyle}>Age(year)</Text>
       <TextInput
         style={styles.ageboxStyle}
         color="#FF5733"
@@ -124,7 +113,7 @@ const OnboardingOneScreen = ({ navigation }) => {
           setWeight(value);
         }}
       />
-      <Text style={styles.heightStyle}> Height(cm)</Text>
+      <Text style={styles.heightStyle}> Height(cm)</Text> 
       <TextInput
         style={styles.heightboxStyle}
         color="#FF5733"
@@ -134,13 +123,13 @@ const OnboardingOneScreen = ({ navigation }) => {
         onChangeText={(value) => {
           setHeight(value);
         }}
-      />
+      /> 
       <Text style={styles.iconStyle}>Select icon for your profile</Text>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Welcome")}
+        onPress={() => navigation.navigate("Home1")}
         style={styles.skipboxStyle}
       >
-        <Text style={styles.skipStyle}>Skip</Text>
+         <Text style={styles.skipStyle}>Skip</Text> 
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -150,7 +139,7 @@ const OnboardingOneScreen = ({ navigation }) => {
         }}
         style={styles.nextboxStyle}>
         <Text style={styles.nextStyle}>
-          {isLoading && <ActivityIndicator size="small" />}Next
+          {isLoading && <ActivityIndicator size="small"/>}Next
         </Text>
       </TouchableOpacity>
 
@@ -158,17 +147,17 @@ const OnboardingOneScreen = ({ navigation }) => {
       <Text style={styles.point2Style}> . </Text>
       <Text style={styles.point3Style}> . </Text>
 
-      <View style={styles.iconBox1Style}> </View>
-      <View style={styles.iconBox2Style}> </View>
-      <View style={styles.iconBox3Style}> </View>
-      <View style={styles.iconBox4Style}> </View>
-      <View style={styles.iconBox5Style}> </View>
-      <View style={styles.iconBox6Style}> </View>
+      <View style={styles.iconBox1Style}></View>
+      <View style={styles.iconBox2Style}></View>
+      <View style={styles.iconBox3Style}></View>
+      <View style={styles.iconBox4Style}></View>
+      <View style={styles.iconBox5Style}></View>
+      <View style={styles.iconBox6Style}></View>
 
       {people &&
         people.map(({ person, left, top }) => {
           return (
-            <div>
+    
               <TouchableOpacity
               key={person.SK}
                 onPress={() => {
@@ -187,7 +176,7 @@ const OnboardingOneScreen = ({ navigation }) => {
                   }}
                 />
               </TouchableOpacity>
-            </div>
+         
           );
         })}
     </View>
@@ -202,7 +191,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 39,
     top: 50,
-   // textAlign: "center",
   },
   genderStyle: {
     fontSize: 10,

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image,  } from 'react-native';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ConsoleLogger } from '@aws-amplify/core';
+
 
 const AddProfile3Screen = ({ navigation }) => {
-    const [image, setImage] = useState([]);
-    const [people, setPeople] = useState(null);
+  
+    const [info, setInfo] = useState([]);
     const [url, setUrl] = useState("");
     const [isLoading, setLoading] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
@@ -35,22 +35,40 @@ const AddProfile3Screen = ({ navigation }) => {
             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/cuisineOfMenu"
         );
         const data = await response.json();
-        setPeople([
-            { person: data[0], left: 47, top: 145 },
-            { person: data[1], left: 143, top: 145 },
-            { person: data[2], left: 239, top: 145 },
-            { person: data[3], left: 47, top: 245 },
-            { person: data[4], left: 143, top: 245 },
-            { person: data[5], left: 239, top: 245 },
-            { person: data[6], left: 47, top: 345 },
-            { person: data[7], left: 143, top: 345 },
-            { person: data[8], left: 239, top: 345 },
-            { person: data[9], left: 47, top: 445},
-            { person: data[10], left: 143, top: 445 },
-            { person: data[11], left: 239, top: 445 },
-
-        ]);
+       addDataToArray(data);
     }, []);
+
+
+    const addDataToArray = (data) => {
+        var array = [];
+        var positionNameTop = 80;
+        var positionImageTop =10;
+        for (var i in data) {
+
+            if (i % 3 === 0) {
+                positionImageTop += 120;
+                positionNameTop += 120;
+                var positionImageLeft = 47;
+                var positionNameLeft = 47
+            }
+            else if (i % 3 === 1) {
+                positionImageLeft += 96;
+                positionNameLeft += 96;
+            }
+            else if (i % 3 == 2) {
+                positionImageLeft += 96;
+                positionNameLeft += 96;
+
+            }
+            var dataWithPosition = { url: data[i].url, name: data[i].title, topImage: positionImageTop, leftImage: positionImageLeft, topName: positionNameTop, leftName: positionNameLeft, dt: data[i] }
+            array.push(dataWithPosition);
+
+        }
+        
+        console.log(array);
+        setInfo(array);
+    }
+
 
     useEffect(() => {
         if (!url) return;
@@ -112,30 +130,37 @@ const AddProfile3Screen = ({ navigation }) => {
             </TouchableOpacity>
 
             <View style={styles.BoxStyle}>   </View >
-            {people && people.map(({ person, left, top }) => {
+            {info && info.map(({ url, leftImage, topImage, name, leftName, topName, dt }) => {
                 return (
 
                     <TouchableOpacity
-                        key={person.SK}
+                        key={name}
                         onPress={() => {
-                            if (isSelected(person.url)) {
-                                removeFromSelectedImages(person.url);
+                            if (isSelected(url)) {
+                                removeFromSelectedImages(url);
                             } else {
-                                setSelectedImages([...selectedImages, person])
+                                setSelectedImages([...selectedImages, dt])
                             }
                         }}
                     >
                         <Image
-                            source={{ uri: person.url }}
+                            source={{ uri: url }}
                             style={{
                                 width: 84,
                                 height: 84,
-                                left,
-                                top,
+                                left: leftImage,
+                                top: topImage,
                                 position: "absolute",
-                                opacity: isSelected(person.url) ? 1 : 0.3,
+                                opacity: isSelected(url) ? 1 : 0.3,
                             }}
                         />
+                         <Text style={{
+                            left: leftName,
+                            top: topName,
+                            color: '#FF5733',
+                            fontSize: 10,
+                            position: 'absolute',
+                        }}>{name}</Text>
                     </TouchableOpacity>
 
                 );

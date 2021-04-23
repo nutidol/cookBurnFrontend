@@ -16,7 +16,6 @@ import AddScreen from "./AddScreen";
 import WorkoutScreen from "./WorkoutScreen";
 import TotalAddScreen from "./TotalAddScreen";
 import Workout1Screen from "./Workout1Screen";
-import Workout2Screen from "./Workout2Screen";
 import AddProfileScreen from "./AddProfileScreen";
 import AddProfile1Screen from "./AddProfile1Screen";
 import AddProfile2Screen from "./AddProfile2Screen";
@@ -249,11 +248,11 @@ const WorkoutStackScreen = ({ navigation }) => {
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <WorkoutStack.Screen name="Workout2" component={Workout2Screen} options={{
+      {/* <WorkoutStack.Screen name="Workout2" component={Workout2Screen} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
-      }} />
+      }} /> */}
     </WorkoutStack.Navigator>
   )
 }

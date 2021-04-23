@@ -7,8 +7,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const OnboardingTwoScreen = ({ navigation }) => {
-    const [image, setImage] = useState([]);
-    const [people, setPeople] = useState(null);
+   
+    const [info, setInfo] = useState([]);
     const [url, setUrl] = useState("");
     const [isLoading, setLoading] = useState(false);
     const[selectedImages, setSelectedImages] = useState([]);
@@ -37,25 +37,38 @@ const OnboardingTwoScreen = ({ navigation }) => {
             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/tasteOfMenu"
         );
         const data = await response.json();
-      
-
-        setPeople([
-            { person: data[0], left: 47, top: 200 },
-            { person: data[1], left: 143, top: 200 },
-            { person: data[2], left: 239, top: 200 },
-            { person: data[3], left: 47, top: 300 },
-            { person: data[4], left: 143, top: 300 },
-            { person: data[5], left: 239, top: 300 },
-            { person: data[6], left: 47, top: 400 },
-            { person: data[7], left: 143, top: 400 },
-            { person: data[8], left: 239, top: 400 },
-            { person: data[9], left: 47, top: 500 },
-            { person: data[10], left: 143, top: 500 },
-            { person: data[11], left: 239, top: 500 },
-
-        ]);
+      addDataToArray(data);
     }, []);
 
+    const addDataToArray = (data) => {
+        var array = [];
+        var positionNameTop = 70;
+        var positionImageTop = -20;
+        for (var i in data) {
+
+            if (i % 3 === 0) {
+                positionImageTop += 120;
+                positionNameTop += 120;
+                var positionImageLeft = 47;
+                var positionNameLeft = 47
+            }
+            else if (i % 3 === 1) {
+                positionImageLeft += 96;
+                positionNameLeft += 96;
+            }
+            else if (i % 3 == 2) {
+                positionImageLeft += 96;
+                positionNameLeft += 96;
+
+            }
+            var dataWithPosition = { url: data[i].url, name: data[i].title, topImage: positionImageTop, leftImage: positionImageLeft, topName: positionNameTop, leftName: positionNameLeft, dt: data[i] }
+            array.push(dataWithPosition);
+
+        }
+        
+        console.log(array);
+        setInfo(array);
+    }
 
 
     useEffect(() => {
@@ -93,12 +106,12 @@ const OnboardingTwoScreen = ({ navigation }) => {
     }
     return (
         <View>
-            <Text style={styles.textOneStyle}>Please select <u>the tastes</u> of {"\n"}menu you like</Text>
+            <Text style={styles.textOneStyle}>Please select<u>the tastes</u> of {"\n"}menu you like</Text>
             <Text style={styles.textTwoStyle}> You can select more than one menu, the{"\n"}selection you made will be used to provide you{"\n"}the satisfying menus</Text>
 
             <TouchableOpacity onPress={() => navigation.navigate('Home1')}
                 style={styles.skipboxStyle} >
-                <Text style={styles.skipStyle} >Skip</Text>
+                <Text style={styles.skipStyle}>Skip</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -108,40 +121,49 @@ const OnboardingTwoScreen = ({ navigation }) => {
                 }}
                 style={styles.nextboxStyle}>
                 <Text style={styles.nextStyle}>
-                    {isLoading && <ActivityIndicator size="small" />}Next
+                    {isLoading && <ActivityIndicator size="small"/>}Next
                  </Text>
             </TouchableOpacity>
-            <Text style={styles.point1Style}> . </Text>
-            <Text style={styles.point2Style}> . </Text>
-            <Text style={styles.point3Style}> . </Text>
-            <View style={styles.BoxStyle}>   </View >
+            <Text style={styles.point1Style}>.</Text>
+            <Text style={styles.point2Style}>.</Text>
+            <Text style={styles.point3Style}>.</Text>
+            <View style={styles.BoxStyle}></View >
 
-            {people && people.map(({ person, left, top}) => {
+            {info && info.map(({ url, leftImage, topImage, name, leftName, topName, dt }) => {
                 return (
-    
-                        <TouchableOpacity
-                            key={person.SK}
-                            onPress={() => {
-                                if(isSelected(person.url)){
-                                    removeFromSelectedImages(person.url);
-                                }else{
-                                    setSelectedImages([...selectedImages,person])
-                                }
+                    <TouchableOpacity
+                        key={name}
+                        onPress={() => {
+                            if (isSelected(url)) {
+                                removeFromSelectedImages(url);
+                            } else {
+                                setSelectedImages([...selectedImages,dt])
+                            }
+                        }}
+                    >
+                        <Image
+                            source={{ uri: url }}
+                            style={{
+                                width: 84,
+                                height: 84,
+                                left: leftImage,
+                                top: topImage,
+                                position: "absolute",
+                                opacity: isSelected(url) ? 1 : 0.3,
                             }}
-                        >
-                            <Image
-                                source={{ uri: person.url }}
-                                style={{
-                                    width: 84,
-                                    height: 84,
-                                    left,
-                                    top,
-                                    position: "absolute",
-                                    opacity: isSelected(person.url) ? 1 : 0.3,
-                                }}
-                            />
-                        </TouchableOpacity>
-                   
+                        />
+
+                        <Text style={{
+                            left: leftName,
+                            top: topName,
+                            color: '#FF5733',
+                            fontSize: 10,
+                            position: 'absolute',
+                        }}>{name}</Text>
+
+
+                    </TouchableOpacity>
+
                 );
             })}
 

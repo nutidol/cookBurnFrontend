@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const EditProfile2Screen = ({ navigation }) => {
     const [image, setImage] = useState("");
@@ -29,7 +30,7 @@ const EditProfile2Screen = ({ navigation }) => {
             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/profileIcon"
         );
         const data = await response.json();
-        //setPersonalInfo(data.personalInfo);
+      
 
         setPeople([
             { person: data[0], left: 38, top: 303 },
@@ -67,7 +68,7 @@ const EditProfile2Screen = ({ navigation }) => {
             const id = await AsyncStorage.getItem("userID");
             console.log(id);
             const article = {
-                userID: 123,
+                userID: id,
                 gender: gender,
                 age: age,
                 weight: weight,
@@ -99,22 +100,29 @@ const EditProfile2Screen = ({ navigation }) => {
             <Text style={styles.headerStyle}>Your personal information</Text>
             <Text style={styles.subheaderStyle}>Please enter or edit your personal information, so we can {'\n'}calculate your daily information for you!</Text>
             <Text style={styles.genderStyle}> Gender (male/female)</Text>
-            <View style={styles.BoxStyle}> </View >
-            <View style={styles.Box1Style}> </View >
-            <View style={styles.Box2Style}> </View >
-            <View style={styles.Box3Style}> </View >
-            <View style={styles.Box4Style}> </View >
-            <View style={styles.Box5Style}> </View >
+            <View style={styles.BoxStyle}></View >
+            <View style={styles.Box1Style}></View >
+            <View style={styles.Box2Style}></View >
+            <View style={styles.Box3Style}></View >
+            <View style={styles.Box4Style}></View >
+            <View style={styles.Box5Style}></View >
 
-            <TextInput style={styles.genderboxStyle}
-                color='#FF5733'
-                autoCapitalize='none'
-                placeholder= {personalInfo.gender}
-                placeholderTextColor='#FF5733'
-                onChangeText={(value) => {
-                    setGender(value);
-                }}
-            />
+            <DropDownPicker
+        items={[
+          { label: 'Male', value: 'male' },
+          { label: 'Female', value: 'female' },
+        ]}
+        defaultIndex={0}
+        arrowColor="#FF5733"
+        placeholder="gender"
+        containerStyle={{ height: 30, width: 302, top: 110, left: 36.75, position: 'absolute' ,  backgroundColor: 'white', borderRadius: 8, borderWidth: 1,  borderColor: '#FF5733'}}
+        labelStyle={{
+          fontSize: 10,
+          textAlign: 'left',
+          color: "#FF5733" ,
+      }}
+        onChangeItem={item =>  setGender(item.value)}
+      />
             <Text style={styles.ageStyle}> Age(year)</Text>
             <TextInput style={styles.ageboxStyle}
                 color='#FF5733'

@@ -22,10 +22,10 @@ export default function SignUp({ navigation }) {
       console.log(" Error signing up...", error);
       if (
         error.message ==
-        "1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6"
+        "1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 8"
       ) {
         setInvalidMessage(
-          "Password must be equal and have greater lenght than 6."
+          "Password must be equal and have greater lenght than 8."
         );
       } else if (
         error.message ==
