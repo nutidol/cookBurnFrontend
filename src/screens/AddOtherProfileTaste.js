@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image,  } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const AddOtherProfileTaste = ({ navigation }) => {
 
-const AddProfile3Screen = ({ navigation }) => {
-  
     const [info, setInfo] = useState([]);
     const [url, setUrl] = useState("");
     const [isLoading, setLoading] = useState(false);
@@ -26,23 +25,22 @@ const AddProfile3Screen = ({ navigation }) => {
                 newSelected.push(selectedImages[i]);
         }
         setSelectedImages(newSelected);
-
     }
     console.log(selectedImages);
 
     useEffect(async () => {
         const response = await fetch(
-            "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/cuisineOfMenu"
+            "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/tasteOfMenu"
         );
-        const data = await response.json();
-       addDataToArray(data);
-    }, []);
+        const data = await response.json()
+        addDataToArray(data);
 
+    }, []);
 
     const addDataToArray = (data) => {
         var array = [];
-        var positionNameTop = 80;
-        var positionImageTop =10;
+        var positionNameTop = 70;
+        var positionImageTop = -20;
         for (var i in data) {
 
             if (i % 3 === 0) {
@@ -69,12 +67,6 @@ const AddProfile3Screen = ({ navigation }) => {
         setInfo(array);
     }
 
-
-    useEffect(() => {
-        if (!url) return;
-    }, [url]);
-
-
     async function postData() {
         if (isLoading) {
             return;
@@ -88,15 +80,15 @@ const AddProfile3Screen = ({ navigation }) => {
             const article = {
                 userID: id,
                 profileOf: profile,
-                menuCuisine: selectedImages
+                menuTaste: selectedImages
             };
             setLoading(true);
             const res = await axios.post(
-                "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/cuisineOfMenu",
+                "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/othersTasteOfMenus",
                 article
             );
             console.log(article);
-            navigation.navigate("AddProfile4");
+           
             console.log(res);
         } catch (error) {
             console.log(error);
@@ -105,41 +97,39 @@ const AddProfile3Screen = ({ navigation }) => {
         }
     }
 
+
     return (
         <View>
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate("AddProfile2")
+                    navigation.navigate("Add Other’s Profile Info")
                 }}>
                 <Text style={styles.backStyle}> &lt;&lt;back</Text>
             </TouchableOpacity>
             <Text style={styles.headerStyle}>Add Other's Profile</Text>
-            <Text style={styles.subheaderStyle}>Please select the <b><u>the cuisines</u></b> of menu <b><u>he/she like</u></b>. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide them the satisfying menus</Text>
-
+            <Text style={styles.subheaderStyle}>Please select <b><u>"the tastes"</u></b> of menu <b><u>he/she like</u></b>. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide them the satisfying menus</Text>
             <TouchableOpacity
                 disabled={isLoading}
                 onPress={() => {
                     postData();
-                    navigation.navigate("AddProfile4");
+                    navigation.navigate("Add Other’s Profile Cuisine");
                 }}
-                style={styles.saveboxStyle}>
-                <Text style={styles.saveStyle}>
-                    {/* {isLoading && <ActivityIndicator size="small" />} */}
-                    Save
+                style={styles.nextboxStyle}>
+                <Text style={styles.nextStyle}>
+                    {isLoading && <ActivityIndicator size="small" />}
+                    Next
                  </Text>
             </TouchableOpacity>
-
-            <View style={styles.BoxStyle}>   </View >
+            <View style={styles.BoxStyle}></View >
             {info && info.map(({ url, leftImage, topImage, name, leftName, topName, dt }) => {
                 return (
-
                     <TouchableOpacity
                         key={name}
                         onPress={() => {
                             if (isSelected(url)) {
                                 removeFromSelectedImages(url);
                             } else {
-                                setSelectedImages([...selectedImages, dt])
+                                setSelectedImages([...selectedImages,dt])
                             }
                         }}
                     >
@@ -154,21 +144,22 @@ const AddProfile3Screen = ({ navigation }) => {
                                 opacity: isSelected(url) ? 1 : 0.3,
                             }}
                         />
-                         <Text style={{
+
+                        <Text style={{
                             left: leftName,
                             top: topName,
                             color: '#FF5733',
                             fontSize: 10,
                             position: 'absolute',
                         }}>{name}</Text>
+
+
                     </TouchableOpacity>
 
                 );
             })}
         </View>
-
-    );
-
+    )
 };
 
 const styles = StyleSheet.create({
@@ -180,11 +171,12 @@ const styles = StyleSheet.create({
       },
     headerStyle: {
         fontSize: 20,
-        fontWeight: 'bold',
+        color: "#FF5733",
         position: 'absolute',
+        textAlign: "center",
+        fontWeight: "bold",
         left: 36,
-        top: 30,
-        color: '#FF5733',
+        top: 30
     },
     subheaderStyle: {
         position: 'absolute',
@@ -193,24 +185,25 @@ const styles = StyleSheet.create({
         top: 56,
         color: '#FF5733',
     },
-    saveboxStyle: {
+    nextboxStyle: {
+        borderRadius: 24,
         width: 68,
         height: 24,
-        backgroundColor: '#FF5733',
-        position: 'absolute',
-        left: 267,
+        left: 272,
         top: 632,
-        borderRadius: 24,
+        backgroundColor: '#FF5733',
+        textAlign: 'center',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 10
     },
-    saveStyle: {
+    nextStyle: {
         fontSize: 10,
         color: 'white',
-        textAlign: 'center'
+        textAlign: 'center',
     },
+
     BoxStyle: {
         width: 303,
         height: 494,
@@ -226,4 +219,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default AddProfile3Screen;
+export default AddOtherProfileTaste;

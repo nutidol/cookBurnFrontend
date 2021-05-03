@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+
+import React, { useState, useEffect, } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const AddProfile2Screen = ({ navigation }) => {
+const EditUserProfileTaste = ({ navigation }) => {
 
+   
     const [info, setInfo] = useState([]);
-    const [url, setUrl] = useState("");
     const [isLoading, setLoading] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
 
@@ -32,15 +33,16 @@ const AddProfile2Screen = ({ navigation }) => {
         const response = await fetch(
             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/tasteOfMenu"
         );
-        const data = await response.json()
+        const data = await response.json();
         addDataToArray(data);
+        console.log(data);
 
     }, []);
 
     const addDataToArray = (data) => {
         var array = [];
-        var positionNameTop = 70;
-        var positionImageTop = -20;
+        var positionNameTop = 100;
+        var positionImageTop = 10;
         for (var i in data) {
 
             if (i % 3 === 0) {
@@ -73,22 +75,19 @@ const AddProfile2Screen = ({ navigation }) => {
         }
         try {
             const id = await AsyncStorage.getItem("userID");
-            const profile = await AsyncStorage.getItem("profileOf");
             console.log(id);
-            console.log(profile);
 
             const article = {
                 userID: id,
-                profileOf: profile,
                 menuTaste: selectedImages
             };
             setLoading(true);
             const res = await axios.post(
-                "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/othersTasteOfMenus",
+                "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/tasteOfMenu",
                 article
             );
             console.log(article);
-            navigation.navigate("AddProfile3");
+         
             console.log(res);
         } catch (error) {
             console.log(error);
@@ -97,30 +96,31 @@ const AddProfile2Screen = ({ navigation }) => {
         }
     }
 
-
     return (
         <View>
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate("AddProfile1")
+                    navigation.navigate("Edit User Profile Info")
                 }}>
                 <Text style={styles.backStyle}> &lt;&lt;back</Text>
             </TouchableOpacity>
-            <Text style={styles.headerStyle}>Add Other's Profile</Text>
-            <Text style={styles.subheaderStyle}>Please select <b><u>"the tastes"</u></b> of menu <b><u>he/she like</u></b>. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide them the satisfying menus</Text>
+
+            <Text style={styles.headerStyle}>Your personal information</Text>
+            <Text style={styles.subheaderStyle}> Please select <b><u>"the tastes"</u></b> of menus you like. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide you the satisfying menus</Text>
+
             <TouchableOpacity
                 disabled={isLoading}
                 onPress={() => {
                     postData();
-                    navigation.navigate("AddProfile3");
+                    navigation.navigate("Edit User Profile Cuisine");
                 }}
                 style={styles.nextboxStyle}>
                 <Text style={styles.nextStyle}>
-                    {isLoading && <ActivityIndicator size="small" />}
-                    Next
-                 </Text>
+                    {isLoading && <ActivityIndicator size="small" />}Next</Text>
             </TouchableOpacity>
-            <View style={styles.BoxStyle}></View >
+           
+            <View style={styles.BoxStyle}> </View >
+
             {info && info.map(({ url, leftImage, topImage, name, leftName, topName, dt }) => {
                 return (
                     <TouchableOpacity
@@ -160,23 +160,24 @@ const AddProfile2Screen = ({ navigation }) => {
             })}
         </View>
     )
+
 };
 
 const styles = StyleSheet.create({
-    backStyle:{
+    backStyle: {
         color: '#FF5733',
         fontSize: 12,
-        top:10,
+        top: 10,
         position: 'absolute',
-      },
+    },
     headerStyle: {
         fontSize: 20,
-        color: "#FF5733",
+        fontWeight: 'bold',
+        color: '#FF5733',
         position: 'absolute',
-        textAlign: "center",
-        fontWeight: "bold",
         left: 36,
-        top: 30
+        top: 30,
+        textAlign: 'center'
     },
     subheaderStyle: {
         position: 'absolute',
@@ -196,11 +197,32 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        position : 'absolute'
+    },
+    skipboxStyle: {
+        borderRadius: 24,
+        width: 68,
+        height: 24,
+        left: 190,
+        top: 632,
+        backgroundColor: 'white',
+        textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 10,
+        zIndex :5,
+        position : 'absolute'
     },
     nextStyle: {
         fontSize: 10,
         color: 'white',
+        textAlign: 'center',
+    },
+    skipStyle: {
+        fontSize: 10,
+        color: '#FF5733',
         textAlign: 'center',
     },
 
@@ -215,8 +237,7 @@ const styles = StyleSheet.create({
         top: 107
     }
 
-
 });
 
 
-export default AddProfile2Screen;
+export default EditUserProfileTaste;

@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 
-const Search2Screen = ({ navigation }) => {
+const MenuInformation = ({ navigation }) => {
     const [hi, setHi] = useState(null);
     const [igd, setIgd] = useState([]);
     const [lackIgd, setLackIgd] = useState([]);
@@ -27,8 +27,8 @@ const Search2Screen = ({ navigation }) => {
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
         const sk = await AsyncStorage.getItem("sk")
-        //const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menu/${id}/${sk}`);
-        const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menu/123/gen_1618473042624_416792");
+        const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menu/${id}/${sk}`);
+        //const response = await fetch("https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menu/123/gen_1618473042624_416792");
         data = await response.json();
         setDt(data)
         addDataToArray(data);
@@ -104,17 +104,11 @@ const Search2Screen = ({ navigation }) => {
         }
         setTop(positionIgdTop);
         setIgd(igdArray);
-
-        var lackArray = [];
         var positionLackTop = positionIgdTop + 55;
-
-        // for (var j in data[0].totalLackIngredient) {
-
-        // var lackWithPosition = { lack: data[0].totalLackIngredient[j], topLack: positionLackTop }
-        // lackArray.push(lackWithPosition);
-        // }
+        var lackArray = [];
             let ans = checkEmpty(data[0].totalLackIngredient)
             for (var i in ans){
+                positionLackTop +=25;
                 var lackWithPosition = { lack: ans[i], topLack: positionLackTop }
                 lackArray.push(lackWithPosition);
             }
@@ -136,7 +130,7 @@ const Search2Screen = ({ navigation }) => {
 
 
         var nutritionArray = [];
-        var positionNutritionTop = positionInstructionTop + 45;
+        var positionNutritionTop = positionInstructionTop + 60;
         for (var l in data[0].nutrition) {
 
             positionNutritionTop += 25;
@@ -154,12 +148,12 @@ const Search2Screen = ({ navigation }) => {
         <ScrollView>
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate("Search1")
+                    navigation.navigate("Generated Menus")
                 }}>
                 <Text style={styles.backStyle}> &lt;&lt;back</Text>
             </TouchableOpacity>
 
-            {header && header.map(({ title, url }) => {
+            {header && header.map(({ title,url}) => {
                 return (
 
                     <TouchableOpacity
@@ -287,7 +281,7 @@ const Search2Screen = ({ navigation }) => {
                             fontSize: 15,
                             position: 'absolute',
                             fontWeight: "bold",
-                        }}>Menu Information</Text>
+                        }}>Menu Nutritions</Text>
                         <Text style={{
                             left: 270,
                             top: topNutrition,
@@ -361,4 +355,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Search2Screen;
+export default MenuInformation;

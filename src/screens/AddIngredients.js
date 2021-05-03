@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Image , ActivityIndicator} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Image, ActivityIndicator } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { MaterialIcons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -8,10 +8,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
-const AddScreen = ({ navigation }) => {
+const AddIngredients = ({ navigation }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [saveOpen, setSaveOpen] = useState(false);
-
     const [term, setTerm] = useState("");
     const [unit, setUnit] = useState(null);
     const [pic, setPic] = useState(null);
@@ -32,15 +31,13 @@ const AddScreen = ({ navigation }) => {
     const ingredientDefault = async (ingredientName) => {
         const id = await AsyncStorage.getItem("userID");
         const response1 = await fetch(
-          `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/ingredientsPage/IngredientInfo/${id}/${ingredientName}`
+            `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/ingredientsPage/IngredientInfo/${id}/${ingredientName}`
         );
         const data1 = await response1.json();
         setDefaultQty(data1.quantity);
         setDefaultUnit(data1.unit);
-        
-      }
 
-   
+    }
 
     const [response, setResponse] = useState([]);
 
@@ -62,8 +59,8 @@ const AddScreen = ({ navigation }) => {
     }
 
     console.log(response);
-    
-    
+
+
     const getSearchItem = async (term) => {
         console.log(term);
         const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/ingredientsPage/searchIngredient?ingredient=${term}`);
@@ -73,7 +70,7 @@ const AddScreen = ({ navigation }) => {
         return term;
     }
 
-    
+
     async function postData() {
 
         try {
@@ -133,7 +130,7 @@ const AddScreen = ({ navigation }) => {
             { food: data[9], left: 47, top: 484 },
             { food: data[10], left: 143, top: 484 },
             { food: data[11], left: 239, top: 484 },
-            
+
 
         ]);
         return linkValue;
@@ -169,14 +166,14 @@ const AddScreen = ({ navigation }) => {
                     { label: 'Others', value: '6' },
                 ]}
                 defaultIndex={0}
-                arrowColor = "#FF5733"
+                arrowColor="#FF5733"
                 placeholder="select ingredients type"
                 containerStyle={{ height: 26, width: 200, top: 125, left: 23, position: 'absolute' }}
                 labelStyle={{ color: "#FF5733" }}
                 onChangeItem={item => getItem(item.value)}
             />
 
-            <Text onPress={() => navigation.navigate('TotalAdd')}
+            <Text onPress={() => navigation.navigate('Total Ingredients')}
                 style={styles.igdStyle}>Your Ingredients &gt;</Text>
             <View style={styles.BoxStyle}></View >
 
@@ -191,15 +188,30 @@ const AddScreen = ({ navigation }) => {
                     color='#FF5733'
                     onPress={() => setModalOpen(false)} />
 
+                <View style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    top: 20
+                }}>
+                    <Text style={{
+                        fontWeight: 'bold',
 
-                <Text style={styles.textStyle}>{click.name}</Text>
+                        fontSize: 25,
+                        color: "#FF5733",
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>{click.name}</Text>
+                </View>
+
                 <Image
                     source={{ uri: click.url }}
                     style={{
                         width: 147,
                         height: 147,
-                        left: 109,
-                        top: 300,
+                        left: 115,
+                        top: 250,
                         position: "absolute",
                     }}
                 />
@@ -208,7 +220,7 @@ const AddScreen = ({ navigation }) => {
                     onPress={() => {
                         setResponse([...response, { ingredientID: click.ingredientID, name: click.name, quantity: quantity, unit: unit, url: click.url }])
                         setModalOpen(false);
-                        
+
                     }}
                 >
                     <Text style={styles.AddStyle}>add</Text>
@@ -225,14 +237,14 @@ const AddScreen = ({ navigation }) => {
                 </TouchableOpacity>
 
                 <DropDownPicker
-                    items={ click.unit}
-                    arrowColor = "#FF5733"
-                    containerStyle={{ height: 26, width: 100, left: 190, top: 482, position: 'absolute', zIndex:1 }}
+                    items={click.unit}
+                    arrowColor="#FF5733"
+                    containerStyle={{ height: 26, width: 100, left: 190, top: 482, position: 'absolute', zIndex: 1 }}
                     labelStyle={{ color: "#FF5733" }}
-                    //onChangeItem={item => setUnit(item
-                     defaultValue = {unit}
-                    placeholder= {defaultUnit}
-                    placeholderStyle ={{ textAlign: 'center'}}
+                    onChangeItem={item => setUnit(item)}
+                    //defaultValue = {unit}
+                    placeholder={defaultUnit}
+                    placeholderStyle={{ textAlign: 'center' }}
                 />
 
                 <TextInput style={styles.numberStyle}
@@ -251,7 +263,7 @@ const AddScreen = ({ navigation }) => {
                 }}>
                 <Text style={styles.saveStyle}> {isLoading && <ActivityIndicator size="small" />} save</Text>
             </TouchableOpacity>
-           
+
             <Modal visible={saveOpen}>
                 <MaterialIcons
                     name='close'
@@ -261,9 +273,10 @@ const AddScreen = ({ navigation }) => {
                 <Text style={styles.aStyle}>Your Ingredients {'\n'} are Saved!</Text>
                 <TouchableOpacity
                     style={styles.seeBoxStyle}
-                    onPress= {() => {navigation.navigate('TotalAdd');
-                    setSaveOpen(false);
-                }
+                    onPress={() => {
+                        navigation.navigate('Total Ingredients');
+                        setSaveOpen(false);
+                    }
                     }>
                     <Text style={styles.seeStyle}>See your ingredients</Text>
                 </TouchableOpacity>
@@ -367,13 +380,16 @@ const styles = StyleSheet.create({
     },
 
     textStyle: {
-        left: 160,
         top: 260,
         fontSize: 25,
         color: "#FF5733",
         position: 'absolute',
         textAlign: "center",
         fontWeight: "bold",
+        justifyContent: "center",
+        alignItems: 'center',
+        left: "60%",
+        transform: [{ translateX: -60 }],
     },
     AddStyle: {
         fontSize: 10,
@@ -490,4 +506,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default AddScreen;
+export default AddIngredients;

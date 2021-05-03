@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-const AddProfileScreen = ({ navigation }) => {
+const OtherProfile = ({ navigation }) => {
     const [pic, setPic] = useState([]);
     const [top, setTop] = useState([]);
 
@@ -67,7 +67,7 @@ const AddProfileScreen = ({ navigation }) => {
                 return (
                     <TouchableOpacity
                         key={profile}
-                        onPress={() => {{navigation.navigate('AddProfile4')}
+                        onPress={() => {{navigation.navigate('Other’s Profile Information')}
                                         setProfile(profile)}}
                         >
                         <Image
@@ -97,9 +97,7 @@ const AddProfileScreen = ({ navigation }) => {
             })}
             <TouchableOpacity
              onPress={() => {
-                navigation.navigate("AddProfile1");
-             
-      
+                navigation.navigate("Add Other’s Profile Info");
               }}
                 style={{ width: 295,
                     height: 37,
@@ -165,4 +163,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default AddProfileScreen;
+export default OtherProfile;

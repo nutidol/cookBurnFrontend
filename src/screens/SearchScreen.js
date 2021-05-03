@@ -19,13 +19,13 @@ const SearchScreen = ({ navigation }) => {
   const [selectedProfile, setSelectedProfile] = useState([]);
   const [top, setTop] = useState("");
   const [timestamp, setTimestamp] = useState("");
-  AsyncStorage.setItem("timestamp", timestamp )
+  AsyncStorage.setItem("timestamp", timestamp)
 
   var dataWithPosition = {}
 
   const isSelected = (profile) => {
     for (var i in selectedProfile) {
-      if (selectedProfile[i]=== profile)
+      if (selectedProfile[i] === profile)
         return true;
     }
 
@@ -41,15 +41,14 @@ const SearchScreen = ({ navigation }) => {
     setSelectedProfile(newSelected);
   }
 
-console.log(selectedProfile)
+  console.log(selectedProfile)
 
 
   useEffect(async () => {
     const id = await AsyncStorage.getItem("userID");
-    
-    const response = await fetch(
-      `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menuFilterFor/${id}`
-    );
+
+    const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menuFilterFor/${id}`);
+
     const data = await response.json();
     addDataToArray(data);
 
@@ -58,7 +57,7 @@ console.log(selectedProfile)
   }, []);
 
   const addDataToArray = (data) => {
-    var array =[];
+    var array = [];
     var positionImageTop = -44;
     var positionNameTop = 52;
 
@@ -102,11 +101,7 @@ console.log(selectedProfile)
       const article = {
         userID: id,
         timestamp: timestamp,
-        genFor: [
-          {
-            profile: selectedProfile
-          }
-        ],
+        genFor: selectedProfile,
         genBy: {
           duration: duration,
           energy: energy,
@@ -122,11 +117,11 @@ console.log(selectedProfile)
       console.log(article);
       setLoading(true);
       const res = await axios.post(
-        "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menuFilter",
+        "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/generateMenus",
         article
       );
       console.log(res);
-      navigation.navigate("Search1");
+      navigation.navigate("Generated Menus");
     } catch (error) {
       console.log(error);
     } finally {
@@ -136,6 +131,7 @@ console.log(selectedProfile)
 
   return (
     <ScrollView>
+      <Text style={styles.hi}>*Please add your ingredients before generate menu</Text>
       <Text style={styles.headerStyle}>Menu Filters</Text>
       <Text style={styles.forStyle}>For</Text>
       <Text style={styles.subforStyle}>(You can select more than 1 person)</Text>
@@ -374,11 +370,14 @@ console.log(selectedProfile)
           justifyContent: "center",
           paddingHorizontal: 10,
         }}
-        onPress={() => postData()}>
+        onPress={() => {
+          postData();
+          
+        }}>
         <Text style={styles.generateStyle}>{isLoading && <ActivityIndicator size="small" />}Generate</Text>
       </TouchableOpacity>
 
-      <Text style={{fontSize: 15,color: "#FF5733",position: 'absolute', textAlign: "center", fontWeight: "bold",left: 44,top: top + 388}}>Serving Size</Text>
+      <Text style={{ fontSize: 15, color: "#FF5733", position: 'absolute', textAlign: "center", fontWeight: "bold", left: 44, top: top + 388 }}>Serving Size</Text>
       <TextInput style={{
         backgroundColor: 'white',
         borderRadius: 8,
@@ -395,7 +394,7 @@ console.log(selectedProfile)
       }}
         color='#FF5733'
         textAlign='center'
-       // defaultValue={1}
+        // defaultValue={1}
         onChangeText={newTerm => setServingSize(newTerm)} />
 
 
@@ -443,6 +442,9 @@ console.log(selectedProfile)
 };
 
 const styles = StyleSheet.create({
+  hi: {
+    color: '#FF5733', left: 36, top: 15, position: 'absolute', fontSize: 10
+  },
 
   infoStyle: {
     color: "#FF5733",

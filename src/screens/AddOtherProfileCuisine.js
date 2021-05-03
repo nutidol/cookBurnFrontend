@@ -3,7 +3,9 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator } fr
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const EditProfile22Screen = ({ navigation }) => {
+
+const AddOtherProfileCuisine = ({ navigation }) => {
+  
     const [info, setInfo] = useState([]);
     const [url, setUrl] = useState("");
     const [isLoading, setLoading] = useState(false);
@@ -28,19 +30,19 @@ const EditProfile22Screen = ({ navigation }) => {
     }
     console.log(selectedImages);
 
-
     useEffect(async () => {
         const response = await fetch(
             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/cuisineOfMenu"
         );
         const data = await response.json();
-        addDataToArray(data);
+       addDataToArray(data);
     }, []);
+
 
     const addDataToArray = (data) => {
         var array = [];
         var positionNameTop = 100;
-        var positionImageTop = 10;
+        var positionImageTop =10;
         for (var i in data) {
 
             if (i % 3 === 0) {
@@ -67,6 +69,7 @@ const EditProfile22Screen = ({ navigation }) => {
         setInfo(array);
     }
 
+
     useEffect(() => {
         if (!url) return;
     }, [url]);
@@ -78,10 +81,13 @@ const EditProfile22Screen = ({ navigation }) => {
         }
         try {
             const id = await AsyncStorage.getItem("userID");
+            const profile = await AsyncStorage.getItem("profileOf");
             console.log(id);
+            console.log(profile);
 
             const article = {
                 userID: id,
+                profileOf: profile,
                 menuCuisine: selectedImages
             };
             setLoading(true);
@@ -90,7 +96,7 @@ const EditProfile22Screen = ({ navigation }) => {
                 article
             );
             console.log(article);
-            navigation.navigate("EditProfile1");
+           
             console.log(res);
         } catch (error) {
             console.log(error);
@@ -99,41 +105,31 @@ const EditProfile22Screen = ({ navigation }) => {
         }
     }
 
-
     return (
         <View>
-
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate("EditProfile21")
+                    navigation.navigate("Add Other’s Profile Taste")
                 }}>
                 <Text style={styles.backStyle}> &lt;&lt;back</Text>
             </TouchableOpacity>
+            <Text style={styles.headerStyle}>Add Other's Profile</Text>
+            <Text style={styles.subheaderStyle}>Please select the <b><u>the cuisines</u></b> of menu <b><u>he/she like</u></b>. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide them the satisfying menus</Text>
 
-            <TouchableOpacity
-               
-               onPress={() => {
-                 navigation.navigate("EditProfile1")
-               }}
-               style={styles.skipboxStyle}>
-               <Text style={styles.skipStyle}>Skip</Text>
-           </TouchableOpacity>
-            <Text style={styles.headerStyle}>Your personal information</Text>
-
-            <Text style={styles.subheaderStyle}>Please select <b><u>the cuisines</u></b> you like. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide you the satisfying menus</Text>
             <TouchableOpacity
                 disabled={isLoading}
                 onPress={() => {
                     postData();
+                    navigation.navigate("Other’s Profile Information");
                 }}
-                style={styles.nextboxStyle}>
-                <Text style={styles.nextStyle}>
-                    {isLoading && <ActivityIndicator size="small" />}Next
+                style={styles.saveboxStyle}>
+                <Text style={styles.saveStyle}>
+                    {isLoading && <ActivityIndicator size="small" />}
+                    Save
                  </Text>
             </TouchableOpacity>
 
-            <View style={styles.BoxStyle}></View >
-
+            <View style={styles.BoxStyle}>   </View >
             {info && info.map(({ url, leftImage, topImage, name, leftName, topName, dt }) => {
                 return (
 
@@ -169,11 +165,10 @@ const EditProfile22Screen = ({ navigation }) => {
 
                 );
             })}
-
-
         </View>
 
     );
+
 };
 
 const styles = StyleSheet.create({
@@ -198,6 +193,24 @@ const styles = StyleSheet.create({
         top: 56,
         color: '#FF5733',
     },
+    saveboxStyle: {
+        width: 68,
+        height: 24,
+        backgroundColor: '#FF5733',
+        position: 'absolute',
+        left: 267,
+        top: 632,
+        borderRadius: 24,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 10
+    },
+    saveStyle: {
+        fontSize: 10,
+        color: 'white',
+        textAlign: 'center'
+    },
     BoxStyle: {
         width: 303,
         height: 494,
@@ -207,48 +220,10 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 36,
         top: 107
-    },
-    nextboxStyle: {
-        borderRadius: 24,
-        width: 68,
-        height: 24,
-        left: 272,
-        top: 632,
-        backgroundColor: '#FF5733',
-        textAlign: 'center',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 10,
-        position: 'absolute',
-    },
-    nextStyle: {
-        fontSize: 10,
-        color: 'white',
-        textAlign: 'center',
-    },
-    skipboxStyle: {
-        borderRadius: 24,
-        width: 68,
-        height: 24,
-        left: 190,
-        top: 632,
-        backgroundColor: 'white',
-        textAlign: 'center',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 10,
-        position: 'absolute',
-    },
-    skipStyle: {
-        fontSize: 10,
-        color: '#FF5733',
-        textAlign: 'center',
     }
 
 
 });
 
 
-export default EditProfile22Screen;
+export default AddOtherProfileCuisine;

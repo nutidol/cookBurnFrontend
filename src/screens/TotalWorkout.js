@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 
-const WorkoutScreen = ({ navigation, route }) => {
+const TotalWorkout = ({ navigation, route }) => {
     const [workout, setWorkout] = useState([]);
     const [sortkey, setSortkey] = useState("");
     AsyncStorage.setItem("sortKey", sortkey)
@@ -63,7 +63,7 @@ const WorkoutScreen = ({ navigation, route }) => {
                         key={title}
                         onPress={() => {
                             setSortkey(sk);
-                            navigation.navigate("Workout1");
+                            navigation.navigate("Workout Information");
                         }}>
                         <Image
                             source={url}
@@ -132,4 +132,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default WorkoutScreen;
+export default TotalWorkout;

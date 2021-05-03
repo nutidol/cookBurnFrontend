@@ -4,28 +4,28 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon1 from 'react-native-vector-icons/FontAwesome5';
-import Home1Screen from "./Home1Screen";
-import Home2Screen from "./Home2Screen";
-import Home3Screen from "./Home3Screen";
-import Home4Screen from "./Home4Screen";
-import Home5Screen from "./Home5Screen";
+import HomePage from "./HomePage";
 import SearchScreen from "./SearchScreen";
-import Search1Screen from "./Search1Screen";
-import Search2Screen from "./Search2Screen";
-import AddScreen from "./AddScreen";
-import WorkoutScreen from "./WorkoutScreen";
-import TotalAddScreen from "./TotalAddScreen";
-import Workout1Screen from "./Workout1Screen";
-import AddProfileScreen from "./AddProfileScreen";
-import AddProfile1Screen from "./AddProfile1Screen";
-import AddProfile2Screen from "./AddProfile2Screen";
-import AddProfile4Screen from "./AddProfile4Screen";
-import AddProfile3Screen from "./AddProfile3Screen";
-import EditProfile1Screen from "./EditProfile1Screen";
-import EditProfile2Screen from "./EditProfile2Screen";
-import EditProfile21Screen from "./EditProfile21Screen";
-import EditProfile22Screen from "./EditProfile22Screen";
+import GeneratedMenus from "./GeneratedMenus";
+import MenuInformation from "./MenuInformation";
+import AddIngredients from "./AddIngredients";
+import TotalWorkout from "./TotalWorkout";
+import TotalIngredients from "./TotalIngredients";
+import WorkoutInformation from "./WorkoutInformation";
+import OtherProfile from "./OtherProfile";
+import AddOtherProfileInfo from "./AddOtherProfileInfo";
+import AddOtherProfileTaste from "./AddOtherProfileTaste";
+import OtherProfileInformation from "./OtherProfileInformation";
+import AddOtherProfileCuisine from "./AddOtherProfileCuisine";
+import UserProfile from "./UserProfile";
+import EditUserProfileInfo from "./EditUserProfileInfo";
+import EditUserProfileTaste from "./EditUserProfileTaste";
+import EditUserProfileCuisine from "./EditUserProfileCuisine";
 import SettingScreen from "./SettingScreen";
+import EditOthersProfileInfo from "./EditOthersProfileInfo";
+import EditOthersProfileCuisines from "./EditOthersProfileCuisines";
+import EditOthersProfileTaste from "./EditOthersProfileTaste";
+
 
 
 const HomeStack = createStackNavigator();
@@ -46,7 +46,7 @@ const CustomNavigation = () => (
       name="Home"
       component={HomeStackScreen}
       options={{
-        tabBarLabel: 'Home',
+        tabBarLabel: 'HomePage',
         tabBarColor: 'white',
         tabBarIcon: () => (
           <Icon name="ios-home" color='#FF5733' size={26} />
@@ -57,7 +57,7 @@ const CustomNavigation = () => (
       name="Add"
       component={AddStackScreen}
       options={{
-        tabBarLabel: 'Add',
+        tabBarLabel: 'AddIngredients',
         tabBarColor: 'white',
         tabBarIcon: () => (
           <Icon name="add-circle" color='#FF5733' size={26} />
@@ -79,7 +79,7 @@ const CustomNavigation = () => (
       name="Workout"
       component={WorkoutStackScreen}
       options={{
-        tabBarLabel: 'Workout',
+        tabBarLabel: 'Total Workout',
         tabBarColor: 'white',
         tabBarIcon: () => (
           <Icon1 name="dumbbell" color='#FF5733' size={26} />
@@ -113,52 +113,29 @@ const HomeStackScreen = ({ navigation }) => {
         fontWeight: 'bold'
       }
     }}>
-      <HomeStack.Screen name="Home1" component={Home1Screen} options={{
+      <HomeStack.Screen name="HomePage" component={HomePage} options={{
 
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <HomeStack.Screen name="Home2" component={Home2Screen} options={{
-
+      
+      <HomeStack.Screen name="MenuInformation" component={MenuInformation} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <HomeStack.Screen name="Home3" component={Home3Screen} options={{
-
-        headerLeft: () => (
-          <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
-        )
-      }} />
-      <HomeStack.Screen name="Home4" component={Home4Screen} options={{
-
-        headerLeft: () => (
-          <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
-        )
-      }} />
-      <HomeStack.Screen name="Home5" component={Home5Screen} options={{
-
-        headerLeft: () => (
-          <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
-        )
-      }} />
-       <HomeStack.Screen name="Search2" component={Search2Screen} options={{
-        headerLeft: () => (
-          <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
-        )
-      }} />
-       <HomeStack.Screen name="Workout1" component={Workout1Screen} options={{
+      <HomeStack.Screen name="Workout Information" component={WorkoutInformation} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
 
-<HomeStack.Screen name="Search1" component={Search1Screen} options={{
+      {/* <HomeStack.Screen name="Search1" component={Search1Screen} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
-      }} />
+      }} /> */}
     </HomeStack.Navigator>
   )
 
@@ -176,12 +153,12 @@ const AddStackScreen = ({ navigation }) => {
       fontWeight: 'bold'
     }
   }}>
-    <AddStack.Screen name="Add" component={AddScreen} options={{
+    <AddStack.Screen name="Add Ingredients" component={AddIngredients} options={{
       headerLeft: () => (
         <Icon.Button name="menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
       )
     }} />
-    <AddStack.Screen name="TotalAdd" component={TotalAddScreen} options={{
+    <AddStack.Screen name="Total Ingredients" component={TotalIngredients} options={{
       headerLeft: () => (
         <Icon.Button name="menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
       )
@@ -207,13 +184,13 @@ const SearchStackScreen = ({ navigation }) => {
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <SearchStack.Screen name="Search1" component={Search1Screen} options={{
+      <SearchStack.Screen name="Generated Menus" component={GeneratedMenus} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
 
-      <SearchStack.Screen name="Search2" component={Search2Screen} options={{
+      <SearchStack.Screen name="Menu Information" component={MenuInformation} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
@@ -238,21 +215,17 @@ const WorkoutStackScreen = ({ navigation }) => {
         fontWeight: 'bold'
       }
     }}>
-      <WorkoutStack.Screen name="Workout" component={WorkoutScreen} options={{
+      <WorkoutStack.Screen name="Total Workout" component={TotalWorkout} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <WorkoutStack.Screen name="Workout1" component={Workout1Screen} options={{
+      <WorkoutStack.Screen name="Workout Information" component={WorkoutInformation} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      {/* <WorkoutStack.Screen name="Workout2" component={Workout2Screen} options={{
-        headerLeft: () => (
-          <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
-        )
-      }} /> */}
+
     </WorkoutStack.Navigator>
   )
 }
@@ -276,47 +249,65 @@ const SettingStackScreen = ({ navigation }) => {
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <SettingStack.Screen name="AddProfile" component={AddProfileScreen} options={{
+      <SettingStack.Screen name="Other’s Profile" component={OtherProfile} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <SettingStack.Screen name="AddProfile1" component={AddProfile1Screen} options={{
+      <SettingStack.Screen name="Add Other’s Profile Info" component={AddOtherProfileInfo} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <SettingStack.Screen name="AddProfile2" component={AddProfile2Screen} options={{
+      <SettingStack.Screen name="Add Other’s Profile Taste" component={AddOtherProfileTaste} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <SettingStack.Screen name="AddProfile3" component={AddProfile3Screen} options={{
+      <SettingStack.Screen name="Add Other’s Profile Cuisine" component={AddOtherProfileCuisine} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <SettingStack.Screen name="AddProfile4" component={AddProfile4Screen} options={{
+      <SettingStack.Screen name="Other’s Profile Information" component={OtherProfileInformation} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <SettingStack.Screen name="EditProfile1" component={EditProfile1Screen} options={{
+      <SettingStack.Screen name="User profile" component={UserProfile} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <SettingStack.Screen name="EditProfile2" component={EditProfile2Screen} options={{
+      <SettingStack.Screen name="Edit User Profile Info" component={EditUserProfileInfo} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <SettingStack.Screen name="EditProfile21" component={EditProfile21Screen} options={{
+      <SettingStack.Screen name="Edit User Profile Taste" component={EditUserProfileTaste} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
       }} />
-      <SettingStack.Screen name="EditProfile22" component={EditProfile22Screen} options={{
+      <SettingStack.Screen name="Edit User Profile Cuisine" component={EditUserProfileCuisine} options={{
+        headerLeft: () => (
+          <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
+        )
+      }} />
+
+      <SettingStack.Screen name="Edit Other's Profile Info" component={EditOthersProfileInfo} options={{
+        headerLeft: () => (
+          <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
+        )
+      }} />
+
+      <SettingStack.Screen name="Edit Other's Profile Cuisines" component={EditOthersProfileCuisines} options={{
+        headerLeft: () => (
+          <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
+        )
+      }} />
+
+      <SettingStack.Screen name="Edit Other's Profile Taste" component={EditOthersProfileTaste} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )

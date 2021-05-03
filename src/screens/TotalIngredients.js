@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 
-const TotalAddScreen = (navigation) => {
+const TotalAddScreen = (navigation, route) => {
   const [menu, setMenu] = useState(0);
 
   useEffect(async () => {
@@ -17,7 +17,7 @@ const TotalAddScreen = (navigation) => {
     const data = await response.json();
     addDataToArray(data);
     console.log(data)
-  }, []);
+  }, [route]);
 
   const addDataToArray = (data) => {
     var array = [];

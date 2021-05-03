@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-const AddProfile4Screen = (navigation) => {
+const OtherProfileInformation = ({navigation, route}) => {
     const [info, setInfo] = useState({
         PK: "",
         SK: "",
@@ -34,18 +34,11 @@ const AddProfile4Screen = (navigation) => {
         const data = await response.json();
         setInfo(data.dailyInfo);
         setPersonalInfo(data.personalInfo);
-    }, []);
-
+    }, [route]);
   
-
     return (
         <View>
-            <TouchableOpacity
-                onPress={() => {
-                    navigation.navigate("AddProfile3")
-                }}>
-                <Text style={styles.backStyle}> &lt;&lt;back</Text>
-            </TouchableOpacity>
+           
             <Text style={styles.header1Style}>{personalInfo.name}'s Personal Information</Text>
             <Text style={styles.header2Style}>{personalInfo.name}'s Daily Information</Text>
 
@@ -98,6 +91,12 @@ const AddProfile4Screen = (navigation) => {
                 <Text style={styles.textStyle}>Fiber(g)</Text>
                 <Text style={styles.infoStyle}>{info.fiber}</Text>
             </View>
+
+            <TouchableOpacity
+                style={styles.editBoxStyle}
+                onPress={() => navigation.navigate("Edit Other's Profile Info")}>
+                <Text style={styles.editStyle}> Edit</Text>
+            </TouchableOpacity>
         </View>
     )
 
@@ -211,7 +210,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FF5733",
         position: "absolute",
         left: 270,
-        top: 250,
+        top: 235,
         borderRadius: 24,
         borderWidth: 1,
         borderColor: "#FF5733",
@@ -277,4 +276,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default AddProfile4Screen;
+export default OtherProfileInformation;

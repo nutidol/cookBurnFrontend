@@ -1,15 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 const KnowmoreScreen = ({ navigation }) => {
     return (
-        <View>
+        <ScrollView>
             <View style={styles.squareStyle} ></View>
             <Image style={styles.logoStyle}
                 source={require('../../assets/cookburn.png')} />
             <Text style={styles.cookburnStyle}>CookBurn</Text>
             <Text style={styles.textOnestyle}> We want to know more {"\n"}about you so that we can {"\n"}generate the best suit {"\n"}possible menus and {"\n"}recipe for you!!</Text>
-            <Text style={styles.textTwostyle}> We recommend you to do the following survey {"\n"}before start using the application for the best {"\n"} results, however, you can do it later or change it {"\n"}anytime while using the application.</Text>
+            <Text style={styles.textTwostyle}> We recommend you to do the following survey {"\n"}before start using the application for the best {"\n"} results, however, you can do it later or change it {"\n"}anytime while using the application.{"\n"}</Text>
+            <Text style={styles.textThreestyle}>Quick tips from us:{"\n"}1.In order to generate menus you're requirred{"\n"}to add your ingredients first.{"\n"}2.You can also burn out caloroies based on{"\n"}your cooked menu.{"\n"}3.You can generate the menu for other people{"\n"}by just add their personal information in{"\n"}setting page</Text>
 
             <TouchableOpacity style={styles.buttonStyle}
                 onPress={() => navigation.navigate('OnBoarding1')}>
@@ -17,7 +18,7 @@ const KnowmoreScreen = ({ navigation }) => {
                 <Text style={styles.textbuttonStyle} >Let's start</Text>
             </TouchableOpacity>
 
-        </View>
+        </ScrollView>
 
 
     );
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF5733',
         position: 'absolute',
         left: 40,
-        top: 690,
+        top: 730,
         borderRadius: 24,
         textAlign: "center",
         display: "flex",
@@ -87,6 +88,14 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 50,
         top: 500
+    },
+    textThreestyle:{
+        fontSize: 12,
+        color: '#FF5733',
+        textAlign: 'center',
+        position: 'absolute',
+        left: 50,
+        top: 590
     }
 
 

@@ -1,49 +1,48 @@
-import React, { useState, useEffect } from "react";
-import {View,Text,StyleSheet,Image, TouchableOpacity,TextInput, ActivityIndicator} from 'react-native';
-import axios from "axios";
-import Amplify, { Auth, API } from "aws-amplify";
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image,  } from 'react-native';
+import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const OnboardingThreeScreen = ({ navigation }) => {
 
-    const [info, setInfo] = useState(null);
+const EditOthersProfileCuisines = ({ navigation }) => {
+  
+    const [info, setInfo] = useState([]);
     const [url, setUrl] = useState("");
     const [isLoading, setLoading] = useState(false);
-    const[selectedImages, setSelectedImages] = useState([]);
+    const [selectedImages, setSelectedImages] = useState([]);
 
     const isSelected = (image) => {
-        for (var i  in selectedImages){
-            if(selectedImages[i].url === image)
+        for (var i in selectedImages) {
+            if (selectedImages[i].url === image)
                 return true;
-        } 
+        }
         return false;
     }
-   
-    const removeFromSelectedImages = (image) =>{
+
+    const removeFromSelectedImages = (image) => {
         var newSelected = [];
-        for (var i  in selectedImages){
-            if(selectedImages[i].url !== image)
+        for (var i in selectedImages) {
+            if (selectedImages[i].url !== image)
                 newSelected.push(selectedImages[i]);
-        }  
+        }
         setSelectedImages(newSelected);
-       
+
     }
     console.log(selectedImages);
-
-    
 
     useEffect(async () => {
         const response = await fetch(
             "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/cuisineOfMenu"
         );
         const data = await response.json();
-        addDataToArray(data);
+       addDataToArray(data);
     }, []);
+
 
     const addDataToArray = (data) => {
         var array = [];
-        var positionNameTop =170;
-        var positionImageTop = 80;
+        var positionNameTop = 100;
+        var positionImageTop =10;
         for (var i in data) {
 
             if (i % 3 === 0) {
@@ -71,7 +70,6 @@ const OnboardingThreeScreen = ({ navigation }) => {
     }
 
 
-
     useEffect(() => {
         if (!url) return;
     }, [url]);
@@ -83,11 +81,13 @@ const OnboardingThreeScreen = ({ navigation }) => {
         }
         try {
             const id = await AsyncStorage.getItem("userID");
+            const profile = await AsyncStorage.getItem("profileOf");
             console.log(id);
+            console.log(profile);
 
             const article = {
                 userID: id,
-                profileOf: "",
+                profileOf: profile,
                 menuCuisine: selectedImages
             };
             setLoading(true);
@@ -96,7 +96,7 @@ const OnboardingThreeScreen = ({ navigation }) => {
                 article
             );
             console.log(article);
-            navigation.navigate("HomePage");
+          
             console.log(res);
         } catch (error) {
             console.log(error);
@@ -104,41 +104,42 @@ const OnboardingThreeScreen = ({ navigation }) => {
             setLoading(false);
         }
     }
+
     return (
         <View>
-            <Text style={styles.textOneStyle}>Please select <u>the cuisines</u> of {"\n"}menu you like</Text>
-            <Text style={styles.textTwoStyle}> You can select more than one menu, the{"\n"}selection you made will be used to provide you{"\n"}the satisfying menus</Text>
-
-            <TouchableOpacity onPress={() => navigation.navigate('HomePage')}
-                style={styles.skipboxStyle} >
-                <Text style={styles.skipStyle} >Skip</Text>
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate("Edit Other's Profile Taste")
+                }}>
+                <Text style={styles.backStyle}> &lt;&lt;back</Text>
             </TouchableOpacity>
+            <Text style={styles.headerStyle}>Add Other's Profile</Text>
+            <Text style={styles.subheaderStyle}>Please select the <b><u>the cuisines</u></b> of menu <b><u>he/she like</u></b>. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide them the satisfying menus</Text>
 
             <TouchableOpacity
                 disabled={isLoading}
                 onPress={() => {
                     postData();
-                    navigation.navigate("HomePage");
+                    navigation.navigate("Other’s Profile Information", {refresh: true});
                 }}
-                style={styles.nextboxStyle}>
-                <Text style={styles.nextStyle}>
-                    {isLoading && <ActivityIndicator size="small" />}Next
+                style={styles.saveboxStyle}>
+                <Text style={styles.saveStyle}>
+                    {isLoading && <ActivityIndicator size="small" />}
+                    Save
                  </Text>
             </TouchableOpacity>
-            <Text style={styles.point1Style}> . </Text>
-            <Text style={styles.point2Style}> . </Text>
-            <Text style={styles.point3Style}> . </Text>
-            <View style={styles.BoxStyle}>   </View >
 
+            <View style={styles.BoxStyle}>   </View >
             {info && info.map(({ url, leftImage, topImage, name, leftName, topName, dt }) => {
                 return (
+
                     <TouchableOpacity
                         key={name}
                         onPress={() => {
                             if (isSelected(url)) {
                                 removeFromSelectedImages(url);
                             } else {
-                                setSelectedImages([...selectedImages,dt])
+                                setSelectedImages([...selectedImages, dt])
                             }
                         }}
                     >
@@ -153,116 +154,76 @@ const OnboardingThreeScreen = ({ navigation }) => {
                                 opacity: isSelected(url) ? 1 : 0.3,
                             }}
                         />
-
-                        <Text style={{
+                         <Text style={{
                             left: leftName,
                             top: topName,
                             color: '#FF5733',
                             fontSize: 10,
                             position: 'absolute',
                         }}>{name}</Text>
-
-
                     </TouchableOpacity>
 
                 );
             })}
-
         </View>
 
-
     );
+
 };
+
 const styles = StyleSheet.create({
-    textOneStyle:{
+    backStyle:{
+        color: '#FF5733',
+        fontSize: 12,
+        top:10,
+        position: 'absolute',
+      },
+    headerStyle: {
         fontSize: 20,
         fontWeight: 'bold',
         position: 'absolute',
-        left: 39,
-         top: 50,
-         color: '#FF5733',
-     },
-     textTwoStyle:{
-         position: 'absolute',
-         fontSize: 12,
-         left: 39.5,
-         top: 100,
-         color: '#FF5733',
-     },
-     nextboxStyle:{
-         width: 120,
-         height: 37,
-         backgroundColor: '#FF5733',
-         position:'absolute',
-         left: 210,
-         top: 725,
-         borderRadius: 24,
-         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 10 
-     },
-     nextStyle:{
-         fontSize: 10,
-         color: 'white',
-         textAlign: 'center'
-     },
-     point1Style:{
-        fontSize: 40,
-        fontWeight: '700',
-        color: '#FF910D',
-        position:'absolute',
-        left: 168.5,
-        top: 670,
-
-    },
-    point2Style:{
-        fontSize: 40,
-        fontWeight: '700',
-        color: '#FF910D',
-        position:'absolute',
-        left: 184.5,
-        top: 670,
-    },
-    point3Style:{
-        fontSize: 40,
-        fontWeight: '700',
+        left: 36,
+        top: 30,
         color: '#FF5733',
-        position:'absolute',
-        left: 200.5,
-        top: 670,
     },
-    BoxStyle:{
-        width: 303,
-        height: 494,
-        borderRadius: 20,
-        borderWidth: 1,
-       borderColor: '#FF5733',
-       position:'absolute',
-       left: 35,
-       top: 177
-    },
-    skipboxStyle: {
-        width: 120,
-        height: 37,
-        backgroundColor: 'white',
+    subheaderStyle: {
         position: 'absolute',
-        left: 45,
-        top: 725,
+        fontSize: 10,
+        left: 36,
+        top: 56,
+        color: '#FF5733',
+    },
+    saveboxStyle: {
+        width: 68,
+        height: 24,
+        backgroundColor: '#FF5733',
+        position: 'absolute',
+        left: 267,
+        top: 632,
         borderRadius: 24,
-        borderWidth: 1,
-        borderColor: '#FF5733',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 10
     },
-    skipStyle: {
+    saveStyle: {
         fontSize: 10,
-        color: '#FF5733',
+        color: 'white',
         textAlign: 'center'
+    },
+    BoxStyle: {
+        width: 303,
+        height: 494,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#FF5733',
+        position: 'absolute',
+        left: 36,
+        top: 107
     }
-   
+
+
 });
 
-export default OnboardingThreeScreen;
+
+export default EditOthersProfileCuisines;

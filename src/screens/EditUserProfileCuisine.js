@@ -1,13 +1,11 @@
-
-import React, { useState, useEffect, } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const EditProfile21Screen = ({ navigation }) => {
-
-   
+const EditUserProfileCuisine = ({ navigation }) => {
     const [info, setInfo] = useState([]);
+    const [url, setUrl] = useState("");
     const [isLoading, setLoading] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
 
@@ -26,17 +24,17 @@ const EditProfile21Screen = ({ navigation }) => {
                 newSelected.push(selectedImages[i]);
         }
         setSelectedImages(newSelected);
+
     }
     console.log(selectedImages);
 
+
     useEffect(async () => {
         const response = await fetch(
-            "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/tasteOfMenu"
+            "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/cuisineOfMenu"
         );
         const data = await response.json();
         addDataToArray(data);
-        console.log(data);
-
     }, []);
 
     const addDataToArray = (data) => {
@@ -69,6 +67,11 @@ const EditProfile21Screen = ({ navigation }) => {
         setInfo(array);
     }
 
+    useEffect(() => {
+        if (!url) return;
+    }, [url]);
+
+
     async function postData() {
         if (isLoading) {
             return;
@@ -79,15 +82,14 @@ const EditProfile21Screen = ({ navigation }) => {
 
             const article = {
                 userID: id,
-                menuTaste: selectedImages
+                menuCuisine: selectedImages
             };
             setLoading(true);
             const res = await axios.post(
-                "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/tasteOfMenu",
+                "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/cuisineOfMenu",
                 article
             );
             console.log(article);
-            navigation.navigate("EditProfile22");
             console.log(res);
         } catch (error) {
             console.log(error);
@@ -96,47 +98,52 @@ const EditProfile21Screen = ({ navigation }) => {
         }
     }
 
+
     return (
         <View>
+
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate("EditProfile1")
+                    navigation.navigate("Edit User Profile Taste")
                 }}>
                 <Text style={styles.backStyle}> &lt;&lt;back</Text>
             </TouchableOpacity>
 
+            {/* <TouchableOpacity
+               
+               onPress={() => {
+                 navigation.navigate("EditProfile1")
+               }}
+               style={styles.skipboxStyle}>
+               <Text style={styles.skipStyle}>Skip</Text>
+           </TouchableOpacity> */}
             <Text style={styles.headerStyle}>Your personal information</Text>
-            <Text style={styles.subheaderStyle}> Please select <b><u>"the tastes"</u></b> of menus you like. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide you the satisfying menus</Text>
 
+            <Text style={styles.subheaderStyle}>Please select <b><u>the cuisines</u></b> you like. You can select{"\n"}more than one menu, the selection you made will be used to{"\n"}provide you the satisfying menus</Text>
             <TouchableOpacity
                 disabled={isLoading}
                 onPress={() => {
                     postData();
+                    navigation.navigate("User profile", {refresh: true});
                 }}
                 style={styles.nextboxStyle}>
                 <Text style={styles.nextStyle}>
-                    {isLoading && <ActivityIndicator size="small" />}Next</Text>
+                    {isLoading && <ActivityIndicator size="small" />}Next
+                 </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-               
-                onPress={() => {
-                  navigation.navigate("EditProfile1")
-                }}
-                style={styles.skipboxStyle}>
-                <Text style={styles.skipStyle}>Skip</Text>
 
-            </TouchableOpacity>
-            <View style={styles.BoxStyle}> </View >
+            <View style={styles.BoxStyle}></View >
 
             {info && info.map(({ url, leftImage, topImage, name, leftName, topName, dt }) => {
                 return (
+
                     <TouchableOpacity
                         key={name}
                         onPress={() => {
                             if (isSelected(url)) {
                                 removeFromSelectedImages(url);
                             } else {
-                                setSelectedImages([...selectedImages,dt])
+                                setSelectedImages([...selectedImages, dt])
                             }
                         }}
                     >
@@ -151,40 +158,38 @@ const EditProfile21Screen = ({ navigation }) => {
                                 opacity: isSelected(url) ? 1 : 0.3,
                             }}
                         />
-
-                        <Text style={{
+                         <Text style={{
                             left: leftName,
                             top: topName,
                             color: '#FF5733',
                             fontSize: 10,
                             position: 'absolute',
                         }}>{name}</Text>
-
-
                     </TouchableOpacity>
 
                 );
             })}
-        </View>
-    )
 
+
+        </View>
+
+    );
 };
 
 const styles = StyleSheet.create({
-    backStyle: {
+    backStyle:{
         color: '#FF5733',
         fontSize: 12,
-        top: 10,
+        top:10,
         position: 'absolute',
-    },
+      },
     headerStyle: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#FF5733',
         position: 'absolute',
         left: 36,
         top: 30,
-        textAlign: 'center'
+        color: '#FF5733',
     },
     subheaderStyle: {
         position: 'absolute',
@@ -192,6 +197,16 @@ const styles = StyleSheet.create({
         left: 36,
         top: 56,
         color: '#FF5733',
+    },
+    BoxStyle: {
+        width: 303,
+        height: 494,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#FF5733',
+        position: 'absolute',
+        left: 36,
+        top: 107
     },
     nextboxStyle: {
         borderRadius: 24,
@@ -205,7 +220,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 10,
-        position : 'absolute'
+        position: 'absolute',
+    },
+    nextStyle: {
+        fontSize: 10,
+        color: 'white',
+        textAlign: 'center',
     },
     skipboxStyle: {
         borderRadius: 24,
@@ -219,32 +239,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 10,
-        zIndex :5,
-        position : 'absolute'
-    },
-    nextStyle: {
-        fontSize: 10,
-        color: 'white',
-        textAlign: 'center',
+        position: 'absolute',
     },
     skipStyle: {
         fontSize: 10,
         color: '#FF5733',
         textAlign: 'center',
-    },
-
-    BoxStyle: {
-        width: 303,
-        height: 494,
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#FF5733',
-        position: 'absolute',
-        left: 36,
-        top: 107
     }
+
 
 });
 
 
-export default EditProfile21Screen;
+export default EditUserProfileCuisine;

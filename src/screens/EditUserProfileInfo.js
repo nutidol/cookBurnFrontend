@@ -4,7 +4,7 @@ import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DropDownPicker from 'react-native-dropdown-picker';
 
-const EditProfile2Screen = ({ navigation }) => {
+const EditUserProfileInfo = ({ navigation }) => {
     const [image, setImage] = useState("");
     const [people, setPeople] = useState(null);
     const [url, setUrl] = useState("");
@@ -54,7 +54,7 @@ const EditProfile2Screen = ({ navigation }) => {
     }, []);
 
     useEffect(() => {
-        // POST request using axios inside useEffect React hook
+     
         if (!url) return;
     }, [url]);
     
@@ -80,7 +80,7 @@ const EditProfile2Screen = ({ navigation }) => {
                 "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/onboardingPage/personalInfo",
                 article
             );
-            navigation.navigate("EditProfile21");
+           
             console.log(res);
         } catch (error) {
             console.log(error);
@@ -93,7 +93,7 @@ const EditProfile2Screen = ({ navigation }) => {
         <View>
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate("EditProfile1")
+                    navigation.navigate("User profile")
                 }}>
                 <Text style={styles.backStyle}> &lt;&lt;back</Text>
             </TouchableOpacity>
@@ -161,6 +161,7 @@ const EditProfile2Screen = ({ navigation }) => {
                 disabled={isLoading}
                 onPress={() => {
                     postData();
+                    navigation.navigate("Edit User Profile Taste");
                 }}
                 style={styles.nextboxStyle}>
                 <Text style={styles.nextStyle}>
@@ -414,4 +415,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default EditProfile2Screen;
+export default EditUserProfileInfo;

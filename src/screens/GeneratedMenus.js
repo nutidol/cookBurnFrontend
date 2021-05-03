@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 
-const Search1Screen = ({ navigation }) => {
+const GeneratedMenus = ({ navigation }) => {
     const [info, setInfo] = useState([]);
     const [sortkey, setSortkey] = useState("");
 
@@ -13,9 +13,8 @@ const Search1Screen = ({ navigation }) => {
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
         const timestamp = await AsyncStorage.getItem("timestamp")
-        const response = await fetch( "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menus/123/1618473042624");
-        //const response = await fetch( `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menus/${id}/${timestamp}` );
-
+        const response = await fetch(`https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menus/${id}/${timestamp}`);
+        // const response = await fetch ( `https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/menuPage/menus/123/1618473042624`)
         const data = await response.json();
         addDataToArray(data);
         console.log(data)
@@ -27,9 +26,9 @@ const Search1Screen = ({ navigation }) => {
         var positionImageTop = -42;
         var postitionTitleTop = -38;
         var postitionBoxTop = -60;
-        var postitionDurationTop = -5;
-        var postitionEnergyTop = 7;
-       
+        var postitionDurationTop = 15;
+        var postitionEnergyTop = 27;
+
         for (var i in data) {
 
             var positionImageLeft = 50;
@@ -42,12 +41,12 @@ const Search1Screen = ({ navigation }) => {
             postitionBoxTop += 146;
             postitionDurationTop += 146;
             postitionEnergyTop += 146;
-           
+
             var dataWithPosition = {
                 duration: data[i].duration, title: data[i].title, url: data[i].url, topImage: positionImageTop,
                 leftImage: positionImageLeft, topTitle: postitionTitleTop, leftTitle: positionTitleLeft, topBox: postitionBoxTop,
                 leftBox: positionBoxLeft, topDuration: postitionDurationTop, leftDuration: positionDurationLeft, energy: data[i].nutrition.energy,
-                leftEnergy: positionEnergyLeft, topEnergy: postitionEnergyTop, sk: data[i].SK, 
+                leftEnergy: positionEnergyLeft, topEnergy: postitionEnergyTop, sk: data[i].SK,
             }
             array.push(dataWithPosition)
         }
@@ -58,13 +57,13 @@ const Search1Screen = ({ navigation }) => {
         <ScrollView>
             <Text style={styles.headerStyle}>Menus</Text>
 
-            {info && info.map(({ url, topImage, leftImage, topTitle, leftTitle, title, duration, topBox, leftBox, leftDuration, topDuration, leftEnergy, topEnergy, energy, sk}) => {
+            {info && info.map(({ url, topImage, leftImage, topTitle, leftTitle, title, duration, topBox, leftBox, leftDuration, topDuration, leftEnergy, topEnergy, energy, sk }) => {
                 return (
                     <TouchableOpacity
                         key={sk}
                         onPress={() => {
                             setSortkey(sk);
-                            navigation.navigate("Search2");
+                            navigation.navigate("Menu Information");
 
                         }}>
                         <Image
@@ -129,11 +128,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         left: 36,
         top: 30
-    },
-
-
-
+    }
 });
 
 
-export default Search1Screen;
+export default GeneratedMenus;

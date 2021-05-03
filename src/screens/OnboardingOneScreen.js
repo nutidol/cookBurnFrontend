@@ -126,7 +126,7 @@ const OnboardingOneScreen = ({ navigation }) => {
       /> 
       <Text style={styles.iconStyle}>Select icon for your profile</Text>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Home1")}
+        onPress={() => navigation.navigate("HomePage")}
         style={styles.skipboxStyle}
       >
          <Text style={styles.skipStyle}>Skip</Text> 

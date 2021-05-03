@@ -5,8 +5,8 @@ const SettingScreen= ({navigation}) => {
     return(
         <View>
             <Text style={styles.headerStyle}>Settings</Text>
-            <Text style={styles.profileStyle} onPress={() => navigation.navigate('EditProfile1')}>Profile &gt;</Text>
-            <Text style={styles.addStyle} onPress={() => navigation.navigate('AddProfile')}>Add Other's Profile &gt;</Text>
+            <Text style={styles.profileStyle} onPress={() => navigation.navigate('User profile')}>Profile &gt;</Text>
+            <Text style={styles.addStyle} onPress={() => navigation.navigate('Other’s Profile')}>Other's Profile &gt;</Text>
         </View>
     )
 };

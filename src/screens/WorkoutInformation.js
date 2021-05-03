@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
-const Workout1Screen = ({ navigation }) => {
+
+const WorkoutInformation = ({ navigation }) => {
     const [workout, setWorkout] = useState([]);
     const [header, setHeader] = useState([]);
     const [isLoading, setLoading] = useState(false);
@@ -48,7 +48,7 @@ const Workout1Screen = ({ navigation }) => {
                 article
             );
             console.log(res);
-            navigation.navigate('Workout', {refresh: true});
+            navigation.navigate('Total Workout', {refresh: true});
         } catch (error) {
             console.log(error);
         } finally {
@@ -142,4 +142,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Workout1Screen;
+export default WorkoutInformation;

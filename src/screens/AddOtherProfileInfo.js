@@ -4,7 +4,7 @@ import axios from 'axios'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DropDownPicker from 'react-native-dropdown-picker';
 
-const AddProfile1Screen = ({ navigation }) => {
+const AddOtherProfileInfo = ({ navigation }) => {
   const [image, setImage] = useState("");
   const [people, setPeople] = useState(null);
   const [url, setUrl] = useState("");
@@ -72,7 +72,6 @@ const AddProfile1Screen = ({ navigation }) => {
         "https://aejilvrlbj.execute-api.ap-southeast-1.amazonaws.com/dev/settingPage/otherProfile",
         article
       );
-      navigation.navigate("AddProfile2");
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -86,13 +85,13 @@ const AddProfile1Screen = ({ navigation }) => {
     <View>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("AddProfile")
+          navigation.navigate("Add Other’s Profile")
         }}>
         <Text style={styles.backStyle}> &lt;&lt;back</Text>
       </TouchableOpacity>
 
       <Text style={styles.headerStyle}>Add Other's Profile</Text>
-      <Text style={styles.greetStyle}>Please enter or edit your personal information, so we can {'\n'}calculate your daily information for you!</Text>
+      <Text style={styles.greetStyle}>Please enter your personal information, so we can {'\n'}calculate your daily information for you!</Text>
       <Text style={styles.nameStyle}> Name</Text>
 
       <TextInput style={styles.nameboxStyle}
@@ -163,7 +162,7 @@ const AddProfile1Screen = ({ navigation }) => {
       <TouchableOpacity
         disabled={isLoading}
         onPress={() => {
-          navigation.navigate("AddProfile2");
+          navigation.navigate("Add Other’s Profile Taste");
           postData();
 
         }}
@@ -433,4 +432,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default AddProfile1Screen;
+export default AddOtherProfileInfo;

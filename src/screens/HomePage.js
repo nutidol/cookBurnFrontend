@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
-const Home1Screen = ({ navigation, route }) => {
+const HomePage = ({ navigation, route }) => {
     const [detail, setDetail] = useState([]);
     const [sortkey, setSortkey] = useState("");
     const [modalOpen, setModalOpen] = useState(true)
@@ -15,9 +15,9 @@ const Home1Screen = ({ navigation, route }) => {
 
     const mapSK = (sortkey) =>{
         if(sortkey.includes("workout")) {
-            navigation.navigate("Workout1")
+            navigation.navigate("Workout Information")
         }else{
-            navigation.navigate("Search2")
+            navigation.navigate("Menu Information")
         }
     }
     const [info, setInfo] = useState({
@@ -61,7 +61,7 @@ const Home1Screen = ({ navigation, route }) => {
         const data1 = await response1.json();
         setUpdateInfo(data1);
        console.log(data1)
-    }, []);
+    }, [route]);
 
     useEffect(async () => {
         const id = await AsyncStorage.getItem("userID");
@@ -76,10 +76,10 @@ const Home1Screen = ({ navigation, route }) => {
 
     const addDataToArray = (data2) => {
         var array = [];
-        var positionImageTop = 241;
-        var postitionNameTop = 245;
-        var postitionBoxTop = 223;
-        var postitionEnergyTop = 290;
+        var positionImageTop = 221;
+        var postitionNameTop = 225;
+        var postitionBoxTop = 203;
+        var postitionEnergyTop = 280;
         for (var i in data2) {
              positionImageTop += 146 ;
              postitionNameTop += 146 ;
@@ -93,7 +93,8 @@ const Home1Screen = ({ navigation, route }) => {
     }
 
 
-    return (<ScrollView>
+    return (
+    <ScrollView>
         <Modal visible={modalOpen} animationType='slide'>
             <View style={styles.modalContent}>
                 <MaterialIcons
@@ -112,7 +113,7 @@ const Home1Screen = ({ navigation, route }) => {
 
         <Text style={styles.Header1Style}> Your daily information </Text>
         <Text style={styles.Header2Style}> Your recent activities </Text>
-        {/* <Text style={styles.historyStyle} onPress={() => navigation.navigate('Home2')}> See full history &gt; </Text> */}
+        
         
 
         <View style={styles.tableStyle}>
@@ -131,7 +132,7 @@ const Home1Screen = ({ navigation, route }) => {
         </View>
         <View style={styles.table3Style}>
             <Text style={styles.textStyle}>Sugar(g)</Text>
-            <Text style={styles.infoStyle}> {updateInfo.sugar}/ {info.sugar}</Text>
+            <Text style={styles.infoStyle}>{updateInfo.sugar}/ {info.sugar}</Text>
         </View>
 
         <View style={styles.table4Style}>
@@ -175,7 +176,8 @@ const Home1Screen = ({ navigation, route }) => {
                             color: '#FF5733',
                             fontSize: 15,
                             fontWeight: 'bold',
-                            position: 'absolute'
+                            position: 'absolute',
+                           paddingRight: 40
                         }}>{name}</Text>
 
 
@@ -280,7 +282,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 37,
         top: 256,
-        backgroundColor: '#EAE8E8',
+        backgroundColor: '#FDCD94',
         zIndex:1
     },
     modalToggle: {
@@ -406,4 +408,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Home1Screen;
+export default HomePage ;

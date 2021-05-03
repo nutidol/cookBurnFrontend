@@ -42,8 +42,8 @@ const OnboardingTwoScreen = ({ navigation }) => {
 
     const addDataToArray = (data) => {
         var array = [];
-        var positionNameTop = 70;
-        var positionImageTop = -20;
+        var positionNameTop = 170;
+        var positionImageTop =80;
         for (var i in data) {
 
             if (i % 3 === 0) {
@@ -109,7 +109,7 @@ const OnboardingTwoScreen = ({ navigation }) => {
             <Text style={styles.textOneStyle}>Please select<u>the tastes</u> of {"\n"}menu you like</Text>
             <Text style={styles.textTwoStyle}> You can select more than one menu, the{"\n"}selection you made will be used to provide you{"\n"}the satisfying menus</Text>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Home1')}
+            <TouchableOpacity onPress={() => navigation.navigate('HomePage')}
                 style={styles.skipboxStyle} >
                 <Text style={styles.skipStyle}>Skip</Text>
             </TouchableOpacity>

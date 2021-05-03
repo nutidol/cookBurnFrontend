@@ -9,7 +9,7 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import { createAppContainer } from "react-navigation";
 import config from "./aws-exports";
 import SignIn from "./src/screens/SignInScreen";
-import SignUp from "./src/screens/SignupScreen";
+import SignUp from "./src/screens/SignUp";
 
 import ConfirmSignUp from "./src/screens/ConfirmSignUp";
 import ForgetPassword from "./src/screens/ForgetPassword";
@@ -21,33 +21,13 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { Button } from "react-native";
 import { DrawerContent } from "./src/screens/DrawerContent";
 import axios from "axios";
-import Home1Screen from "./src/screens/Home1Screen";
+
 
 Amplify.configure(config);
 
 const AuthenticationStack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
-
-// function App() {
-//   return (
-//     <NavigationContainer>
-//       {/* {<AuthenticationStack.Navigator headerMode="none"> 
-//        <AuthenticationStack.Screen
-//         name="Knowmore"
-//         component={KnowmoreScreen}
-//       />
-//         */}
-
-//       {/* </AuthenticationStack.Navigator> } */}
-//        <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />} >
-//           <Drawer.Screen name="Home" component={CustomNavigation} />
-//         </Drawer.Navigator>
-//     </NavigationContainer>
-//   );
-// }
-
-// export default App;
 
 const AuthenticationNavigator = (props) => {
   return (
@@ -58,6 +38,7 @@ const AuthenticationNavigator = (props) => {
         )}
       </AuthenticationStack.Screen>
       <AuthenticationStack.Screen name="SignUp" component={SignUp} />
+     
       <AuthenticationStack.Screen
         name="ConfirmSignUp"
         component={ConfirmSignUp}
@@ -89,7 +70,7 @@ const AuthenticationNavigator = (props) => {
       />
 
       <AuthenticationStack.Screen
-        name="Home1"
+        name="HomePage"
         component={CustomNavigation}
       />
 

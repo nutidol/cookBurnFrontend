@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Button } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const EditProfile1Screen = ({ navigation, route }) => {
+const UserProfile = ({ navigation, route }) => {
     const [info, setInfo] = useState({
         carb: 0,
         energy: 0,
@@ -93,7 +93,7 @@ const EditProfile1Screen = ({ navigation, route }) => {
 
             <TouchableOpacity
                 style={styles.editBoxStyle}
-                onPress={() => navigation.navigate('EditProfile2')}>
+                onPress={() => navigation.navigate('Edit User Profile Info')}>
                 <Text style={styles.editStyle}> Edit</Text>
             </TouchableOpacity>
             <View style={styles.tableStyle}>
@@ -294,4 +294,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default EditProfile1Screen;
+export default UserProfile;
