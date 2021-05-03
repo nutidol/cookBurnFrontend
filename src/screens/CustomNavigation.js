@@ -120,7 +120,7 @@ const HomeStackScreen = ({ navigation }) => {
         )
       }} />
       
-      <HomeStack.Screen name="MenuInformation" component={MenuInformation} options={{
+      <HomeStack.Screen name="Menu Information" component={MenuInformation} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )
@@ -191,6 +191,17 @@ const SearchStackScreen = ({ navigation }) => {
       }} />
 
       <SearchStack.Screen name="Menu Information" component={MenuInformation} options={{
+        headerLeft: () => (
+          <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
+        )
+      }} />
+
+<SearchStack.Screen name="Total Workout" component={TotalWorkout} options={{
+        headerLeft: () => (
+          <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
+        )
+      }} />
+      <SearchStack.Screen name="Workout Information" component={WorkoutInformation} options={{
         headerLeft: () => (
           <Icon.Button name="ios-menu" size={25} backgroundColor="white" color='#FF5733' onPress={() => navigation.openDrawer()}></Icon.Button>
         )

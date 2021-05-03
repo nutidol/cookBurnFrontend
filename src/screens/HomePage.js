@@ -177,7 +177,7 @@ const HomePage = ({ navigation, route }) => {
                             fontSize: 15,
                             fontWeight: 'bold',
                             position: 'absolute',
-                           paddingRight: 40
+                           paddingRight: 45
                         }}>{name}</Text>
 
 

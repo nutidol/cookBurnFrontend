@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, Image, ScrollView, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Image, ScrollView, ActivityIndicator, Modal } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { MaterialIcons } from '@expo/vector-icons';
 
 
 
 const MenuInformation = ({ navigation }) => {
-    const [hi, setHi] = useState(null);
     const [igd, setIgd] = useState([]);
     const [lackIgd, setLackIgd] = useState([]);
     const [recipe, setRecipe] = useState([]);
@@ -19,6 +19,7 @@ const MenuInformation = ({ navigation }) => {
     const [url, setUrl] = useState("");
     const [isLoading, setLoading] = useState(false);
     const [dt, setDt] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
 
 
 
@@ -104,7 +105,7 @@ const MenuInformation = ({ navigation }) => {
         }
         setTop(positionIgdTop);
         setIgd(igdArray);
-        var positionLackTop = positionIgdTop + 55;
+        var positionLackTop = positionIgdTop + 40;
         var lackArray = [];
             let ans = checkEmpty(data[0].totalLackIngredient)
             for (var i in ans){
@@ -119,7 +120,7 @@ const MenuInformation = ({ navigation }) => {
         var recipeArray = [];
         var positionInstructionTop = positionLackTop + 10;
         for (var k in data[0].recipe) {
-            var positionInstructionLeft = 46;
+            var positionInstructionLeft = 50;
             positionInstructionTop += 60;
             var recipeWithPosition = { recipeInstruction: data[0].recipe[k].instruction, step: data[0].recipe[k].step, leftInstruction: positionInstructionLeft, topInstruction: positionInstructionTop }
             recipeArray.push(recipeWithPosition);
@@ -130,7 +131,7 @@ const MenuInformation = ({ navigation }) => {
 
 
         var nutritionArray = [];
-        var positionNutritionTop = positionInstructionTop + 60;
+        var positionNutritionTop = positionInstructionTop + 70;
         for (var l in data[0].nutrition) {
 
             positionNutritionTop += 25;
@@ -276,7 +277,7 @@ const MenuInformation = ({ navigation }) => {
                     <TouchableOpacity >
                         <Text style={{
                             left: 36,
-                            top: top2 + 35,
+                            top: top2 + 55,
                             color: '#FF5733',
                             fontSize: 15,
                             position: 'absolute',
@@ -290,13 +291,13 @@ const MenuInformation = ({ navigation }) => {
                             position: 'absolute',
                         }}>{menuInfo}</Text>
 
-                        <Text style={{ left: 44, top: top2 + 70, color: '#FF5733', fontSize: 10, position: 'absolute' }}>carb(g)</Text>
-                        <Text style={{ left: 44, top: top2 + 95, color: '#FF5733', fontSize: 10, position: 'absolute' }}>Energy(kcal)</Text>
-                        <Text style={{ left: 44, top: top2 + 120, color: '#FF5733', fontSize: 10, position: 'absolute' }}>fat(g)</Text>
-                        <Text style={{ left: 44, top: top2 + 145, color: '#FF5733', fontSize: 10, position: 'absolute' }}>fiber(g)</Text>
-                        <Text style={{ left: 44, top: top2 + 170, color: '#FF5733', fontSize: 10, position: 'absolute' }}>protein(g)</Text>
-                        <Text style={{ left: 44, top: top2 + 195, color: '#FF5733', fontSize: 10, position: 'absolute' }}>sodium(g)</Text>
-                        <Text style={{ left: 44, top: top2 + 220, color: '#FF5733', fontSize: 10, position: 'absolute' }}>sugar(g)</Text>
+                        <Text style={{ left: 44, top: top2 + 90, color: '#FF5733', fontSize: 10, position: 'absolute' }}>carb(g)</Text>
+                        <Text style={{ left: 44, top: top2 + 115, color: '#FF5733', fontSize: 10, position: 'absolute' }}>Energy(kcal)</Text>
+                        <Text style={{ left: 44, top: top2 + 140, color: '#FF5733', fontSize: 10, position: 'absolute' }}>fat(g)</Text>
+                        <Text style={{ left: 44, top: top2 + 165, color: '#FF5733', fontSize: 10, position: 'absolute' }}>fiber(g)</Text>
+                        <Text style={{ left: 44, top: top2 + 190, color: '#FF5733', fontSize: 10, position: 'absolute' }}>protein(g)</Text>
+                        <Text style={{ left: 44, top: top2 + 215, color: '#FF5733', fontSize: 10, position: 'absolute' }}>sodium(g)</Text>
+                        <Text style={{ left: 44, top: top2 + 240, color: '#FF5733', fontSize: 10, position: 'absolute' }}>sugar(g)</Text>
 
                     </TouchableOpacity>
 
@@ -307,6 +308,7 @@ const MenuInformation = ({ navigation }) => {
                 disabled={isLoading}
                 onPress={() => {
                     postData();
+                    setModalOpen(true);
                 }}
                 style={{
                     width: 120, height: 37, backgroundColor: '#FF5733', position: 'absolute', left: 239,
@@ -314,6 +316,24 @@ const MenuInformation = ({ navigation }) => {
                 }}>
                 <Text style={styles.doneStyle}>  {isLoading && <ActivityIndicator size="small" />}Cooked</Text>
             </TouchableOpacity>
+
+            <Modal visible={modalOpen}>
+                <MaterialIcons
+                    name='close'
+                    size={24}
+                    color='#FF5733'
+                    onPress={() => setModalOpen(false)} />
+                <Text style={styles.aStyle}>You have cooked a great menu {"\n"}Wanna burn it out?</Text>
+                <TouchableOpacity
+                    style={styles.seeBoxStyle}
+                    onPress={() => {
+                        navigation.navigate('Total Workout');
+                        setModalOpen(false);
+                    }
+                    }>
+                    <Text style={styles.seeStyle}>Definitely!</Text>
+                </TouchableOpacity>
+            </Modal>
 
         </ScrollView>
     )
@@ -351,7 +371,39 @@ const styles = StyleSheet.create({
         fontSize: 12,
         top: 10,
         position: 'absolute',
-    }
+    },
+    seeBoxStyle: {
+        width: 141,
+        height: 37,
+        backgroundColor: "#FF5733",
+        position: "absolute",
+        left: 117,
+        top: 381,
+        borderRadius: 24,
+        borderWidth: 1,
+        borderColor: "#FF5733",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingHorizontal: 10,
+    },
+
+    seeStyle: {
+        fontSize: 10,
+        color: "white",
+        position: 'absolute',
+        textAlign: "center",
+        fontWeight: "bold"
+    },
+    aStyle: {
+        fontSize: 15,
+        color: "#FF5733",
+        position: 'absolute',
+        fontWeight: "bold",
+        top: 315,
+        left: 85,
+        textAlign: "center",
+    },
 });
 
 

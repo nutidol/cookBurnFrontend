@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     position: "absolute",
     left: "50%",
-    transform: [{ translateX: -50 }],
+    transform: [{ translateX: "-50%" }],
     top: 630,
   },
 

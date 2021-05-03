@@ -56,6 +56,7 @@ const GeneratedMenus = ({ navigation }) => {
     return (
         <ScrollView>
             <Text style={styles.headerStyle}>Menus</Text>
+            <Text style={styles.subheaderStyle}>* the first block is recommended menu*</Text>
 
             {info && info.map(({ url, topImage, leftImage, topTitle, leftTitle, title, duration, topBox, leftBox, leftDuration, topDuration, leftEnergy, topEnergy, energy, sk }) => {
                 return (
@@ -128,6 +129,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         left: 36,
         top: 30
+    },
+    subheaderStyle:{
+        fontSize: 10,
+        color: "#FF5733",
+        position: 'absolute',
+        textAlign: "center",
+        left: 36,
+        top: 60
     }
 });
 

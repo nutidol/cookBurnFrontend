@@ -91,7 +91,7 @@ const TotalWorkout = ({ navigation, route }) => {
                             fontSize: 15,
                             position: 'absolute',
                             fontWeight: 'bold',
-                            paddingRight:25
+                            paddingRight:30
                         }}>For:{title}</Text>
 
                         <Text style={{
